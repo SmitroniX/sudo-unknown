@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Terminal as TerminalIcon, X, Maximize2, Minimize2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { SITE_CONFIG, STATISTICS, ROSTER_SLOTS, SKILL_CATEGORIES } from '../data/teamData';
+import { SITE_CONFIG, STATISTICS, TEAM_MEMBERS, TeamMember, SKILL_CATEGORIES } from '../data/teamData';
 
 interface InteractiveTerminalProps {
   isOpen: boolean;
@@ -161,7 +161,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
         outputNode = (
           <div className="space-y-1 text-gray-300 max-w-md">
             <div className="text-[#00ff88] font-bold mb-1">// FOUNDING ROSTER SLOTS:</div>
-            {ROSTER_SLOTS.map((slot) => (
+            {TEAM_MEMBERS.map((slot: TeamMember) => (
               <div key={slot.id} className="text-xs flex justify-between">
                 <span className={slot.status === 'FILLED' ? 'text-white' : 'text-gray-400'}>
                   {slot.role}

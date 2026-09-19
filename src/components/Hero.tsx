@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Sparkles, CheckCircle2, CornerDownLeft, Lock, Terminal, Shield } from 'lucide-react';
+import { ExternalLink, Sparkles, CheckCircle2, CornerDownLeft, Lock } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 
 interface HeroProps {
@@ -25,8 +25,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
     let idx1 = 0;
     const t1 = setInterval(() => {
       if (idx1 < cmd1.length) {
-        setTypedWhoami((prev) => prev + cmd1.charAt(idx1));
         idx1++;
+        setTypedWhoami(cmd1.slice(0, idx1));
       } else {
         clearInterval(t1);
         setTimeout(() => {
@@ -47,8 +47,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
     let idx2 = 0;
     const t2 = setInterval(() => {
       if (idx2 < cmd2.length) {
-        setTypedSudo((prev) => prev + cmd2.charAt(idx2));
         idx2++;
+        setTypedSudo(cmd2.slice(0, idx2));
       } else {
         clearInterval(t2);
         setTimeout(() => {

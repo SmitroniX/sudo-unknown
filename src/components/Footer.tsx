@@ -61,8 +61,10 @@ export const Footer: React.FC = () => {
               <li><a href="#skills" className="hover:text-[#00ff88] transition-colors">&gt; Target Categories</a></li>
               <li><a href="#team" className="hover:text-[#00ff88] transition-colors">&gt; Founding Roster</a></li>
               <li><a href="#htb" className="hover:text-[#00ff88] transition-colors">&gt; Hack The Box Hub</a></li>
-              <li><a href="#roadmap" className="hover:text-[#00ff88] transition-colors">&gt; 2026 Tournament Roadmap</a></li>
-              <li><a href="#writeups" className="hover:text-[#00ff88] transition-colors">&gt; Methodology Lab</a></li>
+              <li><a href="#achievements" className="hover:text-[#00ff88] transition-colors">&gt; CTF Achievements</a></li>
+              <li><a href="#writeups" className="hover:text-[#00ff88] transition-colors">&gt; Cybersecurity Writeups</a></li>
+              <li><a href="#join" className="hover:text-[#00ff88] transition-colors">&gt; Apply for Roster</a></li>
+              <li><a href="#contact" className="hover:text-[#00ff88] transition-colors">&gt; Community &amp; Comms</a></li>
             </ul>
           </div>
 

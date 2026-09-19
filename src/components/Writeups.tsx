@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { FileText, Calendar, ArrowRight, X, Copy, Check, Sparkles, ShieldCheck } from 'lucide-react';
+import { FileText, ArrowRight, X, Copy, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { TRAINING_WRITEUPS, TrainingWriteup } from '../data/teamData';
+import { WRITEUPS, Writeup } from '../data/teamData';
 
 export const Writeups: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [selectedWriteup, setSelectedWriteup] = useState<TrainingWriteup | null>(null);
+  const [selectedWriteup, setSelectedWriteup] = useState<Writeup | null>(null);
   const [copiedPoc, setCopiedPoc] = useState(false);
   const [copiedFlag, setCopiedFlag] = useState(false);
 
   const categories = ['All', 'Web', 'Pwn', 'Crypto', 'Forensics', 'Reverse', 'OSINT', 'Misc'];
 
-  const filteredWriteups = TRAINING_WRITEUPS.filter((item) => {
+  const filteredWriteups = WRITEUPS.filter((item) => {
     if (activeCategory === 'All') return true;
     return item.category.toLowerCase() === activeCategory.toLowerCase();
   });
@@ -41,9 +41,9 @@ export const Writeups: React.FC = () => {
     navigator.clipboard.writeText(flag);
     setCopiedFlag(true);
     confetti({
-      particleCount: 50,
+      particleCount: 60,
       spread: 60,
-      origin: { y: 0.8 },
+      origin: { y: 0.75 },
       colors: ['#00ff88', '#22ff99', '#ffffff']
     });
     setTimeout(() => setCopiedFlag(false), 2000);
@@ -57,14 +57,14 @@ export const Writeups: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff88] uppercase tracking-wider mb-3">
               <FileText className="w-3.5 h-3.5" />
-              <span>// RESEARCH &amp; METHODOLOGY LAB</span>
+              <span>// TECHNICAL DEBRIEFS &amp; METHODOLOGY</span>
             </div>
             <h2 className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight">
-              Challenge Writeups &amp; Notes
+              Cybersecurity Writeups
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-400 font-sans max-w-2xl">
-              Founding research and exploit walkthroughs illustrating our team&apos;s standard technical methodology.
-              New team members are invited to document and publish their solves here.
+            <p className="mt-3 text-sm sm:text-base text-gray-400 font-sans max-w-2xl leading-relaxed">
+              In-depth challenge walkthroughs and exploit breakdowns documenting our methodology.
+              Select any category to inspect reproducible exploit chains.
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export const Writeups: React.FC = () => {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg transition-colors ${
                   activeCategory === cat
-                    ? 'bg-[#00ff88] text-black font-bold'
+                    ? 'bg-[#00ff88] text-black font-bold shadow-[0_0_12px_rgba(0,255,136,0.3)]'
                     : 'bg-[#090c0f] text-gray-400 hover:text-white border border-white/[0.08]'
                 }`}
               >
@@ -88,12 +88,13 @@ export const Writeups: React.FC = () => {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredWriteups.map((wup: TrainingWriteup) => (
+          {filteredWriteups.map((wup: Writeup) => (
             <div
               key={wup.id}
               className="p-6 rounded-2xl bg-[#090c0f] border border-white/[0.08] hover:border-[#00ff88]/40 transition-all duration-200 flex flex-col justify-between group hover:-translate-y-0.5"
             >
               <div>
+                {/* Meta info header */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span className="font-mono text-xs font-bold text-[#00ff88] bg-[#00ff88]/10 px-2 py-0.5 rounded border border-[#00ff88]/30">
                     {wup.category}
@@ -103,24 +104,33 @@ export const Writeups: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="font-mono text-base font-bold text-white group-hover:text-[#00ff88] transition-colors mb-2">
-                  {wup.title}
+                {/* Challenge Name */}
+                <h3 className="font-mono text-base sm:text-lg font-bold text-white group-hover:text-[#00ff88] transition-colors mb-2 line-clamp-2">
+                  {wup.challengeName}
                 </h3>
 
-                <div className="text-xs font-mono text-gray-400 mb-3">
-                  Scenario: <span className="text-gray-300">{wup.scenario}</span>
+                {/* CTF Name & Points */}
+                <div className="flex items-center justify-between text-xs font-mono text-gray-400 mb-3 pb-2 border-b border-white/[0.04]">
+                  <span className="truncate text-gray-300">
+                    <strong className="text-gray-500">CTF:</strong> {wup.ctf}
+                  </span>
+                  <span className="text-[#00ff88] font-semibold flex-shrink-0">+{wup.points} pts</span>
                 </div>
 
+                {/* Short Description */}
                 <p className="font-sans text-xs text-gray-400 leading-relaxed mb-6 line-clamp-3">
-                  {wup.summary}
+                  {wup.shortDescription}
                 </p>
               </div>
 
               <div>
-                <div className="text-[11px] font-mono text-gray-500 mb-4 truncate">
-                  Vector: <span className="text-gray-300">{wup.vulnerabilityClass}</span>
+                {/* Author and Date */}
+                <div className="flex items-center justify-between text-[11px] font-mono text-gray-500 mb-3">
+                  <span>{wup.author}</span>
+                  <span>{wup.date}</span>
                 </div>
 
+                {/* Read Writeup Button */}
                 <button
                   onClick={() => setSelectedWriteup(wup)}
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#0e1318] hover:bg-[#00ff88] hover:text-black text-gray-300 border border-white/[0.08] hover:border-[#00ff88] font-mono text-xs font-bold transition-all"
@@ -131,30 +141,6 @@ export const Writeups: React.FC = () => {
               </div>
             </div>
           ))}
-
-          {/* Invitation Card for New Members to Publish */}
-          <div className="p-6 rounded-2xl bg-[#07090b]/80 border-2 border-dashed border-white/[0.1] hover:border-[#00ff88]/40 flex flex-col justify-between transition-colors">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-[#0e1318] border border-white/[0.06] flex items-center justify-center text-[#00ff88] mb-4">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <h3 className="font-mono text-base font-bold text-white">
-                Publish Your Solve Here
-              </h3>
-              <p className="font-sans text-xs text-gray-400 mt-2 leading-relaxed">
-                Solved an interesting HTB machine or CTF challenge? sudo Unknown members author technical writeups to sharpen skills and give back to the security community.
-              </p>
-            </div>
-
-            <div className="pt-6">
-              <a
-                href="#join"
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30 font-mono text-xs font-bold hover:bg-[#00ff88] hover:text-black transition-all"
-              >
-                <span>Join to Contribute Writeups</span>
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* Modal Reader */}
@@ -172,87 +158,133 @@ export const Writeups: React.FC = () => {
                       {selectedWriteup.difficulty}
                     </span>
                     <span className="font-mono text-xs text-gray-400">
-                      // {selectedWriteup.scenario}
+                      // CTF: {selectedWriteup.ctf}
                     </span>
                   </div>
                   <h3 className="font-mono text-xl sm:text-2xl font-bold text-white">
-                    {selectedWriteup.title}
+                    {selectedWriteup.challengeName}
                   </h3>
                 </div>
 
                 <button
                   onClick={() => setSelectedWriteup(null)}
                   className="p-2 rounded-lg bg-[#050505] text-gray-400 hover:text-white border border-white/10"
+                  aria-label="Close"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Body */}
+              {/* Scrollable Content Body */}
               <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm text-gray-300 font-sans leading-relaxed">
-                <div>
-                  <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
-                    01 // Challenge Context &amp; Root Cause
-                  </h4>
-                  <div className="p-4 rounded-xl bg-[#050505] border border-white/[0.06] font-mono text-xs space-y-2">
-                    <div><strong className="text-gray-400">Vulnerability Class:</strong> <span className="text-white">{selectedWriteup.vulnerabilityClass}</span></div>
-                    <div><strong className="text-gray-400">Executive Summary:</strong> <span className="text-gray-300">{selectedWriteup.summary}</span></div>
-                  </div>
+                {/* Meta details */}
+                <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-gray-400 pb-3 border-b border-white/[0.05]">
+                  <span>CTF: <strong className="text-white">{selectedWriteup.ctf}</strong></span>
+                  <span>•</span>
+                  <span>Points: <strong className="text-[#00ff88]">+{selectedWriteup.points}</strong></span>
+                  <span>•</span>
+                  <span>Date: {selectedWriteup.date}</span>
                 </div>
 
+                {/* 01 Summary */}
                 <div>
                   <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
-                    02 // Reproducible Methodology Steps
+                    01 // Executive Summary
+                  </h4>
+                  <p className="bg-[#050505] p-4 rounded-xl border border-white/[0.06] font-mono text-xs text-gray-300 leading-relaxed">
+                    {selectedWriteup.fullContent.summary}
+                  </p>
+                </div>
+
+                {/* 02 Reconnaissance */}
+                <div>
+                  <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
+                    02 // Reconnaissance &amp; Discovery
+                  </h4>
+                  <p className="text-gray-300">
+                    {selectedWriteup.fullContent.reconnaissance}
+                  </p>
+                </div>
+
+                {/* 03 Root Cause */}
+                <div>
+                  <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
+                    03 // Vulnerability Root Cause Analysis
+                  </h4>
+                  <p className="text-gray-300">
+                    {selectedWriteup.fullContent.vulnerabilityAnalysis}
+                  </p>
+                </div>
+
+                {/* 04 Exploitation Steps */}
+                <div>
+                  <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
+                    04 // Step-by-Step Exploitation
                   </h4>
                   <div className="space-y-2 font-mono text-xs">
-                    {selectedWriteup.methodologySteps.map((st, i) => (
+                    {selectedWriteup.fullContent.exploitationSteps.map((step, i) => (
                       <div key={i} className="p-3 rounded-lg bg-[#050505] border border-white/[0.05] flex items-start gap-3">
                         <span className="text-[#00ff88] font-bold">[{i + 1}]</span>
-                        <span className="text-gray-300">{st}</span>
+                        <span className="text-gray-300">{step}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {selectedWriteup.samplePoc && (
+                {/* 05 PoC Code */}
+                {selectedWriteup.fullContent.pocCode && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold">
-                        03 // Proof of Concept / Exploit Script
+                        05 // Exploit Script / Proof of Concept
                       </h4>
                       <button
-                        onClick={() => handleCopyPoc(selectedWriteup.samplePoc || '')}
+                        onClick={() => handleCopyPoc(selectedWriteup.fullContent.pocCode || '')}
                         className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0e1318] text-gray-300 hover:text-[#00ff88] text-xs font-mono border border-white/10"
                       >
                         {copiedPoc ? <Check className="w-3.5 h-3.5 text-[#00ff88]" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{copiedPoc ? 'Copied' : 'Copy PoC'}</span>
+                        <span>{copiedPoc ? 'Copied' : 'Copy Script'}</span>
                       </button>
                     </div>
                     <pre className="p-4 rounded-xl bg-[#050505] border border-white/10 font-mono text-xs text-[#00ff88] overflow-x-auto">
-                      <code>{selectedWriteup.samplePoc}</code>
+                      <code>{selectedWriteup.fullContent.pocCode}</code>
                     </pre>
                   </div>
                 )}
 
+                {/* 06 Flag */}
                 <div className="p-4 rounded-xl bg-[#00ff88]/10 border border-[#00ff88]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider block">
-                      FLAG VALIDATION
+                      FLAG VALIDATED
                     </span>
                     <code className="font-mono text-xs sm:text-sm font-bold text-white">
-                      {selectedWriteup.flagFormat}
+                      {selectedWriteup.fullContent.flag}
                     </code>
                   </div>
                   <button
-                    onClick={() => handleCopyFlag(selectedWriteup.flagFormat)}
+                    onClick={() => handleCopyFlag(selectedWriteup.fullContent.flag)}
                     className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[#00ff88] text-black font-mono text-xs font-bold hover:bg-[#22ff99]"
                   >
                     {copiedFlag ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedFlag ? 'Copied Flag!' : 'Copy Flag'}</span>
                   </button>
                 </div>
+
+                {/* 07 Key Takeaways */}
+                <div>
+                  <h4 className="font-mono text-xs text-[#00ff88] uppercase tracking-wider font-bold mb-2">
+                    07 // Key Takeaways &amp; Defensive Mitigations
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-xs text-gray-400">
+                    {selectedWriteup.fullContent.keyTakeaways.map((t, i) => (
+                      <li key={i}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
+              {/* Modal Footer */}
               <div className="p-4 bg-[#0e1318] border-t border-white/[0.08] flex justify-end">
                 <button
                   onClick={() => setSelectedWriteup(null)}

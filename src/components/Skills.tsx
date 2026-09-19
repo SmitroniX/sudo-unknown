@@ -55,7 +55,7 @@ export const Skills: React.FC = () => {
                       {skill.shortCode}
                     </span>
                     <span className="font-mono text-[10px] text-gray-400 bg-[#0e1318] px-2 py-0.5 rounded border border-white/[0.06]">
-                      {skill.tier}
+                      {skill.difficultyFocus}
                     </span>
                   </div>
 
@@ -116,7 +116,7 @@ export const Skills: React.FC = () => {
                   <div className="flex items-center gap-2 font-mono text-xs">
                     <span className="text-[#00ff88] font-bold">{selectedSkill.shortCode}</span>
                     <span className="text-gray-500">•</span>
-                    <span className="text-gray-400">{selectedSkill.tier} Track</span>
+                    <span className="text-gray-400">{selectedSkill.difficultyFocus} Track</span>
                   </div>
                   <h3 className="font-mono text-2xl font-bold text-white">{selectedSkill.name}</h3>
                 </div>

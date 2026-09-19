@@ -17,6 +17,17 @@ import { InteractiveTerminal } from './components/InteractiveTerminal';
 
 export const App: React.FC = () => {
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [selectedRoleForJoin, setSelectedRoleForJoin] = useState('General Operator');
+  const [joinModalOpen, setJoinModalOpen] = useState(false);
+
+  const handleApplyRole = (role: string) => {
+    setSelectedRoleForJoin(role);
+    setJoinModalOpen(true);
+    const joinEl = document.getElementById('join');
+    if (joinEl) {
+      joinEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   // Global hotkey: press `~` or backtick to toggle cyber CLI
   useEffect(() => {
@@ -59,7 +70,7 @@ export const App: React.FC = () => {
         <Skills />
 
         {/* Team Members Section */}
-        <Team />
+        <Team onSelectRoleForApplication={handleApplyRole} />
 
         {/* Dedicated Hack The Box Section */}
         <HackTheBox />
@@ -71,7 +82,11 @@ export const App: React.FC = () => {
         <Writeups />
 
         {/* Recruitment & Join Section */}
-        <JoinTeam />
+        <JoinTeam
+          selectedRole={selectedRoleForJoin}
+          modalOpen={joinModalOpen}
+          onModalChange={setJoinModalOpen}
+        />
 
         {/* Community & Contact Channels */}
         <Contact />

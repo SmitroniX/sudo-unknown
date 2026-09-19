@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Terminal, ShieldCheck, Share2, Sparkles, CheckCircle2, ChevronRight } from 'lucide-react';
-import { FOUNDING_VALUES, SITE_CONFIG } from '../data/teamData';
+import { FOUNDING_VALUES } from '../data/teamData';
 
 const iconMap: Record<string, React.ElementType> = {
   Terminal,

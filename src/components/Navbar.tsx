@@ -20,12 +20,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
   const navLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Status', href: '#stats' },
+    { name: 'Stats', href: '#stats' },
     { name: 'Categories', href: '#skills' },
-    { name: 'Founding Roster', href: '#team' },
+    { name: 'Team', href: '#team' },
     { name: 'Hack The Box', href: '#htb' },
-    { name: 'Roadmap', href: '#roadmap' },
-    { name: 'Methodology', href: '#writeups' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Writeups', href: '#writeups' },
+    { name: 'Join Us', href: '#join' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (

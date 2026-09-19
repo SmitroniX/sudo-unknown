@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Share2, Radio, Terminal, ExternalLink, CheckCircle2, X } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 
 interface JoinTeamProps {
-  initialRole?: string;
+  selectedRole?: string;
+  modalOpen?: boolean;
+  onModalChange?: (open: boolean) => void;
 }
 
-export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Operator' }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+export const JoinTeam: React.FC<JoinTeamProps> = ({
+  selectedRole: propSelectedRole = 'General Operator',
+  modalOpen: propModalOpen,
+  onModalChange
+}) => {
+  const [internalModalOpen, setInternalModalOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(initialRole);
+  const [currentRole, setCurrentRole] = useState(propSelectedRole);
   const [applicant, setApplicant] = useState({
     handle: '',
     htbProfile: '',
@@ -17,6 +23,21 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
     discordTag: '',
     notes: ''
   });
+
+  const isModalOpen = propModalOpen !== undefined ? propModalOpen : internalModalOpen;
+  const setModal = (open: boolean) => {
+    if (onModalChange) {
+      onModalChange(open);
+    } else {
+      setInternalModalOpen(open);
+    }
+  };
+
+  useEffect(() => {
+    if (propSelectedRole) {
+      setCurrentRole(propSelectedRole);
+    }
+  }, [propSelectedRole]);
 
   const benefits = [
     {
@@ -95,7 +116,7 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={() => setModal(true)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00ff88] text-black font-mono font-bold text-sm hover:bg-[#22ff99] transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,255,136,0.35)]"
               >
                 <Sparkles className="w-4 h-4" />
@@ -120,7 +141,7 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
         </div>
 
         {/* Application Modal */}
-        {modalOpen && (
+        {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
             <div className="relative w-full max-w-lg bg-[#090c0f] border border-[#00ff88]/40 rounded-2xl p-6 sm:p-8 shadow-2xl">
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
@@ -130,7 +151,7 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
                 </div>
                 <button
                   onClick={() => {
-                    setModalOpen(false);
+                    setModal(false);
                     setFormSubmitted(false);
                   }}
                   className="p-1.5 rounded-lg bg-[#050505] text-gray-400 hover:text-white border border-white/10"
@@ -189,8 +210,8 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
                     <div>
                       <label className="block text-gray-400 mb-1">Target Discipline</label>
                       <select
-                        value={selectedRole}
-                        onChange={(e) => setSelectedRole(e.target.value)}
+                        value={currentRole}
+                        onChange={(e) => setCurrentRole(e.target.value)}
                         className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white focus:outline-none focus:border-[#00ff88]"
                       >
                         <option value="Web Security">Web Security</option>
@@ -211,8 +232,7 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Opera
                         onChange={(e) => setApplicant({ ...applicant, discordTag: e.target.value })}
                         placeholder="e.g. handle#1337"
                         className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff88]"
-                      >
-                      </input>
+                      />
                     </div>
                   </div>
 
