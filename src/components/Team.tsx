@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
-import { Users, Github, Linkedin, ExternalLink, Search, Sparkles } from 'lucide-react';
-import { TEAM_MEMBERS, TeamMember, SITE_CONFIG } from '../data/teamData';
+import { Users, ExternalLink, Github, Linkedin, Sparkles, UserPlus, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ROSTER_SLOTS, RosterSlot, SITE_CONFIG } from '../data/teamData';
 
-export const Team: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSpecialty, setActiveSpecialty] = useState<string>('ALL');
+interface TeamProps {
+  onApplySlot?: (roleName: string) => void;
+}
 
-  const specialtiesList = ['ALL', 'Crypto', 'Pwn', 'Web', 'Forensics', 'Reverse', 'OSINT'];
+export const Team: React.FC<TeamProps> = ({ onApplySlot }) => {
+  const [filterCategory, setFilterCategory] = useState<string>('ALL');
 
-  const filteredMembers = TEAM_MEMBERS.filter((member) => {
-    const matchesSearch =
-      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.htbUsername.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.specialties.some((s) => s.toLowerCase().includes(searchQuery.toLowerCase()));
+  const categories = ['ALL', 'Leadership', 'Web', 'Pwn', 'Crypto', 'Forensics', 'Reverse', 'OSINT'];
 
-    const matchesSpecialty =
-      activeSpecialty === 'ALL' ||
-      member.specialties.some((s) => s.toLowerCase() === activeSpecialty.toLowerCase());
-
-    return matchesSearch && matchesSpecialty;
+  const filteredSlots = ROSTER_SLOTS.filter((slot) => {
+    if (filterCategory === 'ALL') return true;
+    return slot.category.toLowerCase() === filterCategory.toLowerCase();
   });
 
   return (
@@ -28,184 +22,174 @@ export const Team: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff88] uppercase tracking-wider mb-3">
               <Users className="w-3.5 h-3.5" />
-              <span>// OPERATORS ROSTER</span>
+              <span>// FOUNDING SQUAD ASSEMBLY</span>
             </div>
             <h2 className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight">
-              Core Team Members
+              Founding Roster
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-400 font-sans max-w-2xl">
-              Meet the security researchers and offensive practitioners behind sudo Unknown. Easily configurable
-              via our central data structure.
+            <p className="mt-3 text-sm sm:text-base text-gray-400 font-sans max-w-2xl leading-relaxed">
+              sudo Unknown is a newly formed team building its competitive lineup for the 2026 CTF season.
+              We are actively looking for operators who want to learn, practice, and compete together on Hack The Box.
             </p>
           </div>
 
-          {/* Search and Filters */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative">
-              <Search className="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search member or skill..."
-                className="pl-10 pr-4 py-2 rounded-lg bg-[#0a0d0f] border border-white/10 text-xs font-mono text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#00ff66]/50 w-full sm:w-64"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Specialty Filter Buttons */}
-        <div className="flex flex-wrap items-center gap-2 mb-10 font-mono text-xs">
-          <span className="text-gray-500 text-[11px] mr-1">FILTER DISCIPLINE:</span>
-          {specialtiesList.map((spec) => (
-            <button
-              key={spec}
-              onClick={() => setActiveSpecialty(spec)}
-              className={`px-3 py-1 rounded-md transition-all ${
-                activeSpecialty === spec
-                  ? 'bg-[#00ff66] text-black font-bold shadow-[0_0_12px_rgba(0,255,102,0.3)]'
-                  : 'bg-[#0a0d0f] text-gray-400 hover:text-white border border-white/5 hover:border-white/20'
-              }`}
-            >
-              {spec}
-            </button>
-          ))}
-        </div>
-
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredMembers.map((member: TeamMember) => (
-            <div
-              key={member.id}
-              className="group relative rounded-xl bg-[#0a0d0f] border border-white/10 hover:border-[#00ff66]/50 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(0,255,102,0.12)]"
-            >
-              {/* Subtle green ambient light */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00ff66]/5 rounded-full blur-3xl group-hover:bg-[#00ff66]/15 transition-all" />
-
-              <div>
-                {/* Header: Avatar, Name, Role */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="relative">
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="w-16 h-16 rounded-xl object-cover border-2 border-white/10 group-hover:border-[#00ff66]/50 transition-colors shadow-lg"
-                      loading="lazy"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#0d1117] border border-[#00ff66] flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-[#00ff66]" />
-                    </div>
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-mono text-lg font-bold text-white group-hover:text-[#00ff66] transition-colors truncate">
-                      {member.name}
-                    </h3>
-                    <p className="font-mono text-xs text-gray-400 truncate mt-0.5">
-                      {member.role}
-                    </p>
-                    {/* HTB Username Pill */}
-                    <div className="inline-flex items-center gap-1.5 mt-2 px-2 py-0.5 rounded bg-[#0d1117] border border-[#00ff66]/30 text-[11px] font-mono text-[#00ff66]">
-                      <span className="text-gray-500">HTB:</span>
-                      <span className="font-semibold">{member.htbUsername}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Member Bio */}
-                <p className="font-sans text-xs text-gray-400 leading-relaxed mb-5">
-                  {member.bio}
-                </p>
-
-                {/* Specialties / Skills Tags */}
-                <div className="mb-5 space-y-1.5">
-                  <span className="text-[10px] font-mono text-gray-500 block uppercase">
-                    SKILL VECTORS
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {member.specialties.map((spec) => (
-                      <span
-                        key={spec}
-                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#0d1117] text-gray-300 border border-white/5 group-hover:border-[#00ff66]/20 transition-colors"
-                      >
-                        #{spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Social / External Links Bar */}
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                <a
-                  href={SITE_CONFIG.htbTeamUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-mono text-gray-400 hover:text-[#00ff66] transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-[#00ff66]" />
-                  <span>HTB Profile</span>
-                </a>
-
-                <div className="flex items-center gap-2">
-                  {member.github && (
-                    <a
-                      href={member.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded bg-[#0d1117] text-gray-400 hover:text-white border border-white/5 hover:border-white/20 transition-all"
-                      aria-label={`${member.name}'s GitHub`}
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded bg-[#0d1117] text-gray-400 hover:text-white border border-white/5 hover:border-white/20 transition-all"
-                      aria-label={`${member.name}'s LinkedIn`}
-                    >
-                      <Linkedin className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              {/* Card Bottom Indicator */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent group-hover:bg-[#00ff66] transition-colors" />
-            </div>
-          ))}
-
-          {/* Join Roster Callout Card */}
-          <div className="rounded-xl bg-[#0a0d0f]/60 border-2 border-dashed border-white/10 hover:border-[#00ff66]/40 p-6 flex flex-col justify-between transition-all group">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-[#0d1117] border border-white/10 flex items-center justify-center text-[#00ff66] mb-4 group-hover:scale-105 transition-transform">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="font-mono text-lg font-bold text-white group-hover:text-[#00ff66] transition-colors">
-                [ Slot Reserved ]
-              </h3>
-              <p className="font-mono text-xs text-[#00ff66] mt-0.5">
-                Your Handle // Future Operator
-              </p>
-              <p className="font-sans text-xs text-gray-400 mt-3 leading-relaxed">
-                We are actively recruiting passionate CTF players and ethical hackers across Web, Pwn, Crypto, Forensics, and Reverse Engineering.
-              </p>
-            </div>
-
-            <div className="pt-6">
-              <a
-                href="#join"
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#00ff66]/15 hover:bg-[#00ff66]/25 border border-[#00ff66]/40 text-[#00ff66] font-mono text-xs font-bold transition-all"
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-1.5 font-mono text-xs">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilterCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                  filterCategory === cat
+                    ? 'bg-[#00ff88] text-black font-bold'
+                    : 'bg-[#090c0f] text-gray-400 hover:text-white border border-white/[0.08]'
+                }`}
               >
-                <span>APPLY TO JOIN ROSTER</span>
-              </a>
-            </div>
+                {cat}
+              </button>
+            ))}
           </div>
+        </div>
+
+        {/* Roster Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredSlots.map((slot: RosterSlot) => {
+            const isFilled = slot.status === 'FILLED';
+
+            return (
+              <div
+                key={slot.id}
+                className={`p-6 rounded-2xl flex flex-col justify-between transition-all duration-200 border ${
+                  isFilled
+                    ? 'bg-[#090c0f] border-white/[0.12] hover:border-[#00ff88]/50 shadow-[0_0_20px_rgba(0,255,136,0.05)]'
+                    : 'bg-[#07090b]/80 border-dashed border-white/[0.15] hover:border-[#00ff88]/40'
+                }`}
+              >
+                <div>
+                  {/* Status Banner */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span
+                      className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${
+                        isFilled
+                          ? 'bg-[#00ff88]/10 text-[#00ff88] border-[#00ff88]/30'
+                          : 'bg-yellow-400/10 text-yellow-400 border-yellow-400/30'
+                      }`}
+                    >
+                      {isFilled ? '● ACTIVE FOUNDER' : '○ SLOT OPEN FOR APPLICATION'}
+                    </span>
+                    <span className="font-mono text-xs text-gray-400">
+                      #{slot.category}
+                    </span>
+                  </div>
+
+                  {/* Header / Avatar */}
+                  <div className="flex items-start gap-4 mb-4">
+                    {isFilled ? (
+                      <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-[#00ff88]/40 bg-[#0e1318] flex-shrink-0">
+                        <img
+                          src="/logo.png"
+                          alt="Captain Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-14 h-14 rounded-xl border border-dashed border-white/20 bg-[#0e1318] flex items-center justify-center text-gray-500 flex-shrink-0">
+                        <UserPlus className="w-6 h-6 text-[#00ff88]" />
+                      </div>
+                    )}
+
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-mono text-base font-bold text-white truncate">
+                        {isFilled ? slot.holderName : '[ OPEN POSITION ]'}
+                      </h3>
+                      <p className="font-mono text-xs text-[#00ff88] mt-0.5 truncate">
+                        {slot.role}
+                      </p>
+                      {isFilled && slot.htbUsername && (
+                        <div className="text-[11px] font-mono text-gray-400 mt-1">
+                          HTB: <span className="text-gray-200">{slot.htbUsername}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Focus Description */}
+                  <p className="font-sans text-xs text-gray-400 leading-relaxed mb-4">
+                    {slot.focusDescription}
+                  </p>
+
+                  {/* Key Skills Needed */}
+                  <div className="space-y-1.5 mb-6">
+                    <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider block">
+                      CORE VECTORS
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {slot.requiredSkills.map((sk) => (
+                        <span
+                          key={sk}
+                          className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#050505] text-gray-300 border border-white/[0.06]"
+                        >
+                          {sk}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Action Area */}
+                <div className="pt-4 border-t border-white/[0.05]">
+                  {isFilled ? (
+                    <div className="flex items-center justify-between">
+                      <a
+                        href={SITE_CONFIG.htbTeamUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-[#00ff88] transition-colors"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5 text-[#00ff88]" />
+                        <span>HTB Team Overview</span>
+                      </a>
+                      <div className="flex items-center gap-2">
+                        {slot.github && (
+                          <a
+                            href={slot.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1.5 rounded bg-[#0e1318] text-gray-400 hover:text-white border border-white/5"
+                            aria-label="GitHub"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                        {slot.linkedin && (
+                          <a
+                            href={slot.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1.5 rounded bg-[#0e1318] text-gray-400 hover:text-white border border-white/5"
+                            aria-label="LinkedIn"
+                          >
+                            <Linkedin className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      href="#join"
+                      onClick={() => onApplySlot && onApplySlot(slot.role)}
+                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#00ff88]/10 hover:bg-[#00ff88] text-[#00ff88] hover:text-black border border-[#00ff88]/30 font-mono text-xs font-bold transition-all"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Claim This Slot // Apply</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

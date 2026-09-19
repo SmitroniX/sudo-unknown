@@ -17,10 +17,10 @@ export const Contact: React.FC = () => {
     }
   };
 
-  const communityLinks = [
+  const commChannels = [
     {
       id: 'htb',
-      name: 'Hack The Box',
+      name: 'Hack The Box Roster',
       handle: 'Team #331386',
       description: 'Official CTF team profile and competitive roster overview.',
       url: SITE_CONFIG.htbTeamUrl,
@@ -29,10 +29,20 @@ export const Contact: React.FC = () => {
       isExternal: true
     },
     {
+      id: 'github',
+      name: 'GitHub Repository',
+      handle: 'github.com/SmitroniX/sudo-unknown',
+      description: 'Open-source tools, challenge harnesses, and website source code.',
+      url: SITE_CONFIG.githubUrl,
+      icon: Github,
+      actionText: 'View on GitHub',
+      isExternal: true
+    },
+    {
       id: 'discord',
       name: 'Discord Community',
       handle: 'discord.gg/sudo-unknown',
-      description: 'Active war rooms, challenge discussions, and team study sessions.',
+      description: 'Active war rooms, machine practice, and strategy discussion.',
       url: SITE_CONFIG.discordUrl,
       icon: MessageSquare,
       actionText: 'Join Discord',
@@ -41,20 +51,10 @@ export const Contact: React.FC = () => {
       copyValue: 'https://discord.gg/sudo-unknown'
     },
     {
-      id: 'github',
-      name: 'GitHub Organization',
-      handle: 'github.com/sudo-unknown',
-      description: 'Open-source tools, exploit templates, and public writeup archives.',
-      url: SITE_CONFIG.githubUrl,
-      icon: Github,
-      actionText: 'Explore Repos',
-      isExternal: true
-    },
-    {
       id: 'linkedin',
       name: 'LinkedIn Network',
       handle: 'sudo-unknown-ctf',
-      description: 'Professional networking, industry announcements, and achievements.',
+      description: 'Professional networking, announcements, and team milestones.',
       url: SITE_CONFIG.linkedinUrl,
       icon: Linkedin,
       actionText: 'Connect on LinkedIn',
@@ -62,9 +62,9 @@ export const Contact: React.FC = () => {
     },
     {
       id: 'email',
-      name: 'Direct Contact',
+      name: 'Direct Inquiries',
       handle: SITE_CONFIG.contactEmail,
-      description: 'Sponsorship inquiries, scrimmage challenges, and team collaboration.',
+      description: 'Scrimmage challenges, collaboration requests, and questions.',
       url: `mailto:${SITE_CONFIG.contactEmail}`,
       icon: Mail,
       actionText: 'Send Email',
@@ -75,85 +75,78 @@ export const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 relative z-10 border-t border-white/5 bg-[#050505]/60">
+    <section id="contact" className="py-24 relative z-10 border-t border-white/[0.06] bg-[#07090b]/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] uppercase tracking-wider mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00ff66]" />
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff88] uppercase tracking-wider mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88]" />
             <span>// TRANSMISSION CHANNELS</span>
           </div>
           <h2 className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight">
             Community &amp; Comms
           </h2>
           <p className="mt-3 text-sm sm:text-base text-gray-400 font-sans leading-relaxed">
-            Connect with sudo Unknown across official channels. Whether you want to scrimmage, collaborate on research,
-            or join our competitive division, our comms are open.
+            Reach out to sudo Unknown across official channels. Whether you want to scrimmage, join our squad,
+            or connect with our operators, our doors are open.
           </p>
         </div>
 
-        {/* 5 Channels Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {communityLinks.map((item) => {
-            const Icon = item.icon;
-            const isEmail = item.id === 'email';
-            const isDiscord = item.id === 'discord';
+          {commChannels.map((ch) => {
+            const Icon = ch.icon;
+            const isEmail = ch.id === 'email';
+            const isDiscord = ch.id === 'discord';
 
             return (
               <div
-                key={item.id}
-                className="group relative p-6 rounded-xl bg-[#0a0d0f] border border-white/10 hover:border-[#00ff66]/50 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(0,255,102,0.1)] overflow-hidden"
+                key={ch.id}
+                className="p-6 rounded-2xl bg-[#090c0f] border border-white/[0.08] hover:border-[#00ff88]/40 transition-all flex flex-col justify-between group"
               >
-                {/* Background glow */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ff66]/5 rounded-full blur-2xl group-hover:bg-[#00ff66]/15 transition-all" />
-
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-[#0d1117] border border-white/10 flex items-center justify-center text-[#00ff66] group-hover:scale-110 group-hover:border-[#00ff66]/40 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-[#0e1318] border border-white/[0.06] flex items-center justify-center text-[#00ff88] group-hover:scale-105 transition-transform">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="font-mono text-[10px] text-gray-500 uppercase">ENCRYPTED</span>
+                    <span className="font-mono text-[10px] text-gray-500 uppercase">OFFICIAL</span>
                   </div>
 
-                  <h3 className="font-mono text-lg font-bold text-white group-hover:text-[#00ff66] transition-colors">
-                    {item.name}
+                  <h3 className="font-mono text-lg font-bold text-white group-hover:text-[#00ff88] transition-colors">
+                    {ch.name}
                   </h3>
-                  <div className="font-mono text-xs text-[#00ff66] mt-1 font-semibold break-all">
-                    {item.handle}
+                  <div className="font-mono text-xs text-[#00ff88] mt-1 font-semibold break-all">
+                    {ch.handle}
                   </div>
                   <p className="font-sans text-xs text-gray-400 mt-2 leading-relaxed">
-                    {item.description}
+                    {ch.description}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-4 border-t border-white/5 flex items-center gap-2">
+                <div className="pt-6 mt-4 border-t border-white/[0.05] flex items-center gap-2">
                   <a
-                    href={item.url}
-                    target={item.isExternal ? '_blank' : undefined}
-                    rel={item.isExternal ? 'noopener noreferrer' : undefined}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 rounded-lg bg-[#0d1117] hover:bg-[#00ff66] hover:text-black text-gray-300 font-mono text-xs font-semibold border border-white/10 hover:border-[#00ff66] transition-all"
+                    href={ch.url}
+                    target={ch.isExternal ? '_blank' : undefined}
+                    rel={ch.isExternal ? 'noopener noreferrer' : undefined}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-[#0e1318] hover:bg-[#00ff88] hover:text-black text-gray-300 font-mono text-xs font-semibold border border-white/[0.08] hover:border-[#00ff88] transition-all"
                   >
-                    <span>{item.actionText}</span>
+                    <span>{ch.actionText}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
 
-                  {item.canCopy && (
+                  {ch.canCopy && (
                     <button
-                      onClick={() => copyToClipboard(item.copyValue || '', isEmail ? 'email' : 'discord')}
-                      className="p-2 rounded-lg bg-[#0d1117] hover:bg-[#161b22] border border-white/10 text-gray-400 hover:text-[#00ff66] transition-colors"
+                      onClick={() => copyToClipboard(ch.copyValue || '', isEmail ? 'email' : 'discord')}
+                      className="p-2.5 rounded-lg bg-[#0e1318] hover:bg-[#141920] border border-white/[0.08] text-gray-400 hover:text-[#00ff88] transition-colors"
                       title="Copy link"
-                      aria-label="Copy transmission address"
+                      aria-label="Copy Address"
                     >
                       {(isEmail && copiedEmail) || (isDiscord && copiedDiscord) ? (
-                        <Check className="w-4 h-4 text-[#00ff66]" />
+                        <Check className="w-4 h-4 text-[#00ff88]" />
                       ) : (
                         <Copy className="w-4 h-4" />
                       )}
                     </button>
                   )}
                 </div>
-
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent group-hover:bg-[#00ff66] transition-colors" />
               </div>
             );
           })}

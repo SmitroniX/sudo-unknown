@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Sparkles, CheckCircle2, CornerDownLeft, Lock, Terminal } from 'lucide-react';
+import { ExternalLink, Sparkles, CheckCircle2, CornerDownLeft, Lock, Terminal, Shield } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 
 interface HeroProps {
@@ -7,276 +7,282 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
-  // Terminal typing simulation
-  const [typedCommand1, setTypedCommand1] = useState('');
-  const [output1, setOutput1] = useState(false);
-  const [typedCommand2, setTypedCommand2] = useState('');
-  const [output2, setOutput2] = useState(false);
-  const [step, setStep] = useState(0);
+  const [typedWhoami, setTypedWhoami] = useState('');
+  const [showUnknown, setShowUnknown] = useState(false);
+  const [typedSudo, setTypedSudo] = useState('');
+  const [showGranted, setShowGranted] = useState(false);
+  const [bootStep, setBootStep] = useState(0);
 
-  // Interactive mini command line inside Hero
-  const [userCmd, setUserCmd] = useState('');
-  const [customOutputs, setCustomOutputs] = useState<Array<{ cmd: string; res: string; isError?: boolean }>>([
-    { cmd: 'cat status.txt', res: 'All systems operational // 14 operators active // HTB team ID: 331386' }
+  // Quick interactive command inside hero
+  const [inputCommand, setInputCommand] = useState('');
+  const [history, setHistory] = useState<Array<{ cmd: string; output: string; isSuccess?: boolean }>>([
+    { cmd: 'htb status', output: 'sudo Unknown // Team ID #331386 (Verified) // Status: Founding Roster Assembly', isSuccess: true }
   ]);
 
   useEffect(() => {
     // Step 0: Type 'whoami'
     const cmd1 = 'whoami';
-    let i = 0;
-    const interval1 = setInterval(() => {
-      if (i < cmd1.length) {
-        setTypedCommand1((prev) => prev + cmd1.charAt(i));
-        i++;
+    let idx1 = 0;
+    const t1 = setInterval(() => {
+      if (idx1 < cmd1.length) {
+        setTypedWhoami((prev) => prev + cmd1.charAt(idx1));
+        idx1++;
       } else {
-        clearInterval(interval1);
+        clearInterval(t1);
         setTimeout(() => {
-          setOutput1(true);
-          setStep(1);
-        }, 400);
+          setShowUnknown(true);
+          setBootStep(1);
+        }, 350);
       }
-    }, 110);
+    }, 90);
 
-    return () => clearInterval(interval1);
+    return () => clearInterval(t1);
   }, []);
 
   useEffect(() => {
-    if (step !== 1) return;
+    if (bootStep !== 1) return;
 
     // Step 1: Type 'sudo access'
     const cmd2 = 'sudo access';
-    let j = 0;
-    const interval2 = setInterval(() => {
-      if (j < cmd2.length) {
-        setTypedCommand2((prev) => prev + cmd2.charAt(j));
-        j++;
+    let idx2 = 0;
+    const t2 = setInterval(() => {
+      if (idx2 < cmd2.length) {
+        setTypedSudo((prev) => prev + cmd2.charAt(idx2));
+        idx2++;
       } else {
-        clearInterval(interval2);
+        clearInterval(t2);
         setTimeout(() => {
-          setOutput2(true);
-          setStep(2);
-        }, 500);
+          setShowGranted(true);
+          setBootStep(2);
+        }, 400);
       }
-    }, 110);
+    }, 90);
 
-    return () => clearInterval(interval2);
-  }, [step]);
+    return () => clearInterval(t2);
+  }, [bootStep]);
 
-  const handleCustomCommandSubmit = (e: React.FormEvent) => {
+  const handleCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const clean = userCmd.trim().toLowerCase();
+    const clean = inputCommand.trim().toLowerCase();
     if (!clean) return;
 
-    let res = '';
-    let isError = false;
+    let out = '';
+    let isSuccess = false;
 
     switch (clean) {
       case 'help':
-        res = 'Available commands: whoami, sudo access, cat flag.txt, htb, clear, roster, mission';
+        out = 'Commands: whoami, sudo access, cat flag.txt, htb, roster, mission, clear';
         break;
       case 'whoami':
-        res = 'unknown (guest session privileges)';
+        out = 'unknown // Identity protected // Founding candidate';
+        isSuccess = true;
         break;
       case 'sudo access':
-        res = 'GRANTED // Access level: ROOT_GUEST';
+        out = 'GRANTED // Access level: CORE_OPERATOR';
+        isSuccess = true;
         break;
       case 'cat flag.txt':
-        res = 'HTB{p3rm1ss10n_gr4nt3d_1d3nt1ty_unkn0wn_2026}';
+        out = 'HTB{p3rm1ss10n_gr4nt3d_1d3nt1ty_unkn0wn_2026}';
+        isSuccess = true;
         break;
       case 'htb':
-        res = 'Navigating to Hack The Box team portal: ctf.hackthebox.com/team/overview/331386';
+        out = 'Opening Hack The Box team #331386...';
         window.open(SITE_CONFIG.htbTeamUrl, '_blank');
+        isSuccess = true;
         break;
       case 'roster':
-        res = 'Core handles: 0xCipher, NullPointer, ByteGhost, ShadowTrace, HexVortex, SpecterOS';
+        out = 'Status: Recruiting founding cohort (Web, Pwn, Crypto, Forensics, Reverse, OSINT)';
         break;
       case 'mission':
-        res = 'Focused on hands-on learning, problem solving, collaboration, and continuous improvement.';
+        out = 'Permission Granted. Identity Unknown. Pure technical focus, no ego, just flags.';
+        isSuccess = true;
         break;
       case 'clear':
-        setCustomOutputs([]);
-        setUserCmd('');
+        setHistory([]);
+        setInputCommand('');
         return;
       default:
-        res = `command not found: ${clean}. Type 'help' for command list.`;
-        isError = true;
+        out = `command not found: ${clean}. Type 'help' for command list.`;
     }
 
-    setCustomOutputs((prev) => [...prev.slice(-3), { cmd: userCmd, res, isError }]);
-    setUserCmd('');
+    setHistory((prev) => [...prev.slice(-2), { cmd: inputCommand, output: out, isSuccess }]);
+    setInputCommand('');
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background cyber lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[450px] bg-gradient-to-b from-[#00ff66]/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
-
+    <section className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <div className="text-center space-y-6">
-          {/* Top Status Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0d1117]/90 border border-[#00ff66]/30 text-xs font-mono text-gray-300 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,102,0.1)]">
-            <span className="w-2 h-2 rounded-full bg-[#00ff66] animate-pulse" />
-            <span className="text-gray-400">HACK THE BOX // TEAM ID:</span>
-            <span className="text-[#00ff66] font-bold">331386</span>
-            <span className="text-gray-500">|</span>
-            <span className="text-gray-300">EST. 2024</span>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Official Identity & Mission */}
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0d1117] border border-white/[0.08] text-xs font-mono text-gray-300">
+              <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
+              <span className="text-gray-400">HACK THE BOX // TEAM</span>
+              <span className="text-[#00ff88] font-bold">#331386</span>
+              <span className="text-gray-600">|</span>
+              <span className="text-gray-300">FOUNDING COHORT</span>
+            </div>
 
-          {/* Primary Team Name */}
-          <div className="space-y-2">
-            <h1 className="font-mono text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white select-none">
-              sudo{' '}
-              <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#00ff66] via-[#22ff77] to-[#00f0ff] filter drop-shadow-[0_0_25px_rgba(0,255,102,0.35)]">
-                Unknown
+            {/* Team Name */}
+            <div className="space-y-2">
+              <h1 className="font-mono text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white select-none">
+                sudo{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff88] via-[#22ff99] to-[#00f0ff]">
+                  Unknown
+                </span>
+              </h1>
+
+              {/* Tagline */}
+              <p className="font-mono text-lg sm:text-2xl text-gray-200 tracking-wide font-medium">
+                &ldquo;<span className="text-[#00ff88]">Permission Granted.</span> Identity Unknown.&rdquo;
+              </p>
+            </div>
+
+            {/* Authentic Brand Mantras */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 font-mono text-xs text-gray-400">
+              <span className="px-2.5 py-1 rounded bg-[#0a0d0f] border border-white/[0.08] text-gray-300 font-semibold tracking-wider">
+                NO IDENTITY • NO LIMITS • JUST FLAGS
               </span>
-            </h1>
+              <span className="px-2.5 py-1 rounded bg-[#0a0d0f] border border-white/[0.08] text-[#00ff88] font-semibold tracking-wider">
+                EXPLOIT • ANALYZE • CAPTURE • REPEAT
+              </span>
+            </div>
 
-            {/* Tagline */}
-            <p className="font-mono text-lg sm:text-2xl md:text-3xl text-gray-200 tracking-wide font-medium">
-              &ldquo;<span className="text-[#00ff66]">Permission Granted.</span> Identity Unknown.&rdquo;
+            {/* Clear, Realistic Description */}
+            <p className="text-sm sm:text-base text-gray-400 font-sans leading-relaxed max-w-xl mx-auto lg:mx-0">
+              A newly formed competitive cybersecurity Capture The Flag team competing in Hack The Box
+              seasonal leagues and international tournaments. We are actively scouting ambitious operators
+              to assemble our founding roster.
             </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              {/* Join Our Team */}
+              <a
+                href="#team"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#00ff88] text-black font-mono font-bold text-sm hover:bg-[#22ff99] transition-all transform hover:-translate-y-0.5 shadow-[0_0_20px_rgba(0,255,136,0.3)]"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>[ Join Our Team ]</span>
+              </a>
+
+              {/* View on Hack The Box */}
+              <a
+                href={SITE_CONFIG.htbTeamUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0d1117] text-white font-mono font-medium text-sm border border-white/[0.12] hover:border-[#00ff88] hover:text-[#00ff88] transition-all transform hover:-translate-y-0.5"
+              >
+                <ExternalLink className="w-4 h-4 text-[#00ff88]" />
+                <span>[ View on Hack The Box ]</span>
+              </a>
+            </div>
           </div>
 
-          {/* Subtitle description */}
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-400 font-sans leading-relaxed">
-            A competitive cybersecurity Capture The Flag team engineered for rigorous technical mastery,
-            decentralized research, and collaborative problem solving across Hack The Box and premier global arenas.
-          </p>
-
-          {/* Core Terminal Animation Box */}
-          <div className="max-w-2xl mx-auto text-left rounded-xl bg-[#0a0d0f]/90 border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden group hover:border-[#00ff66]/40 transition-all duration-300">
-            {/* Terminal Window Header Bar */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-[#0d1117] border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#ef4444]/80" />
-                <div className="w-3 h-3 rounded-full bg-[#f59e0b]/80" />
-                <div className="w-3 h-3 rounded-full bg-[#00ff66]/80" />
-              </div>
-              <div className="flex items-center gap-2 text-[11px] font-mono text-gray-400">
-                <Lock className="w-3 h-3 text-[#00ff66]" />
-                <span>tty1 // session_init.sh</span>
-              </div>
-              <div className="text-[10px] font-mono text-gray-500">
-                UTF-8
+          {/* Right Column: Official Emblem & Terminal Window */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Center Logo Display with Subtle Precision Rim */}
+            <div className="relative mx-auto w-44 h-44 sm:w-56 sm:h-56">
+              {/* Ambient backlight */}
+              <div className="absolute inset-0 rounded-full bg-[#00ff88]/15 blur-2xl" />
+              <div className="relative w-full h-full rounded-full border-2 border-[#00ff88]/40 shadow-[0_0_30px_rgba(0,255,136,0.25)] overflow-hidden bg-[#050505] p-1">
+                <img
+                  src="/logo.png"
+                  alt="sudo Unknown Official Emblem"
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
             </div>
 
-            {/* Terminal Body */}
-            <div className="p-4 sm:p-5 font-mono text-xs sm:text-sm space-y-3 bg-[#050505]/95">
-              {/* Command 1: whoami */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <span className="text-[#00ff66] font-bold">&gt;</span>
-                  <span>{typedCommand1}</span>
-                  {step === 0 && <span className="inline-block w-2 h-4 bg-[#00ff66] animate-pulse" />}
+            {/* Terminal Window Box */}
+            <div className="rounded-xl bg-[#090b0e] border border-white/[0.1] shadow-2xl overflow-hidden group hover:border-[#00ff88]/40 transition-colors">
+              {/* Window Title Bar */}
+              <div className="flex items-center justify-between px-4 py-2.5 bg-[#0e1217] border-b border-white/[0.08]">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#00ff88]/80" />
                 </div>
-                {output1 && (
-                  <div className="text-gray-400 pl-4 border-l-2 border-[#00ff66]/20 font-medium">
-                    unknown
-                  </div>
-                )}
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-gray-400">
+                  <Lock className="w-3 h-3 text-[#00ff88]" />
+                  <span>user@world:~$ sudo</span>
+                </div>
+                <div className="text-[10px] font-mono text-gray-500">
+                  HTB-331386
+                </div>
               </div>
 
-              {/* Command 2: sudo access */}
-              {step >= 1 && (
+              {/* Terminal Screen Content */}
+              <div className="p-4 sm:p-5 font-mono text-xs space-y-3 bg-[#050505]">
+                {/* Official Boot Prompt lines */}
+                <div className="text-gray-500 text-[11px] border-b border-white/[0.05] pb-2 space-y-0.5">
+                  <div>user@world:~$ sudo</div>
+                  <div>[sudo] password for ? **********</div>
+                  <div className="text-[#00ff88]">Permission granted.</div>
+                  <div className="text-gray-300">Welcome to the unknown.</div>
+                </div>
+
+                {/* Animated typing sequence */}
                 <div className="space-y-1 pt-1">
                   <div className="flex items-center gap-2 text-gray-300">
-                    <span className="text-[#00ff66] font-bold">&gt;</span>
-                    <span>{typedCommand2}</span>
-                    {step === 1 && <span className="inline-block w-2 h-4 bg-[#00ff66] animate-pulse" />}
+                    <span className="text-[#00ff88] font-bold">&gt;</span>
+                    <span>{typedWhoami}</span>
+                    {bootStep === 0 && <span className="inline-block w-1.5 h-3.5 bg-[#00ff88] animate-pulse" />}
                   </div>
-                  {output2 && (
-                    <div className="pl-4 border-l-2 border-[#00ff66] text-[#00ff66] font-bold flex items-center gap-2 py-0.5 animate-fadeIn">
-                      <CheckCircle2 className="w-4 h-4 text-[#00ff66]" />
-                      <span className="tracking-wider">GRANTED</span>
-                      <span className="text-gray-400 font-normal text-xs ml-2">[SESSION TOKEN 0x7FFF942E VALIDATED]</span>
+                  {showUnknown && (
+                    <div className="text-gray-400 pl-4 border-l border-[#00ff88]/30">
+                      unknown
                     </div>
                   )}
                 </div>
-              )}
 
-              {/* Interactive Micro CLI Input */}
-              {output2 && (
-                <div className="pt-2 mt-2 border-t border-white/5 space-y-2">
-                  {customOutputs.map((item, idx) => (
-                    <div key={idx} className="space-y-0.5 text-xs">
-                      <div className="text-gray-400">
-                        <span className="text-[#00ff66]">&gt;</span> {item.cmd}
-                      </div>
-                      <div className={`pl-3 font-mono ${item.isError ? 'text-red-400' : 'text-gray-300'}`}>
-                        {item.res}
-                      </div>
+                {bootStep >= 1 && (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <span className="text-[#00ff88] font-bold">&gt;</span>
+                      <span>{typedSudo}</span>
+                      {bootStep === 1 && <span className="inline-block w-1.5 h-3.5 bg-[#00ff88] animate-pulse" />}
                     </div>
-                  ))}
+                    {showGranted && (
+                      <div className="pl-4 border-l-2 border-[#00ff88] text-[#00ff88] font-bold flex items-center gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00ff88]" />
+                        <span>GRANTED</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
-                  <form onSubmit={handleCustomCommandSubmit} className="flex items-center gap-2 text-xs pt-1">
-                    <span className="text-[#00ff66] font-bold">&gt;</span>
-                    <input
-                      type="text"
-                      value={userCmd}
-                      onChange={(e) => setUserCmd(e.target.value)}
-                      placeholder="Type 'help', 'cat flag.txt', 'roster', or 'htb'..."
-                      className="flex-1 bg-transparent text-gray-200 placeholder-gray-600 focus:outline-none font-mono"
-                    />
-                    <button
-                      type="submit"
-                      className="px-2 py-0.5 text-[11px] rounded bg-[#0d1117] text-gray-400 hover:text-[#00ff66] border border-white/10"
-                    >
-                      <CornerDownLeft className="w-3 h-3" />
-                    </button>
-                  </form>
-                </div>
-              )}
+                {/* Interactive command input */}
+                {showGranted && (
+                  <div className="pt-2 border-t border-white/[0.05] space-y-2">
+                    {history.map((h, i) => (
+                      <div key={i} className="space-y-0.5 text-[11px]">
+                        <div className="text-gray-400"><span className="text-[#00ff88]">&gt;</span> {h.cmd}</div>
+                        <div className={`pl-3 ${h.isSuccess ? 'text-[#00ff88]' : 'text-gray-300'}`}>{h.output}</div>
+                      </div>
+                    ))}
+
+                    <form onSubmit={handleCommandSubmit} className="flex items-center gap-2 text-xs pt-1">
+                      <span className="text-[#00ff88] font-bold">&gt;</span>
+                      <input
+                        type="text"
+                        value={inputCommand}
+                        onChange={(e) => setInputCommand(e.target.value)}
+                        placeholder="Type 'help', 'htb', 'cat flag.txt'..."
+                        className="flex-1 bg-transparent text-gray-200 placeholder-gray-600 focus:outline-none font-mono text-xs"
+                      />
+                      <button
+                        type="submit"
+                        className="p-1 rounded bg-[#0d1117] text-gray-400 hover:text-[#00ff88] border border-white/10"
+                      >
+                        <CornerDownLeft className="w-3 h-3" />
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-
-          {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            {/* Join Our Team */}
-            <a
-              href="#join"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#00ff66] text-black font-mono font-bold text-sm hover:bg-[#22ff77] transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,255,102,0.4)] focus:outline-none focus:ring-2 focus:ring-[#00ff66]"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>[ Join Our Team ]</span>
-            </a>
-
-            {/* View on Hack The Box */}
-            <a
-              href={SITE_CONFIG.htbTeamUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#0d1117] text-white font-mono font-medium text-sm border border-white/15 hover:border-[#00ff66] hover:text-[#00ff66] transition-all transform hover:-translate-y-0.5 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#00ff66]/50"
-            >
-              <ExternalLink className="w-4 h-4 text-[#00ff66]" />
-              <span>[ View on Hack The Box ]</span>
-            </a>
-
-            {/* Launch Interactive Terminal */}
-            {onOpenTerminal && (
-              <button
-                onClick={onOpenTerminal}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[#0a0d0f] text-gray-300 font-mono font-medium text-sm border border-white/10 hover:border-[#00ff66] hover:text-[#00ff66] transition-all transform hover:-translate-y-0.5"
-                title="Launch full interactive cyber shell (Hotkey: `)"
-              >
-                <Terminal className="w-4 h-4 text-[#00ff66]" />
-                <span>Launch Shell</span>
-              </button>
-            )}
-          </div>
-
-          {/* Quick Category Anchors */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-gray-400">
-            <span className="text-gray-500">OPERATIONAL DOMAINS:</span>
-            {['WEB', 'PWN', 'CRYPTO', 'FORENSICS', 'REVERSE', 'OSINT', 'MISC'].map((tag) => (
-              <a
-                key={tag}
-                href="#skills"
-                className="px-2 py-0.5 rounded bg-[#0d1117]/60 border border-white/5 hover:border-[#00ff66]/40 hover:text-[#00ff66] transition-colors"
-              >
-                #{tag}
-              </a>
-            ))}
           </div>
         </div>
       </div>

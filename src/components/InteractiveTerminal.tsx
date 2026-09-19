@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Terminal as TerminalIcon, X, Maximize2, Minimize2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { SITE_CONFIG, STATISTICS, TEAM_MEMBERS, SKILL_CATEGORIES } from '../data/teamData';
+import { SITE_CONFIG, STATISTICS, ROSTER_SLOTS, SKILL_CATEGORIES } from '../data/teamData';
 
 interface InteractiveTerminalProps {
   isOpen: boolean;
@@ -150,7 +150,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
             {STATISTICS.map((s) => (
               <div key={s.id} className="flex justify-between max-w-sm">
                 <span className="text-gray-400">{s.label}:</span>
-                <span className="text-[#00ff66] font-bold">{s.value}{s.suffix}</span>
+                <span className="text-[#00ff88] font-bold">{s.value}</span>
               </div>
             ))}
           </div>
@@ -159,10 +159,16 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
 
       case 'roster':
         outputNode = (
-          <div className="grid grid-cols-2 gap-2 text-gray-300 max-w-md">
-            {TEAM_MEMBERS.map((m) => (
-              <div key={m.id} className="text-xs">
-                <span className="text-[#00ff66] font-bold">{m.name}</span> - <span className="text-gray-400">{m.role}</span>
+          <div className="space-y-1 text-gray-300 max-w-md">
+            <div className="text-[#00ff88] font-bold mb-1">// FOUNDING ROSTER SLOTS:</div>
+            {ROSTER_SLOTS.map((slot) => (
+              <div key={slot.id} className="text-xs flex justify-between">
+                <span className={slot.status === 'FILLED' ? 'text-white' : 'text-gray-400'}>
+                  {slot.role}
+                </span>
+                <span className={slot.status === 'FILLED' ? 'text-[#00ff88]' : 'text-yellow-400'}>
+                  [{slot.status}]
+                </span>
               </div>
             ))}
           </div>

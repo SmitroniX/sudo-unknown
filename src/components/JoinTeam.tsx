@@ -1,75 +1,91 @@
 import React, { useState } from 'react';
 import { Sparkles, Share2, Radio, Terminal, ExternalLink, CheckCircle2, X } from 'lucide-react';
-import { RECRUITMENT_BENEFITS, SITE_CONFIG } from '../data/teamData';
+import { SITE_CONFIG } from '../data/teamData';
 
-const iconMap: Record<string, React.ElementType> = {
-  Sparkles,
-  Share2,
-  Radio,
-  Terminal,
-};
+interface JoinTeamProps {
+  initialRole?: string;
+}
 
-export const JoinTeam: React.FC = () => {
+export const JoinTeam: React.FC<JoinTeamProps> = ({ initialRole = 'General Operator' }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(initialRole);
   const [applicant, setApplicant] = useState({
     handle: '',
     htbProfile: '',
-    primaryDomain: 'Web',
-    experience: 'Beginner / Self-learner',
+    experience: 'Intermediate Solver',
+    discordTag: '',
     notes: ''
   });
+
+  const benefits = [
+    {
+      title: "Beginners Welcome",
+      desc: "Passion and consistency matter most. We guide new members from introductory challenges to advanced box clears.",
+      icon: Sparkles
+    },
+    {
+      title: "Knowledge Sharing",
+      desc: "Access our shared repository of exploit scripts, cheat sheets, methodology notes, and lab writeups.",
+      icon: Share2
+    },
+    {
+      title: "Team Collaboration",
+      desc: "Collaborative Discord war rooms during weekend CTFs and shared screen sessions during complex machines.",
+      icon: Radio
+    },
+    {
+      title: "CTF Participation",
+      desc: "Fielded roster spots in official Hack The Box leagues, university tournaments, and open global events.",
+      icon: Terminal
+    }
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
-    setTimeout(() => {
-      // In production, sends to team webhook or email
-    }, 1000);
   };
 
   return (
     <section id="join" className="py-24 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Recruitment Banner Box */}
-        <div className="relative rounded-3xl bg-gradient-to-b from-[#0a0f12] via-[#070a0c] to-[#040506] border border-[#00ff66]/40 p-8 sm:p-14 overflow-hidden shadow-[0_0_60px_rgba(0,255,102,0.15)]">
-          {/* Neon Radial Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#00ff66]/10 rounded-full blur-[130px] pointer-events-none" />
+        <div className="relative rounded-3xl bg-[#090c0f] border border-white/[0.12] p-8 sm:p-14 overflow-hidden shadow-2xl">
+          {/* Subtle glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#00ff88]/[0.05] rounded-full blur-[140px] pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-            {/* Top Indicator */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0d1117] border border-[#00ff66]/40 text-xs font-mono text-[#00ff66] shadow-[0_0_15px_rgba(0,255,102,0.2)]">
-              <span className="w-2 h-2 rounded-full bg-[#00ff66] animate-pulse" />
-              <span>RECRUITMENT PROTOCOL // 2026</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0e1318] border border-white/[0.08] text-xs font-mono text-[#00ff88]">
+              <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
+              <span>FOUNDING COHORT APPLICATION</span>
             </div>
 
-            {/* Heading requested */}
+            {/* Requested Heading */}
             <h2 className="font-mono text-4xl sm:text-6xl font-black text-white tracking-tight">
-              JOIN THE <span className="text-[#00ff66]">UNKNOWN</span>
+              JOIN THE <span className="text-[#00ff88]">UNKNOWN</span>
             </h2>
 
-            {/* Text requested */}
+            {/* Requested Text */}
             <p className="font-sans text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               &ldquo;We&apos;re looking for curious minds who want to learn cybersecurity, solve challenges, and compete together.&rdquo;
             </p>
 
-            {/* 4 Required Showcase Points */}
+            {/* 4 Pillars Requested */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6 text-left">
-              {RECRUITMENT_BENEFITS.map((item) => {
-                const Icon = iconMap[item.iconName] || Sparkles;
+              {benefits.map((b) => {
+                const Icon = b.icon;
                 return (
                   <div
-                    key={item.title}
-                    className="p-5 rounded-xl bg-[#050505]/90 border border-white/10 hover:border-[#00ff66]/40 transition-all group"
+                    key={b.title}
+                    className="p-5 rounded-xl bg-[#050505] border border-white/[0.06] hover:border-[#00ff88]/30 transition-all group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-[#0d1117] border border-white/5 flex items-center justify-center text-[#00ff66] mb-3 group-hover:scale-105 group-hover:border-[#00ff66]/40 transition-transform">
+                    <div className="w-10 h-10 rounded-lg bg-[#0e1318] border border-white/[0.06] flex items-center justify-center text-[#00ff88] mb-3 group-hover:scale-105 transition-transform">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="font-mono text-sm font-bold text-white group-hover:text-[#00ff66] transition-colors mb-1.5">
-                      {item.title}
+                    <h3 className="font-mono text-sm font-bold text-white group-hover:text-[#00ff88] transition-colors mb-1.5">
+                      {b.title}
                     </h3>
                     <p className="font-sans text-xs text-gray-400 leading-relaxed">
-                      {item.description}
+                      {b.desc}
                     </p>
                   </div>
                 );
@@ -80,7 +96,7 @@ export const JoinTeam: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
               <button
                 onClick={() => setModalOpen(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00ff66] text-black font-mono font-black text-sm hover:bg-[#22ff77] transition-all transform hover:-translate-y-0.5 shadow-[0_0_30px_rgba(0,255,102,0.45)]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00ff88] text-black font-mono font-bold text-sm hover:bg-[#22ff99] transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,255,136,0.35)]"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>Join sudo Unknown</span>
@@ -90,16 +106,15 @@ export const JoinTeam: React.FC = () => {
                 href={SITE_CONFIG.htbTeamUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#0d1117] text-white font-mono font-semibold text-sm border border-white/15 hover:border-[#00ff66] hover:text-[#00ff66] transition-all transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#0e1318] text-white font-mono font-semibold text-sm border border-white/[0.12] hover:border-[#00ff88] hover:text-[#00ff88] transition-all transform hover:-translate-y-0.5"
               >
-                <ExternalLink className="w-4 h-4 text-[#00ff66]" />
+                <ExternalLink className="w-4 h-4 text-[#00ff88]" />
                 <span>Join via Hack The Box Portal</span>
               </a>
             </div>
 
-            {/* Discreet note */}
             <p className="font-mono text-xs text-gray-500 pt-2">
-              No prior CTF rank required // Discord community onboarding provided
+              Official Team Link: <code className="text-gray-300">ctf.hackthebox.com/team/overview/331386</code>
             </p>
           </div>
         </div>
@@ -107,11 +122,11 @@ export const JoinTeam: React.FC = () => {
         {/* Application Modal */}
         {modalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
-            <div className="relative w-full max-w-lg bg-[#0a0d0f] border border-[#00ff66]/50 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(0,255,102,0.2)]">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+            <div className="relative w-full max-w-lg bg-[#090c0f] border border-[#00ff88]/40 rounded-2xl p-6 sm:p-8 shadow-2xl">
+              <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
                 <div className="flex items-center gap-2 font-mono text-sm font-bold text-white">
-                  <Terminal className="w-4 h-4 text-[#00ff66]" />
-                  <span>APPLY TO JOIN // sudo Unknown</span>
+                  <Terminal className="w-4 h-4 text-[#00ff88]" />
+                  <span>FOUNDING ROSTER APPLICATION</span>
                 </div>
                 <button
                   onClick={() => {
@@ -126,21 +141,21 @@ export const JoinTeam: React.FC = () => {
 
               {formSubmitted ? (
                 <div className="py-10 text-center space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-[#00ff66]/20 border border-[#00ff66] flex items-center justify-center text-[#00ff66] mx-auto">
+                  <div className="w-12 h-12 rounded-full bg-[#00ff88]/20 border border-[#00ff88] flex items-center justify-center text-[#00ff88] mx-auto">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="font-mono text-xl font-bold text-white">Application Received</h3>
+                  <h3 className="font-mono text-xl font-bold text-white">Application Recorded</h3>
                   <p className="font-sans text-xs text-gray-300 max-w-sm mx-auto leading-relaxed">
-                    Access request granted. Check your Discord or email for onboarding credentials and the private team room link.
+                    Thank you for applying to the founding roster of <strong>sudo Unknown</strong>. We will review your application and reach out via Discord or HTB.
                   </p>
                   <div className="pt-4">
                     <a
                       href={SITE_CONFIG.htbTeamUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff66] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff88] hover:underline"
                     >
-                      <span>Meanwhile, request to join on Hack The Box Team #331386</span>
+                      <span>Also request to join directly on Hack The Box (#331386)</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
@@ -154,8 +169,8 @@ export const JoinTeam: React.FC = () => {
                       required
                       value={applicant.handle}
                       onChange={(e) => setApplicant({ ...applicant, handle: e.target.value })}
-                      placeholder="e.g. 0xShadow"
-                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff66]"
+                      placeholder="e.g. 0xPhantom"
+                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff88]"
                     />
                   </div>
 
@@ -166,60 +181,58 @@ export const JoinTeam: React.FC = () => {
                       value={applicant.htbProfile}
                       onChange={(e) => setApplicant({ ...applicant, htbProfile: e.target.value })}
                       placeholder="e.g. https://app.hackthebox.com/users/..."
-                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff66]"
+                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff88]"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-gray-400 mb-1">Primary Interest</label>
+                      <label className="block text-gray-400 mb-1">Target Discipline</label>
                       <select
-                        value={applicant.primaryDomain}
-                        onChange={(e) => setApplicant({ ...applicant, primaryDomain: e.target.value })}
-                        className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white focus:outline-none focus:border-[#00ff66]"
+                        value={selectedRole}
+                        onChange={(e) => setSelectedRole(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white focus:outline-none focus:border-[#00ff88]"
                       >
-                        <option value="Web">Web Security</option>
-                        <option value="Pwn">Pwn / Binary Exp</option>
-                        <option value="Crypto">Cryptography</option>
-                        <option value="Forensics">Forensics / DFIR</option>
-                        <option value="Reverse">Reverse Engineering</option>
+                        <option value="Web Security">Web Security</option>
+                        <option value="Binary Exploitation (PWN)">Binary Exploitation (PWN)</option>
+                        <option value="Cryptography">Cryptography</option>
+                        <option value="Digital Forensics">Digital Forensics</option>
+                        <option value="Reverse Engineering">Reverse Engineering</option>
                         <option value="OSINT">OSINT</option>
-                        <option value="Misc">General / Misc</option>
+                        <option value="General Operator">General Operator</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-gray-400 mb-1">Experience Level</label>
-                      <select
-                        value={applicant.experience}
-                        onChange={(e) => setApplicant({ ...applicant, experience: e.target.value })}
-                        className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white focus:outline-none focus:border-[#00ff66]"
+                      <label className="block text-gray-400 mb-1">Discord Tag</label>
+                      <input
+                        type="text"
+                        value={applicant.discordTag}
+                        onChange={(e) => setApplicant({ ...applicant, discordTag: e.target.value })}
+                        placeholder="e.g. handle#1337"
+                        className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff88]"
                       >
-                        <option value="Beginner">Beginner / Exploring</option>
-                        <option value="Intermediate">Intermediate Solver</option>
-                        <option value="Advanced">Advanced CTF Player</option>
-                        <option value="Pro">Industry Professional</option>
-                      </select>
+                      </input>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-gray-400 mb-1">What challenges excite you? (Optional)</label>
+                    <label className="block text-gray-400 mb-1">What challenges or machines are you currently working on?</label>
                     <textarea
                       rows={3}
                       value={applicant.notes}
                       onChange={(e) => setApplicant({ ...applicant, notes: e.target.value })}
-                      placeholder="Tell us what you want to learn or solve..."
-                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff66]"
+                      placeholder="Tell us what you love to solve..."
+                      className="w-full px-3 py-2 rounded-lg bg-[#050505] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff88]"
                     />
                   </div>
 
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3 rounded-lg bg-[#00ff66] text-black font-bold font-mono hover:bg-[#22ff77] transition-all shadow-[0_0_20px_rgba(0,255,102,0.3)]"
+                      className="w-full py-3 rounded-lg bg-[#00ff88] text-black font-bold font-mono hover:bg-[#22ff99] transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]"
                     >
-                      Transmit Access Request
+                      Transmit Application
                     </button>
                   </div>
                 </form>

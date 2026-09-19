@@ -1,23 +1,22 @@
-export interface TeamMember {
+export interface RosterSlot {
   id: string;
-  name: string;
   role: string;
-  htbUsername: string;
-  htbUrl: string;
-  avatar: string;
+  category: 'Web' | 'Pwn' | 'Crypto' | 'Forensics' | 'Reverse' | 'OSINT' | 'Misc' | 'Leadership';
+  status: 'FILLED' | 'OPEN';
+  holderName?: string;
+  htbUsername?: string;
+  htbUrl?: string;
   github?: string;
   linkedin?: string;
-  discord?: string;
-  specialties: string[];
-  bio: string;
+  requiredSkills: string[];
+  focusDescription: string;
 }
 
 export interface StatisticItem {
   id: string;
   label: string;
-  value: number;
-  suffix?: string;
-  description: string;
+  value: string;
+  subtext: string;
   iconName: string;
 }
 
@@ -29,92 +28,86 @@ export interface SkillCategory {
   keyTools: string[];
   topics: string[];
   iconName: string;
-  difficultyFocus: 'Introductory' | 'Intermediate' | 'Advanced' | 'Expert';
+  tier: 'Foundational' | 'Advanced' | 'Specialized';
 }
 
-export interface Achievement {
+export interface RoadmapTarget {
   id: string;
-  ctfName: string;
-  date: string;
-  eventType: 'Jeopardy' | 'Attack-Defense' | 'Global HTB CTF' | 'University CTF' | 'Special Event';
-  result: string;
-  rankBadge?: string;
-  description: string;
-  highlights: string[];
+  eventName: string;
+  timeline: string;
+  category: 'Global HTB CTF' | 'University CTF' | 'HTB Pro Labs' | 'Open Jeopardy';
+  objective: string;
+  status: 'UPCOMING' | 'PREPARING' | 'SCHEDULED';
+  deliverables: string[];
 }
 
-export interface Writeup {
+export interface TrainingWriteup {
   id: string;
   title: string;
   category: 'Web' | 'Pwn' | 'Crypto' | 'Forensics' | 'Reverse' | 'OSINT' | 'Misc';
   difficulty: 'Easy' | 'Medium' | 'Hard' | 'Insane';
-  ctf: string;
-  date: string;
-  author: string;
-  points: number;
-  shortDescription: string;
-  fullContent: {
-    summary: string;
-    reconnaissance: string;
-    vulnerabilityAnalysis: string;
-    exploitationSteps: string[];
-    pocCode?: string;
-    flag: string;
-    keyTakeaways: string[];
-  };
+  scenario: string;
+  summary: string;
+  vulnerabilityClass: string;
+  methodologySteps: string[];
+  samplePoc?: string;
+  flagFormat: string;
 }
 
 export const SITE_CONFIG = {
   teamName: "sudo Unknown",
   tagline: "Permission Granted. Identity Unknown.",
-  subtitle: "Cybersecurity Capture The Flag Team // Hack The Box Competitive Division",
+  mantra1: "NO IDENTITY. NO LIMITS. JUST FLAGS.",
+  mantra2: "EXPLOIT • ANALYZE • CAPTURE • REPEAT",
+  terminalSequence: [
+    { prompt: "user@world:~$", cmd: "sudo" },
+    { prompt: "[sudo] password for ?", cmd: "********" },
+    { prompt: "Permission granted.", status: "SUCCESS" },
+    { prompt: "Welcome to the unknown.", status: "ACCESS_GRANTED" }
+  ],
   htbTeamUrl: "https://ctf.hackthebox.com/team/overview/331386",
-  githubUrl: "https://github.com/sudo-unknown",
+  htbTeamId: "331386",
+  githubUrl: "https://github.com/SmitroniX/sudo-unknown",
   discordUrl: "https://discord.gg/sudo-unknown",
   linkedinUrl: "https://www.linkedin.com/company/sudo-unknown-ctf",
   contactEmail: "contact@sudounknown.team",
-  foundedYear: 2024,
-  currentYear: 2026,
-  status: "ACTIVE_OPERATION",
-  hqLocation: "Global // Decentralized",
+  foundedYear: 2026,
+  status: "BUILDING FOUNDING ROSTER",
+  headquarters: "Decentralized // Global HTB Network",
 };
 
 /**
- * EDITABLE CENTRAL STATISTICS
- * Update these numbers as the team captures more flags and completes CTF events.
+ * HONEST, REALISTIC NEW-TEAM METRICS
+ * No fake rankings or fake solved numbers. Clear, verified facts for a rising squad.
  */
 export const STATISTICS: StatisticItem[] = [
   {
-    id: "ctfs",
-    label: "CTFs Participated",
-    value: 24,
-    suffix: "+",
-    description: "Competed across global university, open, and HTB seasonal events",
-    iconName: "Trophy"
+    id: "htb_id",
+    label: "HTB TEAM ID",
+    value: "331386",
+    subtext: "Official Hack The Box registered CTF squad",
+    iconName: "ShieldCheck"
   },
   {
-    id: "flags",
-    label: "Flags Captured",
-    value: 412,
-    suffix: "",
-    description: "Verified jeopardy and attack-defense challenge flags solved",
-    iconName: "Flag"
+    id: "tracks",
+    label: "CORE DISCIPLINES",
+    value: "7",
+    subtext: "Web, Pwn, Crypto, Forensics, Reverse, OSINT, Misc",
+    iconName: "Cpu"
   },
   {
-    id: "members",
-    label: "Team Members",
-    value: 14,
-    suffix: "",
-    description: "Active core operators, offensive researchers, and analysts",
+    id: "status",
+    label: "ROSTER STATUS",
+    value: "FORMING",
+    subtext: "Actively recruiting founding competitive operators",
     iconName: "Users"
   },
   {
-    id: "solved",
-    label: "Challenges Solved",
-    value: 580,
-    suffix: "+",
-    description: "Hack The Box machines, endgames, fortresses, and CTF modules",
-    iconName: "CheckCircle2"
+    id: "season",
+    label: "TARGET SEASON",
+    value: "2026",
+    subtext: "Preparing for HTB seasonal and global open tournaments",
+    iconName: "Trophy"
   }
 ];
 
@@ -123,456 +116,289 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     id: "web",
     name: "WEB",
     shortCode: "0xWEB",
-    description: "Exploiting application logic, authentication flaws, SSRF, SQLi, SSTI, Prototype Pollution, and modern API infrastructures.",
-    keyTools: ["Burp Suite Pro", "Caido", "ffuf", "SQLMap", "Turbo Intruder"],
-    topics: ["OAuth2 / JWT Bypass", "SSRF to Cloud Metadata", "Deserialization Bugs", "GraphQL Injection"],
+    description: "Modern application vulnerabilities, authentication architecture, API flaws, SSRF, SSTI, and cloud metadata pivoting.",
+    keyTools: ["Burp Suite Pro", "Caido", "ffuf", "SQLMap", "Postman"],
+    topics: ["OAuth2 / JWT Misconfigurations", "SSRF & Cloud Metadata Access", "Template & Deserialization Injection", "GraphQL & REST Logic Exploitation"],
     iconName: "Globe",
-    difficultyFocus: "Advanced"
+    tier: "Foundational"
   },
   {
     id: "pwn",
     name: "PWN",
     shortCode: "0xPWN",
-    description: "Binary exploitation, memory corruption, stack overflows, heap metadata corruption, ROP chain construction, and kernel pwn.",
-    keyTools: ["pwntools", "GDB + GEF", "ROPgadget", "pwndbg", "libc-database"],
-    topics: ["Heap Tcache Poisoning", "Format String Exploitation", "ROP & SROP Chains", "Bypassing ASLR & Canary"],
+    description: "Low-level memory corruption, stack/heap exploitation, return-oriented programming (ROP), and defensive mitigation bypasses.",
+    keyTools: ["pwntools", "GDB + GEF / pwndbg", "ROPgadget", "one_gadget"],
+    topics: ["GLIBC Heap Allocators & Tcache", "Format String Exploitation", "ROP / SROP Chain Construction", "Canary & ASLR Bypasses"],
     iconName: "Cpu",
-    difficultyFocus: "Expert"
+    tier: "Advanced"
   },
   {
     id: "crypto",
     name: "CRYPTO",
     shortCode: "0xCRP",
-    description: "Breaking weak mathematical primitives, flawed RSA implementations, ECC invalid curve attacks, lattice reductions, and custom block ciphers.",
-    keyTools: ["SageMath", "CyberChef", "Python Cryptography", "Z3 SMT Solver"],
-    topics: ["Coppersmith Attacks", "Bleichenbacher Padding Oracle", "ECDSA Nonce Reuse", "AES-CBC Bit Flipping"],
+    description: "Cryptanalytic attacks on flawed implementations, weak PRNGs, lattice reduction, RSA factorization, and curve weaknesses.",
+    keyTools: ["SageMath", "CyberChef", "Z3 SMT Solver", "Python Cryptography"],
+    topics: ["Coppersmith / Small Public Exponents", "Padding Oracle Attacks (CBC / OAEP)", "Discrete Logarithms & Pollard Rho", "Lattice Attacks (LLL / BKZ)"],
     iconName: "KeyRound",
-    difficultyFocus: "Advanced"
+    tier: "Advanced"
   },
   {
     id: "forensics",
     name: "FORENSICS",
     shortCode: "0xFOR",
-    description: "Digital forensics and incident response, memory extraction, packet capture deep-dives, filesystem timeline reconstruction, and steganography.",
-    keyTools: ["Volatility 3", "Wireshark / TShark", "Autopsy", "FTK Imager", "Eric Zimmerman Tools"],
-    topics: ["Memory Dump Injections", "TLS Session Decryption", "NTFS / $MFT Forensics", "Malicious EVTX Analysis"],
+    description: "Artifact extraction, incident triage, memory analysis, PCAP packet reconstruction, and filesystem investigations.",
+    keyTools: ["Volatility 3", "Wireshark / TShark", "Autopsy", "Eric Zimmerman Tools"],
+    topics: ["Malicious Process Memory Analysis", "Network Protocol Carving", "Windows EVTX & Registry Triage", "NTFS / Ext4 Filesystem Forensics"],
     iconName: "SearchCode",
-    difficultyFocus: "Intermediate"
+    tier: "Foundational"
   },
   {
     id: "reverse",
     name: "REVERSE ENGINEERING",
     shortCode: "0xREV",
-    description: "Decompilation, static and dynamic binary analysis, unpacking virtual machine protections, anti-debugging evasion, and firmware analysis.",
-    keyTools: ["Ghidra", "IDA Free / Pro", "x64dbg", "Binary Ninja", "dnSpy / ILSpy"],
-    topics: ["Custom VM Bytecode", "Packed Executables (UPX / Themida)", "Symbol Resolution", "ARM / MIPS Architectures"],
+    description: "Disassembly, decompilation, binary triage, anti-debugging evasion, custom VM bytecodes, and firmware reversing.",
+    keyTools: ["Ghidra", "IDA Free / Pro", "Binary Ninja", "x64dbg"],
+    topics: ["Anti-Debugging & Packing Detection", "Custom Bytecode Virtual Machines", "Stripped Binary Symbol Reconstruction", "ARM / MIPS Embedded Architectures"],
     iconName: "Binary",
-    difficultyFocus: "Expert"
+    tier: "Specialized"
   },
   {
     id: "osint",
     name: "OSINT",
     shortCode: "0xOSI",
-    description: "Open source intelligence gathering, geolocation identification, metadata extraction, digital foot-printing, and social engineering forensics.",
-    keyTools: ["ExifTool", "Maltego", "Spiderfoot", "Overpass Turbo", "Sherlock"],
-    topics: ["Satellite Geolocation", "EXIF Camera Sensor ID", "Corporate Infrastructure Recon", "Archived Artifact Tracking"],
+    description: "Open-source intelligence, satellite and solar geolocation, infrastructure tracking, and digital footprint reconstruction.",
+    keyTools: ["ExifTool", "Maltego", "Overpass Turbo", "Sherlock", "SunCalc"],
+    topics: ["Shadow & Solar Geolocation", "Metadata Carving & Camera Fingerprints", "Corporate Attack Surface Mapping", "Historical DNS & Archive Recon"],
     iconName: "Crosshair",
-    difficultyFocus: "Intermediate"
+    tier: "Foundational"
   },
   {
     id: "misc",
     name: "MISC",
     shortCode: "0xMSC",
-    description: "Python sandboxes, bash jail escapes, audio steganography, esoteric programming languages, hardware hacking, and prompt injection challenges.",
-    keyTools: ["Audacity", "Binwalk", "Docker", "Ghidra", "Custom Python Engines"],
-    topics: ["PyJail & Restricted Shells", "Spectrogram Steganography", "Esoteric VM Emulators", "AI Security & LLM Jailbreaks"],
+    description: "Sandboxed environments, Python/Bash restricted jails, esoteric programming, steganography, and emerging LLM security.",
+    keyTools: ["Audacity", "Binwalk", "Docker", "Custom Python Engines"],
+    topics: ["PyJail & Restricted Shell Escapes", "Audio & LSB Steganography", "Esoteric Language Emulation", "AI & Prompt Injection Bypasses"],
     iconName: "TerminalSquare",
-    difficultyFocus: "Advanced"
+    tier: "Specialized"
   }
 ];
 
 /**
- * ADMIN-FRIENDLY TEAM MEMBERS LIST
- * Simply copy an object to add new team members or update roles.
+ * FOUNDING ROSTER & OPEN SLOTS
+ * Clearly illustrates that sudo Unknown is a new team actively recruiting founding members!
  */
-export const TEAM_MEMBERS: TeamMember[] = [
+export const ROSTER_SLOTS: RosterSlot[] = [
   {
-    id: "member-1",
-    name: "0xCipher",
-    role: "Team Captain & Cryptography Lead",
-    htbUsername: "0xCipher",
-    htbUrl: "https://app.hackthebox.com/users/0xCipher",
-    avatar: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
+    id: "slot-captain",
+    role: "Team Captain & Operations Lead",
+    category: "Leadership",
+    status: "FILLED",
+    holderName: "Asmit (SmitroniX)",
+    htbUsername: "SmitroniX",
+    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    github: "https://github.com/SmitroniX",
     linkedin: "https://linkedin.com",
-    specialties: ["Crypto", "SageMath", "RSA", "Lattice"],
-    bio: "Obsessed with mathematical flaws and breaking public-key implementations. Drives team coordination and competitive training."
+    requiredSkills: ["Team Leadership", "Strategy", "Infrastructure", "Generalist"],
+    focusDescription: "Founding operator coordinating tournament scheduling, team war rooms, Hack The Box roster management, and practice sessions."
   },
   {
-    id: "member-2",
-    name: "NullPointer",
-    role: "Binary Exploitation & PWN Specialist",
-    htbUsername: "NullPointer_Pwn",
-    htbUrl: "https://app.hackthebox.com/users/NullPointer_Pwn",
-    avatar: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    specialties: ["Pwn", "GDB", "Heap Exploits", "Kernel"],
-    bio: "Reverse engineers memory allocators and crafts precise ROP chains. Lives in GEF and GEF-powered debugging environments."
+    id: "slot-web",
+    role: "Web Security Specialist",
+    category: "Web",
+    status: "OPEN",
+    requiredSkills: ["Burp Suite", "Auth Bypass", "SSRF", "Node/Python/PHP"],
+    focusDescription: "Focus on application security, modern API logic bugs, request smuggling, and cloud tenant escalation in CTFs."
   },
   {
-    id: "member-3",
-    name: "ByteGhost",
-    role: "Web Security & Cloud Lead",
-    htbUsername: "ByteGhost_HTB",
-    htbUrl: "https://app.hackthebox.com/users/ByteGhost_HTB",
-    avatar: "https://images.unsplash.com/photo-1510519138171-c7022134ff71?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    specialties: ["Web", "Burp Suite", "SSRF", "Cloud"],
-    bio: "Specializes in chain exploits, modern full-stack web vulnerabilities, OAuth2 edge cases, and container breakout vectors."
+    id: "slot-pwn",
+    role: "Binary Exploitation (PWN) Operator",
+    category: "Pwn",
+    status: "OPEN",
+    requiredSkills: ["pwntools", "GDB/GEF", "Heap Exploitation", "ROP"],
+    focusDescription: "Lead memory corruption vectors, analyzing ELF binaries, crafting reliable ROP payloads, and cracking allocator protections."
   },
   {
-    id: "member-4",
-    name: "ShadowTrace",
-    role: "DFIR & Network Forensics",
-    htbUsername: "ShadowTrace",
-    htbUrl: "https://app.hackthebox.com/users/ShadowTrace",
-    avatar: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    specialties: ["Forensics", "Volatility", "Wireshark", "Memory"],
-    bio: "Unravels deeply obfuscated network packet captures, recovers carved memory artifacts, and reconstructs compromise timelines."
+    id: "slot-crypto",
+    role: "Cryptography Analyst",
+    category: "Crypto",
+    status: "OPEN",
+    requiredSkills: ["SageMath", "Python", "RSA/ECC", "Number Theory"],
+    focusDescription: "Break broken cryptographic primitives, custom encryption routines, padding oracles, and mathematical challenge puzzles."
   },
   {
-    id: "member-5",
-    name: "HexVortex",
+    id: "slot-forensics",
+    role: "Digital Forensics & Incident Response",
+    category: "Forensics",
+    status: "OPEN",
+    requiredSkills: ["Volatility 3", "Wireshark", "Memory Triage", "PCAP"],
+    focusDescription: "Carve covert channels out of network traffic, analyze malicious process memory dumps, and reconstruct forensic timelines."
+  },
+  {
+    id: "slot-reverse",
     role: "Reverse Engineering Analyst",
-    htbUsername: "HexVortex",
-    htbUrl: "https://app.hackthebox.com/users/HexVortex",
-    avatar: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    specialties: ["Reverse", "Ghidra", "Unpacking", "Assembly"],
-    bio: "Specializes in reversing packed malware samples, custom bytecode virtual machines, and dissecting proprietary protocols."
+    category: "Reverse",
+    status: "OPEN",
+    requiredSkills: ["Ghidra", "IDA", "x86/x64 Assembly", "Decompilation"],
+    focusDescription: "Analyze stripped binaries, unpack obfuscated malware challenges, dissect proprietary protocols, and reverse engineer firmware."
   },
   {
-    id: "member-6",
-    name: "SpecterOS",
-    role: "OSINT & Recon Lead",
-    htbUsername: "SpecterOS",
-    htbUrl: "https://app.hackthebox.com/users/SpecterOS",
-    avatar: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    specialties: ["OSINT", "GEOINT", "SOCMINT", "Metadata"],
-    bio: "Finds the needle in the haystack from satellite imagery, sun shadows, metadata remnants, and public infrastructure leaks."
+    id: "slot-osint",
+    role: "OSINT & Intelligence Lead",
+    category: "OSINT",
+    status: "OPEN",
+    requiredSkills: ["Geolocation", "SOCMINT", "Metadata", "Reconnaissance"],
+    focusDescription: "Pinpoint precise coordinates from minimal imagery, trace threat actors, and map obscure infrastructure clues."
   }
 ];
 
 /**
- * ACHIEVEMENTS & CTF TIMELINE
- * Placeholder records that can easily be updated with live tournament results.
+ * 2026 COMPETITIVE ROADMAP & UPCOMING TARGETS
+ * Reflects genuine forward-looking tournament goals for the team.
  */
-export const ACHIEVEMENTS: Achievement[] = [
+export const ROADMAP_TARGETS: RoadmapTarget[] = [
   {
-    id: "ach-1",
-    ctfName: "Hack The Box Cyber Apocalypse 2025",
-    date: "March 2025",
-    eventType: "Global HTB CTF",
-    result: "Top 8% Global Finish",
-    rankBadge: "#142 / 4,200 Teams",
-    description: "Week-long international jeopardy event with over 70 grueling challenges across Web, Pwn, Crypto, Forensics, and Hardware.",
-    highlights: ["First-blood solve on Forensics memory injection", "Cleared all Crypto challenges including lattice crypto", "100% team participation rate"]
+    id: "target-1",
+    eventName: "HTB University CTF 2026",
+    timeline: "Target: Upcoming Academic Season",
+    category: "University CTF",
+    objective: "Field full squad across Web, Pwn, Crypto, and Forensics to establish team ranking on the global leaderboard.",
+    status: "PREPARING",
+    deliverables: ["Complete core 6-player roster", "Weekly mock CTF scrimmages", "Active Directory lab drills"]
   },
   {
-    id: "ach-2",
-    ctfName: "HTB University CTF: Brains & Bytes",
-    date: "December 2024",
-    eventType: "University CTF",
-    result: "Top 12% Academic Tier",
-    rankBadge: "Tier 1 Solver",
-    description: "Competitive academic CTF featuring advanced Active Directory chains, web cache poisoning, and custom Linux kernel exploitation.",
-    highlights: ["Full clear on Web and Misc categories", "Solved Insane difficulty Pwn challenge with custom heap exploit"]
+    id: "target-2",
+    eventName: "Hack The Box Cyber Apocalypse",
+    timeline: "Target: Annual Global Flagship",
+    category: "Global HTB CTF",
+    objective: "Compete in the largest international jeopardy CTF event with 70+ categories over a continuous 5-day marathon.",
+    status: "UPCOMING",
+    deliverables: ["Category lead rotation schedule", "24/7 War room rotation", "Post-event technical writeups"]
   },
   {
-    id: "ach-3",
-    ctfName: "NahamCon CTF 2024",
-    date: "May 2024",
-    eventType: "Jeopardy",
-    result: "Top 50 Global Placement",
-    rankBadge: "#48 Overall",
-    description: "48-hour continuous CTF featuring creative web challenges, OSINT investigations, mobile application analysis, and scripting.",
-    highlights: ["Solved 28 total challenges", "Rapid 30-minute solve on difficult PyJail escape"]
+    id: "target-3",
+    eventName: "HTB Pro Labs & Fortresses Division",
+    timeline: "Ongoing Weekly Drills",
+    category: "HTB Pro Labs",
+    objective: "Master enterprise penetration testing simulations, multi-tier pivoting, and domain privilege escalation.",
+    status: "SCHEDULED",
+    deliverables: ["Dedicated team VPN sessions", "Internal methodology notes", "Shared attack playbooks"]
   },
   {
-    id: "ach-4",
-    ctfName: "Hack The Box Business CTF (Observer Division)",
-    date: "July 2024",
-    eventType: "Special Event",
-    result: "Honorary Mention Solver",
-    rankBadge: "2,450 Points",
-    description: "Enterprise-focused security scenarios highlighting operational technology, SCADA, cloud posture bypass, and Active Directory persistence.",
-    highlights: ["Demonstrated Cloud IAM privilege escalation bypass", "Drafted 3 comprehensive technical team writeups"]
+    id: "target-4",
+    eventName: "Major Global Open CTFs",
+    timeline: "Bi-Weekly Schedule",
+    category: "Open Jeopardy",
+    objective: "Participate in weekend CTFTime-rated competitions (NahamCon, DEF CON Quals, Google CTF) for continuous hands-on sharpening.",
+    status: "PREPARING",
+    deliverables: ["Weekend challenge triage", "Beginner onboarding buddy system", "Public research writeups"]
   }
 ];
 
 /**
- * CYBERSECURITY WRITEUPS
- * Interactive writeup archive with full details, code samples, and flag format.
+ * TEAM TRAINING MODULES & METHODOLOGY
+ * Real, reproducible technical guides establishing the team's standard of practice.
  */
-export const WRITEUPS: Writeup[] = [
+export const TRAINING_WRITEUPS: TrainingWriteup[] = [
   {
-    id: "wup-1",
-    title: "Quantum Lockout: Breaking Flawed RSA Keys",
+    id: "train-1",
+    title: "Breaking Flawed RSA: Pairwise GCD Factorization",
     category: "Crypto",
     difficulty: "Medium",
-    ctf: "HTB Cyber Apocalypse",
-    date: "2025-03-15",
-    author: "0xCipher",
-    points: 350,
-    shortDescription: "Exploiting shared prime factors and small public exponent leakage in a distributed authentication service.",
-    fullContent: {
-      summary: "In this challenge, the service generated 512-bit RSA keypairs with a flawed pseudo-random generator where multiple instances shared prime 'p'. By computing the greatest common divisor (GCD) against public moduli, we factored 'n' in fractions of a second.",
-      reconnaissance: "We inspected the source code provided in app.py. The key generation routine seeded the PRNG with a 16-bit timestamp that had poor entropy. We collected multiple public moduli from the endpoint /public-keys.",
-      vulnerabilityAnalysis: "Because GCD(n1, n2) returns common prime factor p when keys share primes, we did not need to run expensive integer factorization algorithms like General Number Field Sieve (GNFS). Simple Euclidean algorithm broke the encryption.",
-      exploitationSteps: [
-        "Collected 50 public RSA moduli from the challenge server API",
-        "Calculated pairwise GCD(n_i, n_j) for all collected keys using SageMath",
-        "Extracted prime p = GCD(n1, n2) and computed q = n1 // p",
-        "Calculated private exponent d = pow(e, -1, (p-1)*(q-1))",
-        "Decrypted ciphertext using standard PKCS#1 v1.5 padding unwrapper"
-      ],
-      pocCode: `import math
+    scenario: "Cryptographic Service Key Generation Analysis",
+    vulnerabilityClass: "PRNG Seed Entropy Depletion & Prime Factor Sharing",
+    summary: "When multiple RSA keypairs share a common prime factor p due to insufficient PRNG entropy, the secret key can be derived instantly without factoring n, using the Euclidean Greatest Common Divisor (GCD).",
+    methodologySteps: [
+      "Harvest candidate public keys (n, e) from service endpoints",
+      "Compute pairwise GCD(n_i, n_j) for all combinations using SageMath or gmpy2",
+      "Isolate prime factor p = GCD(n1, n2) where 1 < p < n1",
+      "Compute complementary prime q = n1 // p and Euler totient phi = (p-1)*(q-1)",
+      "Derive private exponent d = pow(e, -1, phi) to decrypt target payload"
+    ],
+    samplePoc: `import math
 from Crypto.Util.number import long_to_bytes
 
-def solve(n1, n2, e, c1):
+def solve_shared_prime(n1, n2, e, c):
     p = math.gcd(n1, n2)
+    assert p > 1, "No common prime factor found"
     q = n1 // p
     phi = (p - 1) * (q - 1)
     d = pow(e, -1, phi)
-    m = pow(c1, d, n1)
-    return long_to_bytes(m)
-
-# Flag returned: HTB{w34k_prng_sh4r3d_pr1m3s_f41l}
+    plaintext_int = pow(c, d, n1)
+    return long_to_bytes(plaintext_int)
 `,
-      flag: "HTB{w34k_prng_sh4r3d_pr1m3s_f41l}",
-      keyTakeaways: [
-        "Cryptographically secure PRNGs (CSPRNG) must always be used for key generation",
-        "Never allow shared seed state across concurrent microservice instances",
-        "Pairwise GCD testing against historical key databases reveals shared factors instantly"
-      ]
-    }
+    flagFormat: "HTB{...} / Flag derived upon private key reconstruction"
   },
   {
-    id: "wup-2",
-    title: "Ghost in the Cache: Web Cache Deception to Account Takeover",
+    id: "train-2",
+    title: "Web Cache Deception: Edge Delimiter Inconsistencies",
     category: "Web",
     difficulty: "Hard",
-    ctf: "NahamCon CTF",
-    date: "2024-05-20",
-    author: "ByteGhost",
-    points: 450,
-    shortDescription: "Chaining reverse proxy path delimiter discrepancies with Cloudflare edge caching to leak admin session bearer tokens.",
-    fullContent: {
-      summary: "An edge reverse proxy cached all requests ending with static extensions (.css, .js, .png) regardless of the downstream application path resolving to an authenticated REST endpoint /api/user/profile.",
-      reconnaissance: "Target application ran on Next.js behind an NGINX reverse caching proxy. The proxy configuration lacked strict regex boundary matching on static cache directives.",
-      vulnerabilityAnalysis: "By requesting '/api/user/profile/avatar.png', the edge proxy treated the request as a static image and cached the response body for 10 minutes. When the victim admin clicked our crafted link, their private profile JSON (containing their session token and API secret) was stored in the public edge cache.",
-      exploitationSteps: [
-        "Identified cache hit headers: 'CF-Cache-Status: HIT' and 'Age: X'",
-        "Constructed payload URL pointing to sensitive profile endpoint with dummy .png suffix",
-        "Triggered simulated bot admin visit via challenge reporting portal",
-        "Fetched the cached URL without authorization headers to retrieve cached admin payload",
-        "Used stolen admin token to authenticate against /api/admin/flag"
-      ],
-      pocCode: `curl -s -X GET "https://target-ctf.com/api/user/profile/static.css" \\
-  -H "Host: target-ctf.com" \\
-  | jq .secret_flag`,
-      flag: "HTB{c4ch3_d3c3pt10n_3dg3_l34k_pwn3d}",
-      keyTakeaways: [
-        "Ensure CDN and reverse proxy cache rules check Content-Type headers rather than relying solely on file extensions",
-        "Enforce Cache-Control: no-store, private on all sensitive API endpoints"
-      ]
-    }
+    scenario: "Reverse Proxy & Application Server Discrepancy",
+    vulnerabilityClass: "Path Delimiter Confusion & Insecure Cache-Control",
+    summary: "Exploiting discrepancies between how an edge CDN parses URL extensions (.css, .png) and how the origin application routes dynamic API requests to leak authenticated user profile tokens.",
+    methodologySteps: [
+      "Identify reverse proxy caching rules for static resources",
+      "Test origin path normalization: /api/v1/user/settings/nonexistent.png",
+      "Observe if the edge caches the 200 response with private JSON body",
+      "Induce victim interaction via CSRF / open redirect to prime edge cache",
+      "Fetch cached response anonymously from public CDN edge to retrieve session bearer"
+    ],
+    samplePoc: `curl -i -s "https://target-lab.htb/api/user/private/asset.css" \\
+  -H "Host: target-lab.htb" \\
+  | grep -i -E "(x-cache|cf-cache-status|token|secret)"
+`,
+    flagFormat: "HTB{c4ch3_d3c3pt10n_3dg3_l34k}"
   },
   {
-    id: "wup-3",
-    title: "Echo Chamber: Modern Heap Tcache Poisoning",
+    id: "train-3",
+    title: "GLIBC 2.35+ Tcache Poisoning & Safe Linking Bypass",
     category: "Pwn",
     difficulty: "Insane",
-    ctf: "HTB Brains & Bytes",
-    date: "2024-12-14",
-    author: "NullPointer",
-    points: 500,
-    shortDescription: "Exploiting Use-After-Free (UAF) in GLIBC 2.35 tcache safe-linking to overwrite __malloc_hook / exit handlers.",
-    fullContent: {
-      summary: "A 64-bit ELF binary permitted users to allocate, edit, and delete notes without clearing pointers. We defeated GLIBC 2.35 pointer mangling (safe-linking) and forced malloc to return an arbitrary pointer.",
-      reconnaissance: "Checksec revealed Full RELRO, Canary found, NX enabled, PIE enabled. The binary ran on Ubuntu 22.04 with GLIBC 2.35.",
-      vulnerabilityAnalysis: "In GLIBC 2.35, tcache next pointers are protected with safe linking: L = (P >> 12) ^ Target. By leaking heap base through a dangling pointer, we unscrambled the safe-linking mask and poisoned tcache entry.",
-      exploitationSteps: [
-        "Allocated 8 chunks to bypass tcache and populate unsorted bin to leak libc base",
-        "Freed a chunk into tcache and read its contents to leak heap ASLR base",
-        "Used dangling pointer write to craft mangled pointer pointing to target writable address",
-        "Triggered two consecutive malloc calls to hijack execution flow and spawn /bin/sh"
-      ],
-      pocCode: `from pwn import *
-# GLIBC 2.35 Safe Linking Bypass
-def protect(target, pos):
-    return (pos >> 12) ^ target
+    scenario: "64-Bit ELF Heap Memory Corruption",
+    vulnerabilityClass: "Use-After-Free (UAF) & Pointer Mangling Reversal",
+    summary: "Modern GLIBC introduces pointer protection for tcache next pointers (L = (P >> 12) ^ Target). By leaking the heap ASLR base, operators unscramble the mask to achieve arbitrary write primitives.",
+    methodologySteps: [
+      "Trigger Use-After-Free to place dangling chunk in tcache bin",
+      "Read freed chunk payload to leak mangled pointer and derive heap base",
+      "Calculate unmask: address ^ (address >> 12) to reveal target pointer",
+      "Poison tcache forward pointer with desired target memory destination",
+      "Perform double malloc allocation to receive arbitrary target chunk"
+    ],
+    samplePoc: `# GLIBC 2.35+ Safe-Linking helper
+def mangle(pos, ptr):
+    return (pos >> 12) ^ ptr
 
-# Exploit script sends payload and interacts with spawned shell
-log.success("Spawned shell! Flag extracted.")
+def demangle(val):
+    mask = 0xfff << 52
+    while mask:
+        val ^= (val & mask) >> 12
+        mask >>= 12
+    return val
 `,
-      flag: "HTB{h34p_tc4ch3_p01s0n_gl1bc_2_35_cl34r3d}",
-      keyTakeaways: [
-        "Always set freed pointers to NULL immediately after deallocation",
-        "Understand GLIBC pointer protection mechanisms to build resilient exploit chains"
-      ]
-    }
-  },
-  {
-    id: "wup-4",
-    title: "Shadow in the Wire: Unraveling Encrypted C2 Exfiltration",
-    category: "Forensics",
-    difficulty: "Medium",
-    ctf: "HTB Cyber Apocalypse",
-    date: "2025-03-12",
-    author: "ShadowTrace",
-    points: 300,
-    shortDescription: "Reconstructing Cobalt Strike beacon Malleable C2 communications from a 4GB PCAP capture using custom Lua dissectors.",
-    fullContent: {
-      summary: "Network capture contained thousands of legitimate HTTPS and DNS packets hiding a covert C2 channel. By analyzing connection beaconing intervals and entropy, we uncovered an RC4-encrypted metadata blob hidden in HTTP cookie headers.",
-      reconnaissance: "Imported PCAP into Wireshark and extracted statistical conversations. Filtered for high periodic frequency requests with low jitter.",
-      vulnerabilityAnalysis: "Attacker utilized a static RC4 encryption key embedded in the Cobalt Strike malleable C2 profile. Once the key was recovered from an initial drop payload, we decrypted the entire session history.",
-      exploitationSteps: [
-        "Analyzed inter-arrival packet times to isolate beaconing IP address",
-        "Extracted base64-encoded cookie strings from HTTP GET requests",
-        "Decrypted payloads using recovered RC4 key 'phantom_protocol_2025'",
-        "Carved exfiltrated document containing internal team flag"
-      ],
-      pocCode: `import base64
-from Crypto.Cipher import ARC4
-
-key = b'phantom_protocol_2025'
-encrypted_b64 = "U2FsdGVkX1+...=="
-cipher = ARC4.new(key)
-decrypted = cipher.decrypt(base64.b64decode(encrypted_b64))
-print(decrypted)
-`,
-      flag: "HTB{c2_b34c0n_3xtr4ct3d_fr0m_pws_tr4ff1c}",
-      keyTakeaways: [
-        "Frequency analysis and jitter calculation reveal automated beaconing despite encryption",
-        "Metadata analysis of HTTP headers is critical for identifying covert exfiltration channels"
-      ]
-    }
-  },
-  {
-    id: "wup-5",
-    title: "The Phantom Key: Reversing Stripped Rust Malware",
-    category: "Reverse",
-    difficulty: "Hard",
-    ctf: "HTB Brains & Bytes",
-    date: "2024-12-16",
-    author: "HexVortex",
-    points: 400,
-    shortDescription: "Decompiling a stripped Rust ELF binary featuring anti-disassembly tricks, custom string XOR routines, and thread timing checks.",
-    fullContent: {
-      summary: "A challenge binary compiled with rustc --release with all symbols stripped and inline assembly anti-debugging traps. We restored structure definitions in Ghidra and emulated the decryption routine.",
-      reconnaissance: "File command indicated 64-bit LSB pie executable x86-64, dynamically linked, stripped. Strings showed standard Rust runtime panics.",
-      vulnerabilityAnalysis: "A custom VM routine processed an encrypted array of 32 bytes using a 4-round substitution-permutation network. By hooking execution in QEMU, we dumped intermediate state.",
-      exploitationSteps: [
-        "Identified main entry point through Rust start shim (__rust_begin_short_backtrace)",
-        "Wrote Ghidra script to demangle compiler-generated labels and string slices",
-        "Patched out ptrace PTRACE_TRACEME self-detection check",
-        "Extracted key schedule and inverted S-box table to recover flag input"
-      ],
-      pocCode: `# Ghidra Python Script Extract
-key = [0x5f, 0x3d, 0x12, 0x9a, ...]
-flag = bytes([b ^ key[i % len(key)] for i, b in enumerate(enc)])
-print("Flag:", flag.decode())
-`,
-      flag: "HTB{r3v_rust_str1pp3d_b1n_d3m4ngl3d}",
-      keyTakeaways: [
-        "Rust binaries produce dense assembly; isolating string slices (&str) provides immediate anchors",
-        "Emulation via QEMU or Unicorn engine speeds up complex S-box reverse engineering"
-      ]
-    }
-  },
-  {
-    id: "wup-6",
-    title: "Flight Path: Pinpointing Covert Safehouse via OSINT",
-    category: "OSINT",
-    difficulty: "Easy",
-    ctf: "NahamCon CTF",
-    date: "2024-05-18",
-    author: "SpecterOS",
-    points: 200,
-    shortDescription: "Triangulating an exact rooftop location using flight telemetry contrails, solar shadow angles, and open municipal geospatial data.",
-    fullContent: {
-      summary: "A single uncaptioned photograph taken from an apartment window showed an aircraft contrail, a distinctive church steeple, and morning shadows.",
-      reconnaissance: "Analyzed aircraft heading using FlightRadar24 historical ADS-B replay for the estimated time of day based on SunCalc shadow geometry.",
-      vulnerabilityAnalysis: "Combined visible architectural landmark with ADS-B flight waypoint intersections to narrow candidate coordinates to a single city block.",
-      exploitationSteps: [
-        "Extracted camera focal length and lens specs from stripped EXIF remnants",
-        "Calculated sun azimuth (114.2 deg) and elevation using shadow lengths on nearby lampposts",
-        "Matched aircraft vector with FlightRadar24 flight LH430 descending at 08:42 UTC",
-        "Identified rooftop address via municipal 3D building viewer"
-      ],
-      pocCode: `# Coordinates: 48.137154, 11.576124
-# Format: HTB{lat_lon_landmark}
-HTB{48.1371_11.5761_frauenkirche_munich}
-`,
-      flag: "HTB{48.1371_11.5761_frauenkirche_munich}",
-      keyTakeaways: [
-        "Solar azimuth analysis narrows time of capture to within 10 minutes",
-        "Open ADS-B historical data provides reliable intersection vectors for aerial photography"
-      ]
-    }
+    flagFormat: "HTB{h34p_tc4ch3_p01s0n_cl34r3d}"
   }
 ];
 
-export const TEAM_VALUES = [
+export const FOUNDING_VALUES = [
   {
-    title: "Continuous Learning",
-    description: "Cybersecurity evolves daily. We embrace challenging problems, study post-mortems, and refine our exploitation techniques after every competition.",
-    iconName: "BookOpen"
+    title: "Pure Technical Focus",
+    description: "No corporate fluff or artificial ranks. We care about understanding how systems break, crafting clean exploits, and capturing flags.",
+    iconName: "Terminal"
   },
   {
-    title: "Zero-Ego Collaboration",
-    description: "Flags are captured together. We share screen sessions, cross-pollinate skills across categories, and elevate every member from beginner to veteran.",
-    iconName: "Handshake"
-  },
-  {
-    title: "Ethical Offensive Mindset",
-    description: "We master adversary tradecraft to build resilient defenses. We strictly adhere to ethical hacking standards, rules of engagement, and legal boundaries.",
+    title: "Transparent & Honest",
+    description: "We are a rising team building from day one. We compete with integrity and showcase our real journey on Hack The Box.",
     iconName: "ShieldCheck"
   },
   {
-    title: "Knowledge Dissemination",
-    description: "Every solved challenge produces documentation. We write detailed technical writeups to contribute back to the global cybersecurity community.",
-    iconName: "FileText"
-  }
-];
-
-export const RECRUITMENT_BENEFITS = [
-  {
-    title: "Beginners Welcome",
-    description: "You don't need to be a seasoned hacker to join. Passion, curiosity, and willingness to learn matter more than existing accolades.",
-    iconName: "Sparkles"
-  },
-  {
-    title: "Knowledge Sharing",
-    description: "Access our internal repository of exploit templates, custom tooling, cheat sheets, and recorded practice sessions.",
+    title: "Knowledge Cross-Pollination",
+    description: "Web operators learn memory fundamentals; reverse engineers learn crypto math. We train together so nobody fights alone.",
     iconName: "Share2"
   },
   {
-    title: "Team Collaboration",
-    description: "Live Discord war rooms during competitions, collaborative CTFd tracking, and paired challenge solving.",
-    iconName: "Radio"
-  },
-  {
-    title: "Hack The Box Labs",
-    description: "Coordinated machine clears, fortress engagements, and Pro Labs sessions on our dedicated team roster.",
-    iconName: "Terminal"
+    title: "Open Door for Hungry Minds",
+    description: "Curiosity and consistency beat passive credentials. If you spend your nights on HTB or reading writeups, you belong here.",
+    iconName: "Sparkles"
   }
 ];

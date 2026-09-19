@@ -1,129 +1,36 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 export const CyberBackground: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Particle nodes
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const particleCount = Math.min(Math.floor(width / 22), 65);
-    
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      char?: string;
-    }
-
-    const hexChars = '0123456789ABCDEF!<>_/#';
-    const particles: Particle[] = [];
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.4 + 0.1,
-        char: Math.random() > 0.6 ? hexChars[Math.floor(Math.random() * hexChars.length)] : undefined
-      });
-    }
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Connect particles within distance
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
-
-        if (!isReducedMotion) {
-          p1.x += p1.vx;
-          p1.y += p1.vy;
-
-          if (p1.x < 0) p1.x = width;
-          if (p1.x > width) p1.x = 0;
-          if (p1.y < 0) p1.y = height;
-          if (p1.y > height) p1.y = 0;
-        }
-
-        // Draw particle or hex glyph
-        if (p1.char) {
-          ctx.fillStyle = `rgba(0, 255, 102, ${p1.opacity * 0.6})`;
-          ctx.font = '10px "JetBrains Mono", monospace';
-          ctx.fillText(p1.char, p1.x, p1.y);
-        } else {
-          ctx.beginPath();
-          ctx.arc(p1.x, p1.y, p1.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0, 255, 102, ${p1.opacity})`;
-          ctx.fill();
-        }
-
-        // Draw faint connecting lines
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 255, 102, ${0.12 * (1 - dist / 110)})`;
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-          }
-        }
-      }
-
-      if (!isReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
-    };
-
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* Deep Cyber Radial Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-[#00ff66]/8 via-[#00ff66]/2 to-transparent blur-[120px] -z-10" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#00ff66]/3 blur-[140px] -z-10" />
-      
-      {/* Grid background */}
-      <div className="cyber-grid absolute inset-0 opacity-40" />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#050505]">
+      {/* Subtle radial gradients - professional dark studio lighting */}
+      <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-gradient-to-b from-[#00ff88]/[0.06] via-[#00ff88]/[0.015] to-transparent rounded-full blur-[140px]" />
+      <div className="absolute top-[40%] -right-[15%] w-[600px] h-[600px] bg-[#00ff88]/[0.025] rounded-full blur-[160px]" />
+      <div className="absolute bottom-0 left-[10%] w-[500px] h-[400px] bg-[#00ff88]/[0.02] rounded-full blur-[150px]" />
 
-      {/* Interactive canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 block opacity-75" />
+      {/* Modern precision grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #ffffff 1px, transparent 1px),
+            linear-gradient(to bottom, #ffffff 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px'
+        }}
+      />
 
-      {/* Subtle scanline overlay */}
-      <div className="scanlines absolute inset-0 opacity-20 pointer-events-none" />
+      {/* Subtle dot matrix overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(#00ff88 1px, transparent 1px)',
+          backgroundSize: '24px 24px'
+        }}
+      />
+
+      {/* Faint CRT scanline texture */}
+      <div className="scanlines absolute inset-0 opacity-15 pointer-events-none" />
     </div>
   );
 };
