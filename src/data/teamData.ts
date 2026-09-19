@@ -73,7 +73,7 @@ export const SITE_CONFIG = {
   htbTeamId: "331386",
   githubUrl: "https://github.com/SmitroniX/sudo-unknown",
   discordUrl: "https://discord.gg/sudo-unknown",
-  linkedinUrl: "https://www.linkedin.com/company/sudo-unknown-ctf",
+  linkedinUrl: "https://www.linkedin.com/company/sudo-unknown/",
   contactEmail: "contact@sudounknown.team",
   foundedYear: 2026,
   status: "BUILDING FOUNDING ROSTER",
@@ -221,7 +221,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_Web",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["Burp Suite", "Auth Bypass", "SSRF", "Node/Python/PHP"],
     status: "OPEN",
     description: "Looking for an operator passionate about web vulnerabilities, REST/GraphQL APIs, OAuth2 flaws, and cloud escalation."
@@ -234,7 +234,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_Pwn",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["pwntools", "GDB/GEF", "Heap Exploits", "ROP Chains"],
     status: "OPEN",
     description: "Looking for a low-level hacker to lead memory corruption vectors, ELF debugging, ROP construction, and allocator exploits."
@@ -247,7 +247,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_Crypto",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["SageMath", "Python", "RSA/ECC", "Lattice Math"],
     status: "OPEN",
     description: "Looking for a math-minded solver to break custom ciphers, weak PRNGs, lattice reductions, and flawed RSA implementations."
@@ -260,7 +260,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_DFIR",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["Volatility 3", "Wireshark", "Memory Dumps", "PCAP Analysis"],
     status: "OPEN",
     description: "Looking for an analyst skilled in carving network captures, analyzing process memory injections, and disk artifact recovery."
@@ -273,7 +273,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_Reverse",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["Ghidra", "IDA", "x86/x64 Assembly", "Decompilation"],
     status: "OPEN",
     description: "Looking for an operator who loves dissecting stripped binaries, custom VM bytecode, packed executables, and firmware."
@@ -286,7 +286,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     htbUsername: "Candidate_OSINT",
     htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
     github: "https://github.com/SmitroniX/sudo-unknown",
-    linkedin: "https://www.linkedin.com/company/sudo-unknown-ctf",
+    linkedin: "https://www.linkedin.com/company/sudo-unknown/",
     skills: ["Geolocation", "SOCMINT", "Metadata Carving", "Recon"],
     status: "OPEN",
     description: "Looking for an investigator capable of pinpointing satellite coordinates, tracking digital footprints, and OSINT recon."

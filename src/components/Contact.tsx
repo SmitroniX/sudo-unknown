@@ -53,12 +53,14 @@ export const Contact: React.FC = () => {
     {
       id: 'linkedin',
       name: 'LinkedIn Network',
-      handle: 'sudo-unknown-ctf',
+      handle: 'company/sudo-unknown',
       description: 'Professional networking, announcements, and team milestones.',
       url: SITE_CONFIG.linkedinUrl,
       icon: Linkedin,
       actionText: 'Connect on LinkedIn',
-      isExternal: true
+      isExternal: true,
+      canCopy: true,
+      copyValue: SITE_CONFIG.linkedinUrl
     },
     {
       id: 'email',
