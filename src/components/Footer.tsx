@@ -1,6 +1,7 @@
 import React from 'react';
 import { Terminal, ArrowUp, Github, Linkedin, MessageSquare } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
+import { BrandedTitle } from './BrandedTitle';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -21,9 +22,7 @@ export const Footer: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-mono text-2xl font-bold text-white tracking-tight">
-                sudo <span className="text-[#00ff88]">Unknown</span>
-              </span>
+              <BrandedTitle size="lg" showCrown={true} />
             </div>
 
             <p className="font-mono text-sm text-gray-200">

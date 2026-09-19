@@ -119,3 +119,16 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Branded Cyber Graffiti & Tech Fonts */
+.font-brush {
+  font-family: 'Permanent Marker', 'Sedgwick Ave Display', cursive, sans-serif;
+}
+
+.font-glitch {
+  font-family: 'Rubik Glitch', monospace, sans-serif;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', monospace, sans-serif;
+}

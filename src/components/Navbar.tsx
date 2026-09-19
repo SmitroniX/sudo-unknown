@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, Menu, X, ExternalLink, Sparkles } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
+import { BrandedTitle } from './BrandedTitle';
 
 interface NavbarProps {
   onOpenTerminal?: () => void;
@@ -55,9 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-[#00ff88] transition-colors">
-                sudo <span className="text-[#00ff88]">Unknown</span>
-              </span>
+              <BrandedTitle size="sm" showCrown={true} />
               <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30">
                 HTB CTF
               </span>
