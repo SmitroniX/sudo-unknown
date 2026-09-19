@@ -72,7 +72,7 @@ export const SITE_CONFIG = {
   htbTeamUrl: "https://ctf.hackthebox.com/team/overview/331386",
   htbTeamId: "331386",
   githubUrl: "https://github.com/SmitroniX/sudo-unknown",
-  discordUrl: "https://discord.gg/sudo-unknown",
+  discordUrl: "https://discord.gg/HgD6WGUr4G",
   siteUrl: "https://sudounknown.smitronix.dev",
   linkedinUrl: "https://www.linkedin.com/company/sudo-unknown/",
   contactEmail: "sudounknown@smitronix.dev",

@@ -41,14 +41,14 @@ export const Contact: React.FC = () => {
     {
       id: 'discord',
       name: 'Discord Community',
-      handle: 'discord.gg/sudo-unknown',
+      handle: 'discord.gg/HgD6WGUr4G',
       description: 'Active war rooms, machine practice, and strategy discussion.',
       url: SITE_CONFIG.discordUrl,
       icon: MessageSquare,
       actionText: 'Join Discord',
       isExternal: true,
       canCopy: true,
-      copyValue: 'https://discord.gg/sudo-unknown'
+      copyValue: SITE_CONFIG.discordUrl
     },
     {
       id: 'linkedin',
