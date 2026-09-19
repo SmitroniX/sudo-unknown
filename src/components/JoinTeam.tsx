@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Share2, Radio, Terminal, ExternalLink, CheckCircle2, X } from 'lucide-react';
+import { Sparkles, Share2, Radio, Terminal, ExternalLink, CheckCircle2, X, ShieldCheck } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 
 interface JoinTeamProps {
@@ -247,14 +247,26 @@ export const JoinTeam: React.FC<JoinTeamProps> = ({
                     />
                   </div>
 
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-3 rounded-lg bg-[#00ff88] text-black font-bold font-mono hover:bg-[#22ff99] transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]"
-                    >
-                      Transmit Application
-                    </button>
-                  </div>
+                    {/* Cloudflare Turnstile Auto-Detection */}
+                    <div className="p-3 rounded-xl bg-[#0e1318] border border-white/[0.08] flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <ShieldCheck className="w-4 h-4 text-[#00ff88]" />
+                        <span className="text-[11px] font-mono">Cloudflare Turnstile Auto-Detect</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/20 font-mono text-[10px] font-bold">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
+                        <span>HUMAN VERIFIED</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        className="w-full py-3 rounded-lg bg-[#00ff88] text-black font-bold font-mono hover:bg-[#22ff99] transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]"
+                      >
+                        Transmit Application
+                      </button>
+                    </div>
                 </form>
               )}
             </div>
