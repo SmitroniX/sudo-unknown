@@ -132,3 +132,41 @@
 .font-orbitron {
   font-family: 'Orbitron', monospace, sans-serif;
 }
+
+/* Cyber Banner & Dynamic Typography Animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4.5s ease-in-out infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: terminalBlink 1s infinite;
+}
+
+.cyber-brush-title {
+  text-shadow: 
+    0 0 10px rgba(0, 255, 136, 0.9),
+    0 0 30px rgba(0, 255, 136, 0.6),
+    0 0 60px rgba(0, 255, 136, 0.35);
+}
+
+.cyber-stencil-sudo {
+  letter-spacing: -0.02em;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(255, 255, 255, 0.35);
+}
+

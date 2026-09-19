@@ -29,7 +29,10 @@ export default {
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'Consolas', '"Courier New"', 'monospace'],
-        sans: ['"Inter"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+        sans: ['"Inter"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        brush: ['"Permanent Marker"', 'cursive'],
+        glitch: ['"Rubik Glitch"', 'monospace'],
+        display: ['"Orbitron"', 'sans-serif']
       },
       keyframes: {
         glitch: {
