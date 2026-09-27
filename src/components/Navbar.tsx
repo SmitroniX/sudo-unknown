@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Menu, X, ExternalLink, Sparkles } from 'lucide-react';
+import { Terminal, Menu, X, ExternalLink, Sparkles, Linkedin } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 import { BrandedTitle } from './BrandedTitle';
 
@@ -21,12 +21,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
   const navLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Stats', href: '#stats' },
+    { name: 'Solutions', href: '#solutions' },
     { name: 'Categories', href: '#skills' },
-    { name: 'Team', href: '#team' },
-    { name: 'Hack The Box', href: '#htb' },
-    { name: 'Achievements', href: '#achievements' },
     { name: 'Writeups', href: '#writeups' },
+    { name: 'Team', href: '#team' },
+    { name: 'HTB Hub', href: '#htb' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Stats', href: '#stats' },
     { name: 'Join Us', href: '#join' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -58,11 +59,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             <div className="flex items-center gap-2">
               <BrandedTitle size="sm" showCrown={true} />
               <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30">
-                HTB CTF
+                COMPANY &amp; LAB
               </span>
             </div>
             <span className="font-mono text-[10px] text-gray-400 hidden sm:block tracking-wider">
-              TEAM #331386 // FOUNDING ROSTER
+              CYBERSECURITY RESEARCH &amp; CTF
             </span>
           </div>
         </a>
@@ -81,7 +82,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
         </nav>
 
         {/* Status Badge & Actions */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2.5">
+          {/* LinkedIn Company Page */}
+          <a
+            href={SITE_CONFIG.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0077b5]/15 border border-[#0077b5]/30 hover:border-[#0077b5] text-xs font-mono text-gray-200 hover:text-white transition-all shadow-[0_0_10px_rgba(0,119,181,0.15)]"
+            title="sudo Unknown LinkedIn Company Page"
+          >
+            <Linkedin className="w-3.5 h-3.5 text-[#0077b5]" />
+            <span className="text-[11px] font-semibold">LinkedIn</span>
+          </a>
+
           {/* HTB Status Badge */}
           <a
             href={SITE_CONFIG.htbTeamUrl}

@@ -1,0 +1,21 @@
+{
+  "name": "sudo Unknown - Cybersecurity & CTF Collective",
+  "short_name": "sudo Unknown",
+  "description": "Premier cybersecurity research company, penetration testing solutions, and competitive CTF collective.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

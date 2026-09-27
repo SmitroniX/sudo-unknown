@@ -73,11 +73,11 @@ export const CyberTitleGraphic: React.FC<CyberTitleGraphicProps> = ({
         <div className="absolute -bottom-2 right-1/4 w-2 h-3.5 bg-[#00ff88] rounded-full opacity-70 blur-[0.5px]" />
       </div>
 
-      {/* Tactical Hack The Box Subtitle Divider */}
-      <div className="flex items-center justify-center gap-3 sm:gap-5 pt-3 sm:pt-4 w-full max-w-md">
+      {/* Tactical Subtitle Divider */}
+      <div className="flex items-center justify-center gap-3 sm:gap-5 pt-3 sm:pt-4 w-full max-w-lg">
         <span className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent to-[#00ff88]/60" />
-        <span className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-gray-300 font-bold drop-shadow-[0_0_10px_rgba(0,255,136,0.4)]">
-          HACK THE BOX
+        <span className="font-mono text-xs sm:text-sm tracking-[0.22em] uppercase text-gray-200 font-bold drop-shadow-[0_0_10px_rgba(0,255,136,0.5)]">
+          CYBERSECURITY &amp; CTF COLLECTIVE
         </span>
         <span className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent to-[#00ff88]/60" />
       </div>

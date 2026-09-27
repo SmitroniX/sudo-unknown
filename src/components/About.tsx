@@ -19,13 +19,13 @@ export const About: React.FC = () => {
         <div className="max-w-3xl mb-16">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff88] uppercase tracking-wider mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88]" />
-            <span>// TEAM PROFILE</span>
+            <span>// COMPANY PROFILE &amp; RESEARCH COLLECTIVE</span>
           </div>
           <h2 className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight">
             Who Are We?
           </h2>
           <p className="mt-5 text-base sm:text-lg text-gray-200 font-sans leading-relaxed border-l-2 border-[#00ff88] pl-4 bg-[#0a0d10]/60 py-3 rounded-r-lg">
-            &ldquo;sudo Unknown is a cybersecurity Capture The Flag team focused on hands-on learning, problem solving, collaboration, and continuous improvement through Hack The Box and cybersecurity challenges.&rdquo;
+            &ldquo;sudo Unknown is a cybersecurity research company, security consultancy, and elite Capture The Flag collective. We bridge cutting-edge offensive security research and enterprise penetration testing with high-stakes competitive CTF mastery across Hack The Box and global arenas.&rdquo;
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export const About: React.FC = () => {
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  charter.sh
+                  company.sh
                 </button>
                 <button
                   onClick={() => setActiveDoc('pillars')}
@@ -93,7 +93,7 @@ export const About: React.FC = () => {
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  ethos.json
+                  divisions.json
                 </button>
                 <button
                   onClick={() => setActiveDoc('stack')}
@@ -103,7 +103,7 @@ export const About: React.FC = () => {
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  regimen.yml
+                  governance.yml
                 </button>
               </div>
             </div>
@@ -113,11 +113,16 @@ export const About: React.FC = () => {
               {activeDoc === 'charter' && (
                 <div className="space-y-3">
                   <div className="text-gray-500">#!/usr/bin/env bash</div>
-                  <div className="text-gray-500"># sudo Unknown Official Founding Charter</div>
+                  <div className="text-gray-500"># sudo Unknown - Enterprise Security &amp; CTF Collective</div>
                   <div>
                     <span className="text-purple-400">export</span>{' '}
-                    <span className="text-blue-400">TEAM_HANDLE</span>=
+                    <span className="text-blue-400">COMPANY_NAME</span>=
                     <span className="text-[#00ff88]">&quot;sudo Unknown&quot;</span>
+                  </div>
+                  <div>
+                    <span className="text-purple-400">export</span>{' '}
+                    <span className="text-blue-400">ORGANIZATION_TYPE</span>=
+                    <span className="text-[#00ff88]">&quot;Cybersecurity Research Lab &amp; Solutions&quot;</span>
                   </div>
                   <div>
                     <span className="text-purple-400">export</span>{' '}
@@ -126,21 +131,21 @@ export const About: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-purple-400">export</span>{' '}
-                    <span className="text-blue-400">CORE_TAGLINE</span>=
-                    <span className="text-[#00ff88]">&quot;Permission Granted. Identity Unknown.&quot;</span>
+                    <span className="text-blue-400">LINKEDIN_PAGE</span>=
+                    <span className="text-[#00ff88]">&quot;https://www.linkedin.com/company/sudo-unknown/&quot;</span>
                   </div>
                   <div className="text-yellow-400 pt-2">
-                    function launch_squad() &#123;
+                    function execute_operations() &#123;
                   </div>
                   <div className="pl-4 space-y-1 text-gray-300">
-                    <div>echo <span className="text-[#00ff88]">&quot;[1] Assemble hungry founding operators&quot;</span></div>
-                    <div>echo <span className="text-[#00ff88]">&quot;[2] Compete in Hack The Box 2026 tournaments&quot;</span></div>
-                    <div>echo <span className="text-[#00ff88]">&quot;[3] Publish reproducible exploit writeups&quot;</span></div>
-                    <div>echo <span className="text-[#00ff88]">&quot;[4] No ego, no limits, just flags&quot;</span></div>
+                    <div>echo <span className="text-[#00ff88]">&quot;[1] Enterprise Red Teaming &amp; Penetration Testing&quot;</span></div>
+                    <div>echo <span className="text-[#00ff88]">&quot;[2] Vulnerability Research, 0-Day &amp; Binary Audits&quot;</span></div>
+                    <div>echo <span className="text-[#00ff88]">&quot;[3] Custom CTF Design &amp; Cyber Warfare Ranges&quot;</span></div>
+                    <div>echo <span className="text-[#00ff88]">&quot;[4] Competitive Hack The Box Tournament Operations&quot;</span></div>
                   </div>
                   <div className="text-yellow-400">&#125;</div>
                   <div className="pt-2 text-[#00ff88]">
-                    $&gt; launch_squad <span className="text-gray-500 text-[10px]"># STATUS: IN_PROGRESS</span>
+                    $&gt; execute_operations <span className="text-gray-500 text-[10px]"># STATUS: OPERATIONAL</span>
                   </div>
                 </div>
               )}
@@ -148,26 +153,30 @@ export const About: React.FC = () => {
               {activeDoc === 'pillars' && (
                 <div className="space-y-1 text-gray-300">
                   <div className="text-gray-500">&#123;</div>
-                  <div className="pl-4"><span className="text-blue-400">&quot;team_status&quot;</span>: <span className="text-[#00ff88]">&quot;Brand New // Founding Cohort&quot;</span>,</div>
-                  <div className="pl-4"><span className="text-blue-400">&quot;motto_primary&quot;</span>: <span className="text-[#00ff88]">&quot;No identity. No limits. Just flags.&quot;</span>,</div>
-                  <div className="pl-4"><span className="text-blue-400">&quot;motto_secondary&quot;</span>: <span className="text-[#00ff88]">&quot;Exploit. Analyze. Capture. Repeat.&quot;</span>,</div>
-                  <div className="pl-4"><span className="text-blue-400">&quot;ethical_bounds&quot;</span>: <span className="text-blue-300">&quot;Strict compliance with competition scopes&quot;</span>,</div>
-                  <div className="pl-4"><span className="text-blue-400">&quot;beginner_friendly&quot;</span>: <span className="text-yellow-400">true</span></div>
+                  <div className="pl-4"><span className="text-blue-400">&quot;organization&quot;</span>: <span className="text-[#00ff88]">&quot;sudo Unknown&quot;</span>,</div>
+                  <div className="pl-4"><span className="text-blue-400">&quot;divisions&quot;</span>: [</div>
+                  <div className="pl-8"><span className="text-yellow-400">&quot;Offensive Security &amp; Penetration Testing&quot;</span>,</div>
+                  <div className="pl-8"><span className="text-yellow-400">&quot;Vulnerability Research &amp; Reverse Engineering&quot;</span>,</div>
+                  <div className="pl-8"><span className="text-yellow-400">&quot;Custom CTF Architecture &amp; Challenge Lab Design&quot;</span>,</div>
+                  <div className="pl-8"><span className="text-yellow-400">&quot;Hack The Box Competitive Squad (#331386)&quot;</span></div>
+                  <div className="pl-4">],</div>
+                  <div className="pl-4"><span className="text-blue-400">&quot;engagement_scope&quot;</span>: <span className="text-blue-300">&quot;Global Corporate &amp; Academic Partnerships&quot;</span>,</div>
+                  <div className="pl-4"><span className="text-blue-400">&quot;founding_year&quot;</span>: <span className="text-yellow-400">2026</span></div>
                   <div className="text-gray-500">&#125;</div>
                 </div>
               )}
 
               {activeDoc === 'stack' && (
                 <div className="space-y-1 text-gray-300">
-                  <div className="text-gray-500"># Weekly Team Practice Regimen</div>
-                  <div><span className="text-purple-400">season</span>: <span className="text-yellow-400">2026</span></div>
-                  <div><span className="text-blue-400">weekly_routines</span>:</div>
-                  <div className="pl-4"><span className="text-yellow-400">saturday_lab_clears</span>:</div>
-                  <div className="pl-8 text-gray-400">- 2x Active HTB Machines (Linux + Windows)</div>
-                  <div className="pl-4"><span className="text-yellow-400">midweek_challenge_drill</span>:</div>
-                  <div className="pl-8 text-gray-400">- Alternating Pwn / Crypto / Reverse modules</div>
-                  <div className="pl-4"><span className="text-yellow-400">tournament_weekends</span>:</div>
-                  <div className="pl-8 text-gray-400">- Live Discord voice war rooms &amp; screen shares</div>
+                  <div className="text-gray-500"># Security Governance &amp; Operating Standards</div>
+                  <div><span className="text-purple-400">compliance_standard</span>: <span className="text-yellow-400">PTES_OWASP_NIST</span></div>
+                  <div><span className="text-blue-400">core_principles</span>:</div>
+                  <div className="pl-4"><span className="text-yellow-400">responsible_disclosure</span>:</div>
+                  <div className="pl-8 text-gray-400">- 90-day coordinated vulnerability disclosure standard</div>
+                  <div className="pl-4"><span className="text-yellow-400">client_confidentiality</span>:</div>
+                  <div className="pl-8 text-gray-400">- Strict NDA &amp; end-to-end encrypted assessment telemetry</div>
+                  <div className="pl-4"><span className="text-yellow-400">ctf_integrity</span>:</div>
+                  <div className="pl-8 text-gray-400">- Zero tolerance for flag sharing / clean competitive play</div>
                 </div>
               )}
             </div>

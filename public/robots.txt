@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sudounknown.smitronix.dev
+
+# Sitemaps
+Sitemap: https://sudounknown.smitronix.dev/sitemap.xml

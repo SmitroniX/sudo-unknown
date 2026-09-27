@@ -64,9 +64,23 @@ export interface Writeup {
   };
 }
 
+export interface CompanySolution {
+  id: string;
+  title: string;
+  badge: string;
+  shortDesc: string;
+  features: string[];
+  deliverables: string[];
+  iconName: string;
+  accentColor: string;
+}
+
 export const SITE_CONFIG = {
   teamName: "sudo Unknown",
+  companyName: "sudo Unknown",
+  companyType: "Cybersecurity Research Lab & Security Solutions",
   tagline: "Permission Granted. Identity Unknown.",
+  subTagline: "Offensive Security Research • Security Consulting • Competitive CTF Collective",
   mantra1: "NO IDENTITY. NO LIMITS. JUST FLAGS.",
   mantra2: "EXPLOIT • ANALYZE • CAPTURE • REPEAT",
   htbTeamUrl: "https://ctf.hackthebox.com/team/overview/331386",
@@ -77,9 +91,72 @@ export const SITE_CONFIG = {
   linkedinUrl: "https://www.linkedin.com/company/sudo-unknown/",
   contactEmail: "sudounknown@smitronix.dev",
   foundedYear: 2026,
-  status: "BUILDING FOUNDING ROSTER",
-  headquarters: "Decentralized // Global HTB Network",
+  status: "ACTIVE COMPANY & FOUNDING ROSTER",
+  headquarters: "Decentralized // Global Security Collective",
 };
+
+export const COMPANY_SOLUTIONS: CompanySolution[] = [
+  {
+    id: "pentest",
+    title: "Offensive Security & Red Teaming",
+    badge: "ENTERPRISE ASSESSMENTS",
+    shortDesc: "Real-world adversary simulation across web applications, external/internal networks, APIs, and cloud infrastructure.",
+    features: [
+      "Full-scope black-box & grey-box penetration testing",
+      "Cloud architecture & container escape audits (AWS, Azure, GCP)",
+      "API & microservices logic vulnerability discovery",
+      "Active Directory & lateral movement compromise mapping"
+    ],
+    deliverables: ["Executive Summary Report", "Technical Remediation Playbook", "CVSS v4.0 Risk Matrix", "Debrief & Retesting Session"],
+    iconName: "ShieldAlert",
+    accentColor: "#00ff88"
+  },
+  {
+    id: "vuln-research",
+    title: "Vulnerability Research & Code Audit",
+    badge: "DEEP TECHNICAL AUDITING",
+    shortDesc: "Comprehensive binary reverse engineering, memory corruption analysis, protocol auditing, and smart contract security reviews.",
+    features: [
+      "Static & dynamic binary analysis (x86/x64, ARM, MIPS)",
+      "Source code review for logic flaws and memory unsafety",
+      "Cryptographic implementation & algorithm verification",
+      "0-day vulnerability hunting and responsible disclosure"
+    ],
+    deliverables: ["PoC Exploit Reproductions", "Patch Recommendations", "Root-Cause Architecture Analysis"],
+    iconName: "SearchCode",
+    accentColor: "#00f0ff"
+  },
+  {
+    id: "ctf-engineering",
+    title: "Custom CTF & Cyber Range Design",
+    badge: "CHALLENGE DEVELOPMENT",
+    shortDesc: "Turnkey Capture The Flag competitions, vulnerable-by-design machines, and custom cyber warfare ranges for events and organizations.",
+    features: [
+      "Bespoke Jeopardy & Attack/Defense challenge authoring",
+      "Dockerized vulnerable machines & infrastructure deployment",
+      "Dynamic scoring engines, hints & flag validation",
+      "Post-competition analytics, telemetry & writeup handbooks"
+    ],
+    deliverables: ["Fully Containerized Labs", "Author Solution Guide", "Player Hints & Scoreboard Support"],
+    iconName: "Cpu",
+    accentColor: "#a855f7"
+  },
+  {
+    id: "training",
+    title: "Adversarial Workshops & Mentorship",
+    badge: "SKILL ELEVATION",
+    shortDesc: "Intensive hands-on offensive security bootcamps, Hack The Box training marathons, and defensive team cross-skilling.",
+    features: [
+      "Hands-on labs on Web, Pwn, Crypto, Forensics & Reversing",
+      "Purple teaming: how defenders detect modern attacker tradecraft",
+      "Competitive CTF strategy and speed-solving methodology",
+      "Private Discord war rooms and screen-share coaching"
+    ],
+    deliverables: ["Curated Lab Environments", "Reference Code Repositories", "Certificate of Completion"],
+    iconName: "Terminal",
+    accentColor: "#f59e0b"
+  }
+];
 
 /**
  * EDITABLE CENTRAL STATISTICS

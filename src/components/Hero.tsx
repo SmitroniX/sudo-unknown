@@ -13,7 +13,8 @@ import {
   MessageSquare,
   Sparkles,
   ShieldAlert,
-  Layers
+  Layers,
+  Linkedin
 } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 import { CyberTitleGraphic } from './CyberTitleGraphic';
@@ -99,10 +100,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
     switch (clean) {
       case 'help':
-        out = 'Commands: whoami, sudo access, cat flag.txt, htb, roster, mission, clear';
+        out = 'Commands: whoami, sudo access, company, services, linkedin, cat flag.txt, htb, roster, mission, clear';
         break;
       case 'whoami':
         out = 'unknown // Identity protected // Founding candidate';
+        isSuccess = true;
+        break;
+      case 'company':
+      case 'services':
+      case 'solutions':
+        out = 'sudo Unknown: Enterprise Red Teaming, Penetration Testing, 0-Day Vulnerability Research, Custom CTF Engineering & Threat Intel.';
+        isSuccess = true;
+        break;
+      case 'linkedin':
+        out = 'Opening official LinkedIn company page...';
+        window.open(SITE_CONFIG.linkedinUrl, '_blank');
         isSuccess = true;
         break;
       case 'sudo access':
@@ -122,7 +134,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
         out = 'Status: Recruiting founding cohort (Web, Pwn, Crypto, Forensics, Reverse, OSINT)';
         break;
       case 'mission':
-        out = 'Permission Granted. Identity Unknown. Pure technical focus, no ego, just flags.';
+        out = 'Permission Granted. Identity Unknown. Offensive tradecraft, research excellence, no ego, just flags.';
         isSuccess = true;
         break;
       case 'clear':
@@ -152,30 +164,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10 space-y-6">
-        {/* ── TOP HUD TELEMETRY BAR (From Reference Banner) ── */}
+        {/* ── TOP HUD TELEMETRY BAR (Company & Research Telemetry) ── */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-2 rounded-xl bg-[#090c0f]/80 border border-white/[0.06] backdrop-blur-md font-mono text-[11px] text-gray-400">
           <div className="flex items-center gap-3">
             <span className="text-gray-600">[</span>
             <div className="flex items-center gap-1.5 text-white font-bold tracking-wider">
-              {/* HTB Cube Icon */}
-              <svg className="w-3.5 h-3.5 text-[#00ff88]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.2l7.5 3.75-3.5 1.75L8.5 6 12 4.2zM4 8.5l7 3.5v7l-7-3.5v-7zm16 7l-7 3.5v-7l7-3.5v7z"/>
-              </svg>
-              <span>HACK THE BOX</span>
+              {/* Shield Icon */}
+              <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
+              <span>sudo Unknown</span>
             </div>
             <span className="text-gray-600">]</span>
-            <span className="text-[#00ff88] hidden md:inline">LEARN / HACK / PLAY / GROW</span>
+            <span className="text-[#00ff88] hidden md:inline">CYBERSECURITY COMPANY &amp; CTF RESEARCH LAB</span>
           </div>
 
           <div className="flex items-center gap-2 text-xs">
             <span className="text-gray-600">[</span>
-            <span className="text-gray-300">PEOPLE</span>
+            <a href="#solutions" className="text-gray-300 hover:text-[#00ff88] transition-colors">SERVICES</a>
             <span className="text-gray-600">/</span>
-            <span className="text-gray-300">KNOWLEDGE</span>
+            <a href="#about" className="text-gray-300 hover:text-[#00ff88] transition-colors">RESEARCH</a>
             <span className="text-gray-600">/</span>
-            <span className="text-gray-300">MACHINES</span>
+            <a href="#htb" className="text-gray-300 hover:text-[#00ff88] transition-colors">HTB #331386</a>
             <span className="text-gray-600">/</span>
-            <span className="text-[#00ff88] font-semibold">PROGRESS</span>
+            <a href={SITE_CONFIG.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#00ff88] font-semibold hover:underline">LINKEDIN</a>
             <span className="text-gray-600">]</span>
           </div>
         </div>
@@ -247,15 +257,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             </div>
 
             {/* Brief Description */}
-            <p className="text-sm sm:text-base text-gray-300 max-w-lg leading-relaxed font-sans">
-              Competitive Hack The Box &amp; international CTF squad. Pure technical execution,
-              cooperative problem-solving, and continuous mastery across all disciplines.
+            <p className="text-sm sm:text-base text-gray-300 max-w-xl leading-relaxed font-sans">
+              An elite cybersecurity research company, penetration testing firm, and competitive Hack The Box CTF collective. 
+              We combine adversarial red teaming and zero-day research with championship-tier CTF mastery.
             </p>
 
             {/* ── THE 6 CORE CTF DISCIPLINES (Icons from reference banner) ── */}
             <div className="w-full pt-1">
               <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400 mb-2.5">
-                &gt; CORE CTF SPECIALIZATIONS &lt;
+                &gt; CORE RESEARCH &amp; CTF SPECIALIZATIONS &lt;
               </div>
 
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 w-full max-w-xl mx-auto">
@@ -281,38 +291,58 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
               </div>
             </div>
 
-            {/* ── ACTION BUTTONS (Matching Reference) ── */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full pt-2">
-              {/* Primary Glowing Action: JOIN OUR TEAM */}
+            {/* ── ACTION BUTTONS (Company Services, Team & Community) ── */}
+            <div className="flex flex-wrap items-center justify-center gap-3 w-full pt-2">
+              {/* Primary Glowing Action: EXPLORE SERVICES */}
               <a
-                href="#team"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-[#00ff88] to-[#00dd77] text-black font-mono font-black text-sm tracking-wider hover:from-[#22ff99] hover:to-[#00ff88] transition-all transform hover:-translate-y-0.5 shadow-[0_0_30px_rgba(0,255,136,0.5)] active:scale-95"
+                href="#solutions"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00ff88] to-[#00dd77] text-black font-mono font-black text-xs sm:text-sm tracking-wider hover:from-[#22ff99] hover:to-[#00ff88] transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,255,136,0.4)] active:scale-95"
               >
-                <span>JOIN OUR TEAM</span>
+                <span>EXPLORE SERVICES</span>
                 <ChevronRight className="w-4 h-4 stroke-[3]" />
               </a>
 
-              {/* Secondary Action: Launch Interactive Shell */}
-              {onOpenTerminal && (
-                <button
-                  onClick={onOpenTerminal}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#0b0f14] text-[#00ff88] font-mono font-bold text-sm border border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10 transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,255,136,0.15)]"
-                >
-                  <TerminalIcon className="w-4 h-4" />
-                  <span>LAUNCH SHELL</span>
-                </button>
-              )}
+              {/* Secondary Action: JOIN TEAM */}
+              <a
+                href="#team"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0b0f14] text-[#00ff88] font-mono font-bold text-xs sm:text-sm border border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10 transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+              >
+                <span>JOIN ROSTER</span>
+              </a>
 
-              {/* Discord War Room Link */}
+              {/* LinkedIn Company Page */}
+              <a
+                href={SITE_CONFIG.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0077b5]/15 border border-[#0077b5]/40 hover:bg-[#0077b5]/25 hover:border-[#0077b5] text-white font-mono text-xs sm:text-sm transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,119,181,0.2)]"
+              >
+                <Linkedin className="w-4 h-4 text-[#0077b5]" />
+                <span>LINKEDIN</span>
+              </a>
+
+              {/* Discord War Room */}
               <a
                 href={SITE_CONFIG.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#5865F2]/15 text-white font-mono font-semibold text-sm border border-[#5865F2]/40 hover:bg-[#5865F2]/30 hover:border-[#5865F2] transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(88,101,242,0.2)]"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#5865F2]/15 text-white font-mono font-semibold text-xs sm:text-sm border border-[#5865F2]/40 hover:bg-[#5865F2]/30 hover:border-[#5865F2] transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(88,101,242,0.2)]"
               >
                 <MessageSquare className="w-4 h-4 text-[#5865F2]" />
                 <span>WAR ROOM</span>
               </a>
+
+              {/* Interactive CLI Drawer Toggle */}
+              {onOpenTerminal && (
+                <button
+                  onClick={onOpenTerminal}
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-[#090c0f] border border-white/10 hover:border-white/20 text-gray-300 hover:text-white font-mono text-xs transition-all"
+                  title="Launch Terminal Shell"
+                >
+                  <TerminalIcon className="w-3.5 h-3.5 text-[#00ff88]" />
+                  <span>CLI</span>
+                </button>
+              )}
             </div>
           </div>
 

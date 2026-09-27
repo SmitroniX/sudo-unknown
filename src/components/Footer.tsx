@@ -34,8 +34,8 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="font-sans text-xs text-gray-400 max-w-md leading-relaxed">
-              Official Hack The Box competitive CTF team (#331386). Focused on hands-on learning,
-              offensive tradecraft, and building a tight-knit community of ethical hackers.
+              Cybersecurity research company, security solutions provider, and competitive Hack The Box CTF collective (#331386). 
+              Offensive tradecraft, enterprise auditing, vulnerability research, and continuous learning.
             </p>
 
             <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-lg bg-[#090c0f] border border-white/[0.06] font-mono text-xs text-gray-400">
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00ff88]"></span>
               </span>
-              <span>HTB DIVISION ACTIVE</span>
+              <span>COMPANY &amp; CTF LAB</span>
               <span className="text-gray-600">|</span>
               <span className="text-[#00ff88]">EST. 2026</span>
             </div>
@@ -55,15 +55,16 @@ export const Footer: React.FC = () => {
               // DIRECTORY
             </div>
             <ul className="space-y-2">
-              <li><a href="#about" className="hover:text-[#00ff88] transition-colors">&gt; Team Profile</a></li>
-              <li><a href="#stats" className="hover:text-[#00ff88] transition-colors">&gt; Verification &amp; Stats</a></li>
+              <li><a href="#about" className="hover:text-[#00ff88] transition-colors">&gt; Company Profile</a></li>
+              <li><a href="#solutions" className="hover:text-[#00ff88] transition-colors text-[#00ff88]">&gt; Security Solutions</a></li>
               <li><a href="#skills" className="hover:text-[#00ff88] transition-colors">&gt; Target Categories</a></li>
+              <li><a href="#writeups" className="hover:text-[#00ff88] transition-colors">&gt; Cybersecurity Writeups</a></li>
               <li><a href="#team" className="hover:text-[#00ff88] transition-colors">&gt; Founding Roster</a></li>
               <li><a href="#htb" className="hover:text-[#00ff88] transition-colors">&gt; Hack The Box Hub</a></li>
+              <li><a href="#stats" className="hover:text-[#00ff88] transition-colors">&gt; Verification &amp; Stats</a></li>
               <li><a href="#achievements" className="hover:text-[#00ff88] transition-colors">&gt; CTF Achievements</a></li>
-              <li><a href="#writeups" className="hover:text-[#00ff88] transition-colors">&gt; Cybersecurity Writeups</a></li>
               <li><a href="#join" className="hover:text-[#00ff88] transition-colors">&gt; Apply for Roster</a></li>
-              <li><a href="#contact" className="hover:text-[#00ff88] transition-colors">&gt; Community &amp; Comms</a></li>
+              <li><a href="#contact" className="hover:text-[#00ff88] transition-colors">&gt; Community &amp; Inquiries</a></li>
             </ul>
           </div>
 

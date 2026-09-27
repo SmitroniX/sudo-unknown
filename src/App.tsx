@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
 import { About } from './components/About';
+import { Solutions } from './components/Solutions';
 import { Skills } from './components/Skills';
 import { Team } from './components/Team';
 import { HackTheBox } from './components/HackTheBox';
@@ -65,6 +66,9 @@ export const App: React.FC = () => {
 
         {/* Who Are We? About Section */}
         <About />
+
+        {/* Company Solutions & Security Capabilities */}
+        <Solutions />
 
         {/* Skills / Categories Section */}
         <Skills />
