@@ -3,106 +3,142 @@ import { CyberBackground } from './components/CyberBackground';
 import { CursorGlow } from './components/CursorGlow';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Stats } from './components/Stats';
-import { About } from './components/About';
-import { Solutions } from './components/Solutions';
-import { Skills } from './components/Skills';
-import { Team } from './components/Team';
-import { HackTheBox } from './components/HackTheBox';
-import { Achievements } from './components/Achievements';
-import { Writeups } from './components/Writeups';
-import { JoinTeam } from './components/JoinTeam';
-import { Contact } from './components/Contact';
+import { WriteupsPage } from './components/WriteupsPage';
+import { OperationsSection } from './components/OperationsSection';
+import { ArsenalSection } from './components/ArsenalSection';
+import { TeamSection } from './components/TeamSection';
+import { AchievementsSection } from './components/AchievementsSection';
+import { JoinContactSection } from './components/JoinContactSection';
 import { Footer } from './components/Footer';
 import { InteractiveTerminal } from './components/InteractiveTerminal';
 
 export const App: React.FC = () => {
   const [terminalOpen, setTerminalOpen] = useState(false);
-  const [selectedRoleForJoin, setSelectedRoleForJoin] = useState('General Operator');
-  const [joinModalOpen, setJoinModalOpen] = useState(false);
+  const [selectedRoleForJoin, setSelectedRoleForJoin] = useState('Web Exploitation Lead');
+  const [activeSection, setActiveSection] = useState('overview');
 
-  const handleApplyRole = (role: string) => {
-    setSelectedRoleForJoin(role);
-    setJoinModalOpen(true);
-    const joinEl = document.getElementById('join');
-    if (joinEl) {
-      joinEl.scrollIntoView({ behavior: 'smooth' });
+  // Handle smooth navigation between sections & URL hash
+  const handleNavigateSection = (sectionId: string) => {
+    setActiveSection(sectionId);
+    window.location.hash = sectionId;
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Global hotkey: press `~` or backtick to toggle cyber CLI
+  // Sync hash on initial load & scroll spy
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      setActiveSection(hash);
+      const el = document.getElementById(hash);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+
+    const handleScroll = () => {
+      const sections = ['overview', 'writeups', 'services', 'arsenal', 'team', 'achievements', 'join'];
+      const scrollPos = window.scrollY + 200;
+
+      for (const sec of sections) {
+        const el = document.getElementById(sec);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(sec);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleApplyRole = (role: string) => {
+    setSelectedRoleForJoin(role);
+    handleNavigateSection('join');
+  };
+
+  // Global hotkey: press `~` or backtick or Ctrl+K / Cmd+K to toggle terminal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setTerminalOpen((prev) => !prev);
+        return;
+      }
+
       if (e.key === '`' || e.key === '~') {
-        // Prevent typing backtick in focused input outside terminal
         if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
           e.preventDefault();
           setTerminalOpen((prev) => !prev);
         }
       }
+
+      if (e.key === 'Escape' && terminalOpen) {
+        setTerminalOpen(false);
+      }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [terminalOpen]);
 
   return (
-    <div className="relative bg-[#050505] text-[#e6edf3] min-h-screen selection:bg-[#00ff66]/30 selection:text-[#00ff66]">
-      {/* Cinematic Cyber Background Canvas & Glows */}
+    <div className="relative bg-[#05070a] text-[#e6edf3] min-h-screen selection:bg-[#00ff88]/30 selection:text-[#00ff88]">
+      {/* 60fps Lightweight Cyber Particle Canvas */}
       <CyberBackground />
 
-      {/* Subtle cursor tracking glow for desktop */}
+      {/* Subtle cursor glow on desktop */}
       <CursorGlow />
 
-      {/* Navigation Bar */}
-      <Navbar onOpenTerminal={() => setTerminalOpen(true)} />
+      {/* Modern Fixed Navbar */}
+      <Navbar
+        activeSection={activeSection}
+        onNavigate={handleNavigateSection}
+        onOpenTerminal={() => setTerminalOpen(true)}
+      />
 
-      {/* Main Content Sections */}
+      {/* Main Page Layout */}
       <main className="relative z-10">
-        {/* Full-screen Hero Section */}
-        <Hero onOpenTerminal={() => setTerminalOpen(true)} />
-
-        {/* Verified Stats Section */}
-        <Stats />
-
-        {/* Who Are We? About Section */}
-        <About />
-
-        {/* Company Solutions & Security Capabilities */}
-        <Solutions />
-
-        {/* Skills / Categories Section */}
-        <Skills />
-
-        {/* Team Members Section */}
-        <Team onSelectRoleForApplication={handleApplyRole} />
-
-        {/* Dedicated Hack The Box Section */}
-        <HackTheBox />
-
-        {/* Achievements / CTF Timeline Section */}
-        <Achievements />
-
-        {/* Cybersecurity Writeups Section */}
-        <Writeups />
-
-        {/* Recruitment & Join Section */}
-        <JoinTeam
-          selectedRole={selectedRoleForJoin}
-          modalOpen={joinModalOpen}
-          onModalChange={setJoinModalOpen}
+        {/* High-Impact Decluttered Hero */}
+        <Hero
+          onOpenTerminal={() => setTerminalOpen(true)}
+          onNavigateSection={handleNavigateSection}
         />
 
-        {/* Community & Contact Channels */}
-        <Contact />
+        {/* Dedicated HTB & CTF Writeups Page & Explorer */}
+        <WriteupsPage />
+
+        {/* All-in-One Operations & Cybersecurity Services */}
+        <OperationsSection />
+
+        {/* Squad Tool Arsenal & Open-Source Repositories */}
+        <ArsenalSection />
+
+        {/* Team Syndicate Roster & Founding Slots */}
+        <TeamSection onSelectRoleForApplication={handleApplyRole} />
+
+        {/* Competitive Achievements & Tournaments */}
+        <AchievementsSection />
+
+        {/* Encrypted Application & Community Channels */}
+        <JoinContactSection selectedRole={selectedRoleForJoin} />
       </main>
 
-      {/* Footer */}
-      <Footer />
+      {/* Modern Streamlined Footer */}
+      <Footer onNavigateSection={handleNavigateSection} />
 
-      {/* Interactive Cyber CLI Drawer / Easter Egg */}
+      {/* Interactive Cyber CLI Shell Drawer */}
       <InteractiveTerminal
         isOpen={terminalOpen}
         onClose={() => setTerminalOpen(false)}
+        onNavigateSection={handleNavigateSection}
       />
     </div>
   );

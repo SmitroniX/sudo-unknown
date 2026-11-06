@@ -1,141 +1,136 @@
 import React from 'react';
-import { Terminal, ArrowUp, Github, Linkedin, MessageSquare } from 'lucide-react';
+import { Terminal, Github, Linkedin, MessageSquare, ArrowUp, Shield } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 import { BrandedTitle } from './BrandedTitle';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigateSection?: (sectionId: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateSection }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navLinks = [
+    { name: 'Overview', id: 'overview' },
+    { name: 'HTB Writeups', id: 'writeups' },
+    { name: 'Services & Ops', id: 'services' },
+    { name: 'Tool Arsenal', id: 'arsenal' },
+    { name: 'Team Syndicate', id: 'team' },
+    { name: 'Achievements', id: 'achievements' },
+    { name: 'Recruitment', id: 'join' }
+  ];
+
+  const handleNav = (id: string, e: React.MouseEvent) => {
+    if (onNavigateSection) {
+      e.preventDefault();
+      onNavigateSection(id);
+    }
+  };
+
   return (
-    <footer className="relative z-10 border-t border-white/[0.08] bg-[#040506] text-gray-400 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.05]">
-          {/* Brand Info */}
-          <div className="md:col-span-6 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-[#00ff88]/40 flex-shrink-0">
-                <img
-                  src="/logo.png"
-                  alt="sudo Unknown Logo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <BrandedTitle size="lg" showCrown={true} />
-            </div>
-
-            <p className="font-mono text-sm text-gray-200">
-              &ldquo;Permission Granted. Identity Unknown.&rdquo;
+    <footer className="relative z-10 bg-[#040608] border-t border-white/[0.08] text-gray-400 font-mono text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/[0.06]">
+          {/* Brand & Manifesto */}
+          <div className="md:col-span-5 space-y-3">
+            <BrandedTitle size="md" showCrown={true} />
+            <p className="font-sans text-xs text-gray-400 max-w-sm leading-relaxed">
+              All-in-One Cybersecurity Collective &amp; Research Syndicate. Dedicated to offensive security mastery, adversary simulation, competitive CTFs, and open-source tooling.
             </p>
-
-            <div className="flex flex-wrap gap-2 text-[11px] font-mono text-gray-500">
-              <span>NO IDENTITY</span> • <span>NO LIMITS</span> • <span>JUST FLAGS</span>
-            </div>
-
-            <p className="font-sans text-xs text-gray-400 max-w-md leading-relaxed">
-              Cybersecurity research company, security solutions provider, and competitive Hack The Box CTF collective (#331386). 
-              Offensive tradecraft, enterprise auditing, vulnerability research, and continuous learning.
-            </p>
-
-            <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-lg bg-[#090c0f] border border-white/[0.06] font-mono text-xs text-gray-400">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00ff88]"></span>
-              </span>
-              <span>COMPANY &amp; CTF LAB</span>
-              <span className="text-gray-600">|</span>
-              <span className="text-[#00ff88]">EST. 2026</span>
+            <div className="flex items-center gap-2 text-[11px] text-[#00ff88]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
+              <span>Permission Granted. Identity Unknown.</span>
             </div>
           </div>
 
-          {/* Navigation Index */}
-          <div className="md:col-span-3 space-y-3 font-mono text-xs">
-            <div className="text-white font-bold tracking-wider uppercase text-xs mb-4">
-              // DIRECTORY
+          {/* Quick Navigation Links */}
+          <div className="md:col-span-4 space-y-2">
+            <span className="text-white font-bold tracking-wider text-[11px] block uppercase">
+              // Navigation Directory
+            </span>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={(e) => handleNav(link.id, e)}
+                  className="hover:text-[#00ff88] transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
-            <ul className="space-y-2">
-              <li><a href="#about" className="hover:text-[#00ff88] transition-colors">&gt; Company Profile</a></li>
-              <li><a href="#solutions" className="hover:text-[#00ff88] transition-colors text-[#00ff88]">&gt; Security Solutions</a></li>
-              <li><a href="#skills" className="hover:text-[#00ff88] transition-colors">&gt; Target Categories</a></li>
-              <li><a href="#writeups" className="hover:text-[#00ff88] transition-colors">&gt; Cybersecurity Writeups</a></li>
-              <li><a href="#team" className="hover:text-[#00ff88] transition-colors">&gt; Founding Roster</a></li>
-              <li><a href="#htb" className="hover:text-[#00ff88] transition-colors">&gt; Hack The Box Hub</a></li>
-              <li><a href="#stats" className="hover:text-[#00ff88] transition-colors">&gt; Verification &amp; Stats</a></li>
-              <li><a href="#achievements" className="hover:text-[#00ff88] transition-colors">&gt; CTF Achievements</a></li>
-              <li><a href="#join" className="hover:text-[#00ff88] transition-colors">&gt; Apply for Roster</a></li>
-              <li><a href="#contact" className="hover:text-[#00ff88] transition-colors">&gt; Community &amp; Inquiries</a></li>
-            </ul>
           </div>
 
-          {/* Social Links */}
-          <div className="md:col-span-3 space-y-3 font-mono text-xs">
-            <div className="text-white font-bold tracking-wider uppercase text-xs mb-4">
-              // NETWORKS
+          {/* Social Channels & Status */}
+          <div className="md:col-span-3 space-y-3">
+            <span className="text-white font-bold tracking-wider text-[11px] block uppercase">
+              // Squad Channels
+            </span>
+            <div className="flex items-center gap-2">
+              <a
+                href={SITE_CONFIG.discordUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#5865F2] hover:text-white border border-white/10 flex items-center justify-center transition-all text-gray-300"
+                title="Discord"
+              >
+                <MessageSquare className="w-4 h-4" />
+              </a>
+              <a
+                href={SITE_CONFIG.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white hover:text-black border border-white/10 flex items-center justify-center transition-all text-gray-300"
+                title="GitHub"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href={SITE_CONFIG.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#0077b5] hover:text-white border border-white/10 flex items-center justify-center transition-all text-gray-300"
+                title="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href={SITE_CONFIG.htbTeamUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#00ff88] hover:text-black border border-white/10 flex items-center justify-center transition-all text-gray-300"
+                title="Hack The Box Squad #331386"
+              >
+                <Terminal className="w-4 h-4" />
+              </a>
             </div>
-            <ul className="space-y-2.5">
-              <li>
-                <a
-                  href={SITE_CONFIG.htbTeamUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-[#00ff88] transition-colors"
-                >
-                  <Terminal className="w-3.5 h-3.5 text-[#00ff88]" />
-                  <span>Hack The Box (#331386)</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SITE_CONFIG.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-[#00ff88] transition-colors"
-                >
-                  <Github className="w-3.5 h-3.5 text-[#00ff88]" />
-                  <span>GitHub Repository</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SITE_CONFIG.discordUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-[#00ff88] transition-colors"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 text-[#00ff88]" />
-                  <span>Discord Community</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SITE_CONFIG.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-[#00ff88] transition-colors"
-                >
-                  <Linkedin className="w-3.5 h-3.5 text-[#00ff88]" />
-                  <span>LinkedIn Page</span>
-                </a>
-              </li>
-            </ul>
+
+            <div className="text-[11px] text-gray-500 pt-1">
+              HTB Official Squad: <span className="text-gray-300 font-bold">#331386</span>
+            </div>
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
-          <div className="text-gray-500 text-center sm:text-left">
-            &copy; 2026 {SITE_CONFIG.teamName}. Permission Granted. Identity Unknown.
+        {/* Bottom Bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+          <div>
+            &copy; {SITE_CONFIG.foundedYear} {SITE_CONFIG.companyName}. All Rights Reserved.
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#090c0f] hover:bg-[#141920] border border-white/[0.08] hover:border-[#00ff88] text-gray-300 hover:text-[#00ff88] transition-all"
-            aria-label="Scroll back to top"
-          >
-            <span>RETURN_TO_TOP</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-4">
+            <span className="text-gray-500">Decentralized Global Syndicate</span>
+            <button
+              onClick={scrollToTop}
+              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-[#00ff88] transition-colors flex items-center gap-1"
+              title="Return to top"
+            >
+              <ArrowUp className="w-3.5 h-3.5" />
+              <span>TOP</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>

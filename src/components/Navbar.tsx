@@ -1,13 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Menu, X, ExternalLink, Sparkles, Linkedin } from 'lucide-react';
+import {
+  Terminal,
+  Menu,
+  X,
+  ExternalLink,
+  Shield,
+  FileCode,
+  Users,
+  Wrench,
+  Trophy,
+  MessageSquare,
+  Linkedin,
+  Github
+} from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 import { BrandedTitle } from './BrandedTitle';
 
 interface NavbarProps {
   onOpenTerminal?: () => void;
+  activeSection?: string;
+  onNavigate?: (sectionId: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 'overview', onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -20,34 +35,40 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Solutions', href: '#solutions' },
-    { name: 'Categories', href: '#skills' },
-    { name: 'Writeups', href: '#writeups' },
-    { name: 'Team', href: '#team' },
-    { name: 'HTB Hub', href: '#htb' },
-    { name: 'Achievements', href: '#achievements' },
-    { name: 'Stats', href: '#stats' },
-    { name: 'Join Us', href: '#join' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Overview', id: 'overview', href: '#overview' },
+    { name: 'HTB Writeups', id: 'writeups', href: '#writeups', isSpecial: true },
+    { name: 'Services', id: 'services', href: '#services' },
+    { name: 'Arsenal', id: 'arsenal', href: '#arsenal' },
+    { name: 'Syndicate', id: 'team', href: '#team' },
+    { name: 'Achievements', id: 'achievements', href: '#achievements' },
+    { name: 'Join Us', id: 'join', href: '#join' },
   ];
+
+  const handleLinkClick = (id: string, e: React.MouseEvent) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(id);
+      setMobileMenuOpen(false);
+    }
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg shadow-black/40 py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-[#05070a]/90 backdrop-blur-md border-b border-white/[0.08] shadow-2xl py-2.5'
+          : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand Logo with Official Team Badge */}
+        {/* Brand Logo & Syndicate Identity */}
         <a
-          href="#"
-          className="group flex items-center gap-3 focus:outline-none rounded-lg p-1"
-          aria-label="sudo Unknown CTF Home"
+          href="#overview"
+          onClick={(e) => handleLinkClick('overview', e)}
+          className="group flex items-center gap-3 focus:outline-none"
+          aria-label="sudo Unknown Home"
         >
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#00ff88]/40 group-hover:border-[#00ff88] transition-all group-hover:scale-105 shadow-[0_0_15px_rgba(0,255,136,0.2)]">
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-[#00ff88]/40 group-hover:border-[#00ff88] transition-all group-hover:scale-105 shadow-[0_0_15px_rgba(0,255,136,0.2)] bg-[#0c1015]">
             <img
               src="/logo.png"
               alt="sudo Unknown Team Logo"
@@ -58,138 +79,139 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <BrandedTitle size="sm" showCrown={true} />
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30">
-                COMPANY &amp; LAB
+              <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30">
+                ALL-IN-ONE
               </span>
             </div>
-            <span className="font-mono text-[10px] text-gray-400 hidden sm:block tracking-wider">
-              CYBERSECURITY RESEARCH &amp; CTF
+            <span className="font-mono text-[9px] text-gray-400 tracking-wider uppercase hidden md:block">
+              Cybersecurity Collective &amp; CTF
             </span>
           </div>
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-1 bg-[#0a0d0f]/80 backdrop-blur-sm border border-white/[0.08] rounded-full px-4 py-1.5 text-xs font-mono">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="px-3 py-1.5 text-gray-300 hover:text-[#00ff88] rounded-md transition-colors hover:bg-white/[0.04]"
-            >
-              {link.name}
-            </a>
-          ))}
+        <nav className="hidden lg:flex items-center gap-1 bg-[#0b0e14]/85 backdrop-blur-md border border-white/[0.08] rounded-full px-3 py-1.5 text-xs font-mono shadow-inner">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleLinkClick(link.id, e)}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                  isActive
+                    ? 'bg-[#00ff88] text-black font-bold shadow-[0_0_12px_rgba(0,255,136,0.35)]'
+                    : link.isSpecial
+                    ? 'text-[#00ff88] hover:text-white hover:bg-white/5 font-semibold'
+                    : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
+                }`}
+              >
+                {link.isSpecial && !isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
+                )}
+                <span>{link.name}</span>
+              </a>
+            );
+          })}
         </nav>
 
-        {/* Status Badge & Actions */}
-        <div className="hidden md:flex items-center gap-2.5">
-          {/* LinkedIn Company Page */}
-          <a
-            href={SITE_CONFIG.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0077b5]/15 border border-[#0077b5]/30 hover:border-[#0077b5] text-xs font-mono text-gray-200 hover:text-white transition-all shadow-[0_0_10px_rgba(0,119,181,0.15)]"
-            title="sudo Unknown LinkedIn Company Page"
-          >
-            <Linkedin className="w-3.5 h-3.5 text-[#0077b5]" />
-            <span className="text-[11px] font-semibold">LinkedIn</span>
-          </a>
-
-          {/* HTB Status Badge */}
-          <a
-            href={SITE_CONFIG.htbTeamUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#0d1117] border border-white/[0.08] hover:border-[#00ff88]/40 text-xs font-mono transition-colors"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00ff88]"></span>
-            </span>
-            <span className="text-gray-300 text-[11px]">HTB #331386</span>
-          </a>
-
-          {/* Quick Interactive Terminal */}
+        {/* Actions & Utilities */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* CLI Terminal Launcher */}
           {onOpenTerminal && (
             <button
               onClick={onOpenTerminal}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0a0d0f] hover:bg-[#141922] border border-white/[0.08] hover:border-[#00ff88]/40 text-gray-300 hover:text-[#00ff88] text-xs font-mono transition-all"
-              title="Launch Terminal Shell (Hotkey: `)"
+              className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0e141c] hover:bg-[#151d28] border border-white/10 hover:border-[#00ff88]/50 text-xs font-mono text-gray-300 hover:text-[#00ff88] transition-all shadow-sm"
+              title="Toggle Interactive Cyber CLI (hotkey: ` or Ctrl+K)"
             >
               <Terminal className="w-3.5 h-3.5 text-[#00ff88]" />
-              <span>[ CLI ]</span>
+              <span>Terminal</span>
+              <kbd className="hidden xl:inline px-1.5 py-0.5 rounded bg-black/50 border border-white/10 text-[9px] text-gray-400">
+                ~
+              </kbd>
             </button>
           )}
 
-          {/* Join Roster CTA */}
+          {/* Discord War Room Quick Link */}
           <a
-            href="#team"
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#00ff88] text-black font-mono text-xs font-bold hover:bg-[#22ff99] transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,255,136,0.3)]"
+            href={SITE_CONFIG.discordUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#5865F2]/15 border border-[#5865F2]/40 hover:border-[#5865F2] text-xs font-mono text-gray-200 hover:text-white transition-all shadow-[0_0_12px_rgba(88,101,242,0.15)]"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>JOIN ROSTER</span>
+            <MessageSquare className="w-3.5 h-3.5 text-[#5865F2]" />
+            <span className="font-semibold">Discord</span>
           </a>
-        </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="flex items-center gap-2 md:hidden">
-          {onOpenTerminal && (
-            <button
-              onClick={onOpenTerminal}
-              className="p-2 rounded-lg bg-[#0d1117] border border-white/10 text-[#00ff88]"
-              aria-label="Open CLI"
-            >
-              <Terminal className="w-4 h-4" />
-            </button>
-          )}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-[#0d1117] border border-white/10 text-gray-300 hover:text-[#00ff88]"
-            aria-label="Toggle Navigation"
+            className="lg:hidden p-2 rounded-xl bg-[#0d1218] border border-white/10 text-gray-300 hover:text-white hover:border-[#00ff88]/50 transition-colors"
+            aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#050505]/98 border-b border-white/10 px-4 pt-4 pb-6 space-y-3 backdrop-blur-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-white/5 font-mono text-xs text-gray-400">
-            <span>TEAM: sudo Unknown</span>
-            <span className="text-[#00ff88]">HTB #331386</span>
-          </div>
+        <div className="lg:hidden bg-[#07090d]/95 backdrop-blur-xl border-b border-white/10 px-5 py-6 space-y-4 animate-fadeIn">
+          <nav className="flex flex-col space-y-2 font-mono text-sm">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(link.id, e)}
+                  className={`px-4 py-2.5 rounded-xl transition-all flex items-center justify-between ${
+                    isActive
+                      ? 'bg-[#00ff88] text-black font-bold'
+                      : link.isSpecial
+                      ? 'bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/30 font-semibold'
+                      : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {link.isSpecial && <span className="text-[10px] uppercase font-bold text-[#00ff88]">Reports</span>}
+                </a>
+              );
+            })}
+          </nav>
 
-          <div className="grid grid-cols-2 gap-2 pt-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg bg-[#0d1117] border border-white/5 text-gray-300 hover:text-[#00ff88] text-xs font-mono transition-colors"
+          <div className="pt-4 border-t border-white/[0.08] flex flex-wrap gap-2.5">
+            {onOpenTerminal && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenTerminal();
+                }}
+                className="w-full py-2.5 rounded-xl bg-[#0e141c] border border-white/10 text-xs font-mono text-gray-300 hover:text-[#00ff88] flex items-center justify-center gap-2"
               >
-                &gt; {link.name}
-              </a>
-            ))}
-          </div>
+                <Terminal className="w-4 h-4 text-[#00ff88]" />
+                <span>Launch Interactive Shell</span>
+              </button>
+            )}
 
-          <div className="pt-2 flex flex-col gap-2">
-            <a
-              href="#team"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-lg bg-[#00ff88] text-black font-mono text-xs font-bold hover:bg-[#22ff99]"
-            >
-              APPLY FOR FOUNDING ROSTER
-            </a>
-            <a
-              href={SITE_CONFIG.htbTeamUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-[#0d1117] border border-white/10 text-gray-300 font-mono text-xs hover:text-[#00ff88]"
-            >
-              <ExternalLink className="w-3.5 h-3.5 text-[#00ff88]" />
-              <span>View on Hack The Box</span>
-            </a>
+            <div className="grid grid-cols-2 gap-2 w-full pt-2">
+              <a
+                href={SITE_CONFIG.discordUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 px-3 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-center font-mono text-xs text-white"
+              >
+                Discord
+              </a>
+              <a
+                href={SITE_CONFIG.htbTeamUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 px-3 rounded-xl bg-[#00ff88]/20 border border-[#00ff88]/40 text-center font-mono text-xs text-[#00ff88]"
+              >
+                HTB Squad #331386
+              </a>
+            </div>
           </div>
         </div>
       )}

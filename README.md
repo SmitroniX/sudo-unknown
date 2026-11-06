@@ -1,14 +1,15 @@
-# sudo Unknown // Hack The Box CTF Team
+# sudo Unknown // All-in-One Cybersecurity Syndicate
 
 <div align="center">
-  <img src="public/logo.png" width="180" height="180" alt="sudo Unknown Official Emblem" style="border-radius: 50%;" />
+  <img src="public/logo.png" width="160" height="160" alt="sudo Unknown Official Emblem" style="border-radius: 50%;" />
   <h3>Permission Granted. Identity Unknown.</h3>
   <p>
-    <strong>NO IDENTITY • NO LIMITS • JUST FLAGS</strong><br />
-    <strong>EXPLOIT • ANALYZE • CAPTURE • REPEAT</strong>
+    <strong>RECON • COMPROMISE • EVADE • HARDEN</strong><br />
+    <strong>EXPLOIT • ANALYZE • DEFEND • REPEAT</strong>
   </p>
   <p>
-    Official Hack The Box Team ID: <a href="https://ctf.hackthebox.com/team/overview/331386"><strong>#331386</strong></a>
+    An all-in-one cybersecurity collective, research syndicate, and competitive CTF squad.<br />
+    Official Hack The Box Squad ID: <a href="https://ctf.hackthebox.com/team/overview/331386"><strong>#331386</strong></a>
   </p>
 </div>
 
@@ -16,67 +17,76 @@
 
 ## 🛡️ About sudo Unknown
 
-**sudo Unknown** is a newly established, competitive cybersecurity Capture The Flag (CTF) team competing in Hack The Box seasonal leagues and international cybersecurity tournaments.
+**sudo Unknown** is an all-in-one multidisciplinary cybersecurity collective, offensive research group, and competitive CTF squad. We bridge cutting-edge enterprise red teaming, vulnerability research, and custom exploit engineering with tournament domination across Hack The Box, TryHackMe, and global CTF arenas.
 
-We are built on an authentic, zero-ego engineering culture: no corporate fluff, no fake accolades, just dedicated offensive tradecraft, problem-solving, and continuous improvement.
-
-### 🌟 Founding Squad Assembly (Season 2026)
-As a newly formed team, we are actively assembling our **core founding cohort**. Open specialist positions include:
-- **`[OPEN]` Web Security Specialist:** Application security, modern API flaws, SSRF, SSTI, and OAuth bypasses.
-- **`[OPEN]` Binary Exploitation (PWN) Lead:** Low-level memory corruption, GLIBC allocators, ROP/SROP chains, and kernel pwn.
-- **`[OPEN]` Cryptography Analyst:** Attacking flawed primitives, weak PRNGs, lattice reduction, and RSA/ECC attacks.
-- **`[OPEN]` Digital Forensics / DFIR:** Memory dump analysis, PCAP packet reconstruction, and filesystem timeline triage.
-- **`[OPEN]` Reverse Engineering Operator:** Disassembly, anti-debugging evasion, custom VM bytecodes, and firmware reversing.
-- **`[OPEN]` OSINT Specialist:** Satellite geolocation, metadata carving, and digital footprint mapping.
+### ⚡ Core Operations & Pillars
+- **Adversary Simulation & Red Teaming:** Multi-domain Active Directory attacks, Kerberoasting, DACL abuse, EDR evasion, and cloud metadata pivoting.
+- **Vulnerability Research & 0-Day Discovery:** Memory corruption, GLIBC safe-linking bypasses, heap tcache exploitation, and reverse engineering custom bytecode VMs.
+- **Dedicated HTB & CTF Writeups Hub:** In-depth, reproducible field reports with target intelligence, full attack chains, weaponized PoC code, captured flags, and defensive remediation playbooks.
+- **Open-Source Tool Arsenal:** Custom attack suites and utilities (`sudo-recon`, `ad-acl-pivoter`, `jwt-tamper-cli`, `tcache-forger`, `shadow-carver`, `pyjail-hunter`).
+- **Cyber Warfare Range & Challenge Design:** Turnkey vulnerable-by-design machines, containerized CTF challenges, and tournament scoring engines.
 
 ---
 
-## 🎨 Visual & Brand System
+## 📖 HTB & CTF Writeups Explorer
 
-- **Official Brand Mark:** Circular emblem featuring the iconic hooded operative, glowing green `>_` visor, crown emblem, and brush lettering.
-- **Color Palette:**
-  - Background: Deep Void (`#050505`)
-  - Accent: Electric Mint / Neon Green (`#00ff88` / `#22ff99`)
-  - Surfaces: Dark Graphite (`#090c0f`, `#0e1318`, `#141920`)
-  - Typography: Crisp white (`#ffffff`) and slate gray (`#94a3b8`)
-- **Aesthetic:** Minimalist, high-precision developer and security tool interface. No cheesy animated AI particle sludge or fake inflated numbers.
-
----
-
-## ⚙️ Central Configuration
-
-All team data, roster slots, roadmap milestones, and technical writeups are managed from a single central file:
-[`src/data/teamData.ts`](src/data/teamData.ts)
-
-- `ROSTER_SLOTS`: Manage the founding squad roles, status (`OPEN` / `FILLED`), and required skill vectors.
-- `STATISTICS`: Verified squad metrics (HTB Team ID: 331386, 7 Disciplines, Forming Roster, Season 2026).
-- `ROADMAP_TARGETS`: 2026 competitive calendar (HTB University CTF, Cyber Apocalypse, Pro Labs, Open CTFs).
-- `TRAINING_WRITEUPS`: Reproducible methodology guides and PoC exploit scripts.
-- `SITE_CONFIG`: Official Hack The Box URL, Discord, GitHub, and email comms.
+The platform includes a dedicated **Field Writeups Repository** featuring real, reproducible debriefs:
+- **DutyBound (Hack The Box - Windows AD / Medium):** Kerberoasting service accounts -> BloodHound GenericWrite DACL escalation -> Domain dominance via DCSync.
+- **Takeoff (Hack The Box - Linux / Medium):** Flask Jinja2 SSTI character filter bypass -> Tar wildcard command execution for root.
+- **Layover (Hack The Box - Cloud/Linux / Hard):** OAuth2 PKCE parameter downgrade -> Docker socket mount container breakout.
+- **Frosted (Hack The Box - Windows Enterprise / Hard):** Microsoft Exchange ProxyLogon SSRF -> Volume Shadow Copy NTDS.dit extraction.
+- **Quantum Lockout (HTB Challenge - Crypto / Medium):** Flawed PRNG timestamp seeding -> Pairwise GCD collision for instant RSA key factoring.
+- **Safe-Linking Bypass (HTB Challenge - Pwn / Insane):** GLIBC 2.35 pointer mangling demangling -> Heap tcache poisoning -> One-gadget RCE.
+- **Operation Cymbal (CTFtime - Web / Medium):** Evilginx3 Adversary-in-the-Middle phishing analysis -> Microsoft 365 token exfiltration.
+- **Subverted ELF (HTB Challenge - Reverse / Hard):** Decompiling custom 8-opcode stack bytecode virtual machine interpreter.
 
 ---
 
-## 🚀 Quickstart
+## 🌟 Syndicate Roster & Recruitment
+
+- **Founding Captain & Lead Researcher:** Asmit (SmitroniX)
+- **Recruiting Founding Specialist Cohort:**
+  - `[OPEN]` Web Exploitation Lead (OAuth, SSRF, Deserialization, API Security)
+  - `[OPEN]` Binary Exploitation (PWN) Lead (GLIBC Heap, ROP, Kernel Exploits)
+  - `[OPEN]` Active Directory & Enterprise Lead (Kerberos, AD CS, DACL Pathing)
+  - `[OPEN]` Applied Cryptography Analyst (Lattice LLL, Curve Weaknesses, PRNGs)
+  - `[OPEN]` DFIR & Network Forensics Lead (Volatility 3, Memory Triage, PCAP Carving)
+  - `[OPEN]` Reverse Engineering Analyst (x86/x64 Assembly, Custom VMs, Firmware)
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+- **Framework:** React 18 + TypeScript + Vite
+- **Styling:** Tailwind CSS (Dark Obsidian Cyberpunk Theme)
+- **Icons & Visuals:** Lucide React + Canvas Particle Background
+- **Interactivity:** Full-screen interactive writeup reader modal, interactive CLI terminal drawer (`~` or `Ctrl+K`), live filters, and confetti animations.
+
+---
+
+## 🚀 Development & Build
 
 ```bash
-# Clone the repository
-git clone https://github.com/SmitroniX/sudo-unknown.git
-cd sudo-unknown
-
 # Install dependencies
 npm install
 
-# Start development server
+# Start local development server
 npm run dev
 
-# Build for production
+# Compile TypeScript & production bundle
 npm run build
+
+# Preview production build
 npm run preview
 ```
 
 ---
 
-## 🔗 Official Comms
-- **Hack The Box Team Portal:** [https://ctf.hackthebox.com/team/overview/331386](https://ctf.hackthebox.com/team/overview/331386)
-- **GitHub Organization:** [https://github.com/SmitroniX/sudo-unknown](https://github.com/SmitroniX/sudo-unknown)
-- **Discord Community:** [discord.gg/sudo-unknown](https://discord.gg/sudo-unknown)
+## 🌐 Official Channels
+
+- **Website:** [sudounknown.smitronix.dev](https://sudounknown.smitronix.dev)
+- **Hack The Box Squad:** [Team #331386](https://ctf.hackthebox.com/team/overview/331386)
+- **Discord War Room:** [discord.gg/HgD6WGUr4G](https://discord.gg/HgD6WGUr4G)
+- **LinkedIn:** [sudo-unknown](https://www.linkedin.com/company/sudo-unknown/)
+- **GitHub:** [SmitroniX/sudo-unknown](https://github.com/SmitroniX/sudo-unknown)
+- **Contact:** [sudounknown@smitronix.dev](mailto:sudounknown@smitronix.dev)

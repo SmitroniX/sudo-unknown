@@ -1,479 +1,347 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ExternalLink,
-  Lock,
-  Globe,
-  Cpu,
-  KeyRound,
-  SearchCode,
-  Binary,
-  Brain,
   ChevronRight,
   Terminal as TerminalIcon,
   MessageSquare,
-  Sparkles,
   ShieldAlert,
-  Layers,
-  Linkedin
+  Server,
+  Cpu,
+  Globe,
+  Binary,
+  KeyRound,
+  SearchCode,
+  Network,
+  FileCode,
+  Flame,
+  CheckCircle2,
+  Lock,
+  ArrowRight
 } from 'lucide-react';
-import { SITE_CONFIG } from '../data/teamData';
-import { CyberTitleGraphic } from './CyberTitleGraphic';
-import { HTBCyberCube } from './HTBCyberCube';
-import { CyberOperatorVisual } from './CyberOperatorVisual';
+import { SITE_CONFIG, STATISTICS } from '../data/teamData';
+import { BrandedTitle } from './BrandedTitle';
 
 interface HeroProps {
   onOpenTerminal?: () => void;
+  onNavigateSection?: (sectionId: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
-  const [typedWhoami, setTypedWhoami] = useState('');
-  const [showUnknown, setShowUnknown] = useState(false);
-  const [typedSudo, setTypedSudo] = useState('');
-  const [showGranted, setShowGranted] = useState(false);
-  const [bootStep, setBootStep] = useState(0);
-  const [activeRightTab, setActiveRightTab] = useState<'operator' | 'terminal'>('operator');
+export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection }) => {
+  const [activeHudTab, setActiveHudTab] = useState<'status' | 'htb' | 'tools'>('status');
 
-  // Interactive command inside hero mini terminal
-  const [inputCommand, setInputCommand] = useState('');
-  const [history, setHistory] = useState<Array<{ cmd: string; output: string; isSuccess?: boolean }>>([
-    { cmd: 'htb status', output: 'sudo Unknown // Team ID #331386 // Status: Recruiting Founding Cohort', isSuccess: true }
-  ]);
-
-  // The 6 Core CTF Disciplines from the reference banner
   const disciplines = [
-    { name: 'WEB', icon: Globe, desc: 'Web App Security & Injection', href: '#skills' },
-    { name: 'PWN', icon: Cpu, desc: 'Binary Exploitation & Memory', href: '#skills' },
-    { name: 'CRYPTO', icon: KeyRound, desc: 'Ciphers & Applied Cryptography', href: '#skills' },
-    { name: 'FORENSICS', icon: SearchCode, desc: 'PCAP, Memory & Disk Forensics', href: '#skills' },
-    { name: 'REVERSE', icon: Binary, desc: 'x86/x64 Reversing & Malware', href: '#skills' },
-    { name: 'MISC', icon: Brain, desc: 'Stego, OSINT & Logic Challenges', href: '#skills' }
+    { name: 'ACTIVE DIRECTORY', icon: Network, desc: 'Enterprise Kerberos, DACL & Domain Takeover' },
+    { name: 'WEB EXPLOITATION', icon: Globe, desc: 'SSRF, SSTI, Deserialization & Auth Bypass' },
+    { name: 'BINARY PWN', icon: Cpu, desc: 'GLIBC Heap Tcache, Safe-Linking & ROP Chains' },
+    { name: 'CRYPTOGRAPHY', icon: KeyRound, desc: 'Flawed PRNGs, GCD Collisions & Lattice Attacks' },
+    { name: 'DIGITAL FORENSICS', icon: SearchCode, desc: 'Memory Triage, Process Hollowing & PCAP Carving' },
+    { name: 'REVERSE ENGINEERING', icon: Binary, desc: 'Stripped Binaries, Custom VMs & Firmware' },
   ];
 
-  // Animated command line sequence
-  useEffect(() => {
-    const cmd1 = 'whoami';
-    let idx1 = 0;
-    const t1 = setInterval(() => {
-      if (idx1 < cmd1.length) {
-        idx1++;
-        setTypedWhoami(cmd1.slice(0, idx1));
-      } else {
-        clearInterval(t1);
-        setTimeout(() => {
-          setShowUnknown(true);
-          setBootStep(1);
-        }, 350);
-      }
-    }, 90);
-
-    return () => clearInterval(t1);
-  }, []);
-
-  useEffect(() => {
-    if (bootStep !== 1) return;
-
-    const cmd2 = 'sudo access';
-    let idx2 = 0;
-    const t2 = setInterval(() => {
-      if (idx2 < cmd2.length) {
-        idx2++;
-        setTypedSudo(cmd2.slice(0, idx2));
-      } else {
-        clearInterval(t2);
-        setTimeout(() => {
-          setShowGranted(true);
-          setBootStep(2);
-        }, 400);
-      }
-    }, 90);
-
-    return () => clearInterval(t2);
-  }, [bootStep]);
-
-  const handleCommandSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const clean = inputCommand.trim().toLowerCase();
-    if (!clean) return;
-
-    let out = '';
-    let isSuccess = false;
-
-    switch (clean) {
-      case 'help':
-        out = 'Commands: whoami, sudo access, company, services, linkedin, cat flag.txt, htb, roster, mission, clear';
-        break;
-      case 'whoami':
-        out = 'unknown // Identity protected // Founding candidate';
-        isSuccess = true;
-        break;
-      case 'company':
-      case 'services':
-      case 'solutions':
-        out = 'sudo Unknown: Enterprise Red Teaming, Penetration Testing, 0-Day Vulnerability Research, Custom CTF Engineering & Threat Intel.';
-        isSuccess = true;
-        break;
-      case 'linkedin':
-        out = 'Opening official LinkedIn company page...';
-        window.open(SITE_CONFIG.linkedinUrl, '_blank');
-        isSuccess = true;
-        break;
-      case 'sudo access':
-        out = 'GRANTED // Access level: CORE_OPERATOR';
-        isSuccess = true;
-        break;
-      case 'cat flag.txt':
-        out = 'HTB{p3rm1ss10n_gr4nt3d_1d3nt1ty_unkn0wn_2026}';
-        isSuccess = true;
-        break;
-      case 'htb':
-        out = 'Opening Hack The Box team #331386...';
-        window.open(SITE_CONFIG.htbTeamUrl, '_blank');
-        isSuccess = true;
-        break;
-      case 'roster':
-        out = 'Status: Recruiting founding cohort (Web, Pwn, Crypto, Forensics, Reverse, OSINT)';
-        break;
-      case 'mission':
-        out = 'Permission Granted. Identity Unknown. Offensive tradecraft, research excellence, no ego, just flags.';
-        isSuccess = true;
-        break;
-      case 'clear':
-        setHistory([]);
-        setInputCommand('');
-        return;
-      default:
-        out = `command not found: ${clean}. Type 'help' for command list.`;
+  const handleNavigate = (id: string, e: React.MouseEvent) => {
+    if (onNavigateSection) {
+      e.preventDefault();
+      onNavigateSection(id);
     }
-
-    setHistory((prev) => [...prev.slice(-2), { cmd: inputCommand, output: out, isSuccess }]);
-    setInputCommand('');
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]">
-      {/* Cinematic Cyber Background Atmosphere */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Radial ambient green light cones */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#00ff88]/10 rounded-full blur-[140px]" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#00ff88]/8 rounded-full blur-[100px]" />
-        <div className="absolute top-20 right-10 w-96 h-96 bg-[#00cc66]/8 rounded-full blur-[100px]" />
-        
-        {/* Subtle Cyber Grid & Scanline Pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-40" />
-        <div className="absolute inset-0 scanlines opacity-30" />
-      </div>
+    <section id="overview" className="relative min-h-[92vh] flex flex-col justify-center pt-24 pb-16 overflow-hidden">
+      {/* Subtle radial ambient gradients */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#00ff88]/[0.035] rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 right-10 w-[400px] h-[300px] bg-cyan-500/[0.025] rounded-full blur-[110px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10 space-y-6">
-        {/* ── TOP HUD TELEMETRY BAR (Company & Research Telemetry) ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-2 rounded-xl bg-[#090c0f]/80 border border-white/[0.06] backdrop-blur-md font-mono text-[11px] text-gray-400">
-          <div className="flex items-center gap-3">
-            <span className="text-gray-600">[</span>
-            <div className="flex items-center gap-1.5 text-white font-bold tracking-wider">
-              {/* Shield Icon */}
-              <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
-              <span>sudo Unknown</span>
-            </div>
-            <span className="text-gray-600">]</span>
-            <span className="text-[#00ff88] hidden md:inline">CYBERSECURITY COMPANY &amp; CTF RESEARCH LAB</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        {/* Top Badges / Ticker */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0a0f14] border border-[#00ff88]/30 font-mono text-xs text-[#00ff88] shadow-[0_0_15px_rgba(0,255,136,0.1)]">
+            <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-ping" />
+            <span>SYNDICATE STATUS: ACTIVE // ALL-IN-ONE CYBERSECURITY COLLECTIVE</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-gray-600">[</span>
-            <a href="#solutions" className="text-gray-300 hover:text-[#00ff88] transition-colors">SERVICES</a>
-            <span className="text-gray-600">/</span>
-            <a href="#about" className="text-gray-300 hover:text-[#00ff88] transition-colors">RESEARCH</a>
-            <span className="text-gray-600">/</span>
-            <a href="#htb" className="text-gray-300 hover:text-[#00ff88] transition-colors">HTB #331386</a>
-            <span className="text-gray-600">/</span>
-            <a href={SITE_CONFIG.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#00ff88] font-semibold hover:underline">LINKEDIN</a>
-            <span className="text-gray-600">]</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-gray-300">
+            <span>OFFICIAL HTB SQUAD #{SITE_CONFIG.htbTeamId}</span>
           </div>
         </div>
 
-        {/* ── MAIN CINEMATIC 3-COLUMN ARENA ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* ◄◄ LEFT WING: Cyber HUD Telemetry & 3D Holographic Cube (Col 1-3) */}
-          <div className="lg:col-span-3 space-y-6 text-center lg:text-left order-2 lg:order-1">
-            {/* HUD Status List from Reference */}
-            <div className="hidden lg:block space-y-2 font-mono text-[11px] text-gray-400 border-l border-white/[0.08] pl-4">
-              <div className="hover:text-[#00ff88] cursor-default transition-colors tracking-widest">[ MACHINES ]</div>
-              <div className="hover:text-[#00ff88] cursor-default transition-colors tracking-widest">[ CHALLENGES ]</div>
-              <div className="hover:text-[#00ff88] cursor-default transition-colors tracking-widest">[ SKILLS ]</div>
-              <div className="hover:text-[#00ff88] cursor-default transition-colors tracking-widest">[ COMMUNITY ]</div>
-              <div className="hover:text-[#00ff88] cursor-default transition-colors tracking-widest text-[#00ff88] font-bold">[ BEYOND LIMITS ]</div>
+        {/* 2-Column Hero Grid: Left Content / Right HUD Terminal */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Column: Core Brand & Mission */}
+          <div className="lg:col-span-7 space-y-6">
+            <div>
+              <BrandedTitle size="hero" showCrown={true} showSubtitle={true} />
             </div>
 
-            {/* Terminal Quote from Reference */}
-            <div className="p-3.5 rounded-xl bg-[#090c0f]/90 border border-white/[0.08] font-mono text-xs text-left shadow-lg">
-              <div className="text-[#00ff88] font-bold pb-1 flex items-center gap-1.5">
-                <span>$&gt;</span>
-                <span>different minds</span>
-              </div>
-              <div className="text-gray-300 pl-4">same mission</div>
-              <div className="text-[#00ff88] font-semibold pl-4 pt-1 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-                <span>sudo Unknown</span>
-              </div>
-            </div>
-
-            {/* 3D Holographic Hack The Box Cube Component */}
-            <div className="flex flex-col items-center lg:items-start pt-2">
-              <HTBCyberCube />
-            </div>
-
-            {/* Team Verification Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0d1217] border border-[#00ff88]/30 font-mono text-xs text-gray-300 shadow-[0_0_15px_rgba(0,255,136,0.1)]">
-              <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
-              <span>TEAM ID:</span>
-              <a 
-                href={SITE_CONFIG.htbTeamUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-[#00ff88] font-bold hover:underline flex items-center gap-1"
-              >
-                <span>#331386</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </div>
-
-          {/* ▲▲ CENTERPIECE: Native Vector Crown, Glitch Title & 6 Disciplines (Col 4-9) */}
-          <div className="lg:col-span-6 flex flex-col items-center text-center space-y-6 order-1 lg:order-2">
-            
-            {/* Live Native Vector / CSS Title Centerpiece with Glowing Crown & Brush UNKNOWN */}
-            <div className="py-2 transform hover:scale-[1.02] transition-transform duration-500">
-              <CyberTitleGraphic />
-            </div>
-
-            {/* Brand Core Mantras */}
-            <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-gray-400">
-              <span className="px-3 py-1 rounded bg-[#090c0f] border border-white/[0.08] text-gray-300 font-semibold tracking-wider shadow-sm">
-                NO IDENTITY • NO LIMITS • JUST FLAGS
-              </span>
-              <span className="px-3 py-1 rounded bg-[#090c0f] border border-[#00ff88]/30 text-[#00ff88] font-semibold tracking-wider shadow-[0_0_10px_rgba(0,255,136,0.15)]">
-                THINK • HACK • LEARN • CONQUER
-              </span>
-            </div>
-
-            {/* Brief Description */}
-            <p className="text-sm sm:text-base text-gray-300 max-w-xl leading-relaxed font-sans">
-              An elite cybersecurity research company, penetration testing firm, and competitive Hack The Box CTF collective. 
-              We combine adversarial red teaming and zero-day research with championship-tier CTF mastery.
+            <p className="text-base sm:text-lg text-gray-200 font-sans leading-relaxed max-w-2xl font-light">
+              <strong className="text-white font-semibold">sudo Unknown</strong> is an elite, all-in-one multidisciplinary cybersecurity collective, offensive security research syndicate, and competitive CTF squad. We bridge deep enterprise red teaming, vulnerability research, and custom exploit engineering with tournament domination across Hack The Box, TryHackMe, and global arenas.
             </p>
 
-            {/* ── THE 6 CORE CTF DISCIPLINES (Icons from reference banner) ── */}
-            <div className="w-full pt-1">
-              <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400 mb-2.5">
-                &gt; CORE RESEARCH &amp; CTF SPECIALIZATIONS &lt;
-              </div>
-
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 w-full max-w-xl mx-auto">
-                {disciplines.map((d) => {
-                  const Icon = d.icon;
-                  return (
-                    <a
-                      key={d.name}
-                      href={d.href}
-                      className="group p-2.5 sm:p-3 rounded-xl bg-[#090c0f] border border-white/[0.08] hover:border-[#00ff88] flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,255,136,0.25)] relative"
-                      title={d.desc}
-                    >
-                      {/* Outer circular badge container */}
-                      <div className="w-8 h-8 rounded-full bg-[#050709] border border-white/10 group-hover:border-[#00ff88] flex items-center justify-center transition-colors">
-                        <Icon className="w-4 h-4 text-[#00ff88] group-hover:scale-110 transition-transform" />
-                      </div>
-                      <span className="font-mono text-[10px] font-bold text-gray-300 group-hover:text-[#00ff88] tracking-wider">
-                        {d.name}
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* ── ACTION BUTTONS (Company Services, Team & Community) ── */}
-            <div className="flex flex-wrap items-center justify-center gap-3 w-full pt-2">
-              {/* Primary Glowing Action: EXPLORE SERVICES */}
+            {/* Core Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs sm:text-sm">
               <a
-                href="#solutions"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00ff88] to-[#00dd77] text-black font-mono font-black text-xs sm:text-sm tracking-wider hover:from-[#22ff99] hover:to-[#00ff88] transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,255,136,0.4)] active:scale-95"
+                href="#writeups"
+                onClick={(e) => handleNavigate('writeups', e)}
+                className="px-5 py-3 rounded-xl bg-[#00ff88] hover:bg-[#22ff99] text-black font-bold transition-all shadow-[0_0_20px_rgba(0,255,136,0.35)] flex items-center gap-2"
               >
-                <span>EXPLORE SERVICES</span>
-                <ChevronRight className="w-4 h-4 stroke-[3]" />
+                <FileCode className="w-4 h-4" />
+                <span>Explore HTB Writeups</span>
+                <ChevronRight className="w-4 h-4" />
               </a>
 
-              {/* Secondary Action: JOIN TEAM */}
               <a
-                href="#team"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0b0f14] text-[#00ff88] font-mono font-bold text-xs sm:text-sm border border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10 transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+                href="#services"
+                onClick={(e) => handleNavigate('services', e)}
+                className="px-5 py-3 rounded-xl bg-[#0e141c] hover:bg-[#161f2b] border border-white/10 hover:border-white/20 text-white font-semibold transition-all flex items-center gap-2"
               >
-                <span>JOIN ROSTER</span>
+                <ShieldAlert className="w-4 h-4 text-[#00ff88]" />
+                <span>Services &amp; Red Team</span>
               </a>
 
-              {/* LinkedIn Company Page */}
-              <a
-                href={SITE_CONFIG.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0077b5]/15 border border-[#0077b5]/40 hover:bg-[#0077b5]/25 hover:border-[#0077b5] text-white font-mono text-xs sm:text-sm transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(0,119,181,0.2)]"
-              >
-                <Linkedin className="w-4 h-4 text-[#0077b5]" />
-                <span>LINKEDIN</span>
-              </a>
-
-              {/* Discord War Room */}
-              <a
-                href={SITE_CONFIG.discordUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#5865F2]/15 text-white font-mono font-semibold text-xs sm:text-sm border border-[#5865F2]/40 hover:bg-[#5865F2]/30 hover:border-[#5865F2] transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(88,101,242,0.2)]"
-              >
-                <MessageSquare className="w-4 h-4 text-[#5865F2]" />
-                <span>WAR ROOM</span>
-              </a>
-
-              {/* Interactive CLI Drawer Toggle */}
               {onOpenTerminal && (
                 <button
                   onClick={onOpenTerminal}
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-[#090c0f] border border-white/10 hover:border-white/20 text-gray-300 hover:text-white font-mono text-xs transition-all"
-                  title="Launch Terminal Shell"
+                  className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white transition-all flex items-center gap-2"
+                  title="Open cyber CLI shell"
                 >
-                  <TerminalIcon className="w-3.5 h-3.5 text-[#00ff88]" />
-                  <span>CLI</span>
+                  <TerminalIcon className="w-4 h-4 text-yellow-400" />
+                  <span>Launch CLI (~)</span>
                 </button>
               )}
             </div>
+
+            {/* Verified Quick Stats Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/[0.08]">
+              {STATISTICS.map((stat) => (
+                <div key={stat.id} className="p-3 rounded-xl bg-[#080c10] border border-white/[0.06]">
+                  <div className="font-mono text-xl sm:text-2xl font-black text-white">
+                    {stat.value}
+                    {stat.suffix && <span className="text-xs text-[#00ff88] font-normal ml-0.5">{stat.suffix}</span>}
+                  </div>
+                  <div className="font-mono text-[10px] text-gray-400 uppercase mt-0.5 tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* ►► RIGHT WING: Hooded Operative Visual & Interactive Terminal (Col 10-12) */}
-          <div className="lg:col-span-3 space-y-4 order-3">
-            {/* View Switcher Tabs */}
-            <div className="flex items-center justify-between p-1 rounded-xl bg-[#090c0f] border border-white/[0.08] font-mono text-xs">
-              <button
-                onClick={() => setActiveRightTab('operator')}
-                className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
-                  activeRightTab === 'operator'
-                    ? 'bg-[#00ff88] text-black font-bold shadow-[0_0_15px_rgba(0,255,136,0.3)]'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <span>OPERATIVE</span>
-              </button>
-              <button
-                onClick={() => setActiveRightTab('terminal')}
-                className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
-                  activeRightTab === 'terminal'
-                    ? 'bg-[#00ff88] text-black font-bold shadow-[0_0_15px_rgba(0,255,136,0.3)]'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <TerminalIcon className="w-3.5 h-3.5" />
-                <span>SHELL</span>
-              </button>
-            </div>
-
-            {/* Operative Visual */}
-            {activeRightTab === 'operator' && (
-              <CyberOperatorVisual onOpenTerminal={() => setActiveRightTab('terminal')} />
-            )}
-
-            {/* Interactive Shell Terminal */}
-            {activeRightTab === 'terminal' && (
-              <div className="rounded-2xl bg-[#090b0e] border border-[#00ff88]/30 shadow-2xl overflow-hidden group animate-fadeIn">
-                {/* Window Title Bar */}
-                <div className="flex items-center justify-between px-4 py-3 bg-[#0e1217] border-b border-white/[0.08]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#00ff88]/80" />
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-gray-300">
-                    <Lock className="w-3 h-3 text-[#00ff88]" />
-                    <span>user@htb:~$ sudo</span>
-                  </div>
-                  <div className="text-[10px] font-mono text-[#00ff88]">
-                    #331386
-                  </div>
+          {/* Right Column: Live Syndicate Operations HUD */}
+          <div className="lg:col-span-5">
+            <div className="rounded-2xl bg-[#090d12] border border-white/10 shadow-2xl overflow-hidden">
+              {/* Terminal Title Bar */}
+              <div className="flex items-center justify-between px-4 py-3 bg-[#0d1218] border-b border-white/[0.08]">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#00ff88]/80" />
+                  <span className="font-mono text-xs text-gray-400 ml-2">
+                    syndicate-core // v2.6.0
+                  </span>
                 </div>
 
-                {/* Terminal Screen Content */}
-                <div className="p-4 font-mono text-xs space-y-3 bg-[#050505] min-h-[380px] flex flex-col justify-between">
-                  <div>
-                    {/* Official Boot Prompt lines */}
-                    <div className="text-gray-500 text-[11px] border-b border-white/[0.05] pb-2 space-y-0.5">
-                      <div>user@world:~$ sudo</div>
-                      <div>[sudo] password for ? **********</div>
-                      <div className="text-[#00ff88]">Permission granted.</div>
-                      <div className="text-gray-300">Welcome to the unknown.</div>
-                    </div>
-
-                    {/* Animated typing sequence */}
-                    <div className="space-y-1 pt-2">
-                      <div className="flex items-center gap-2 text-gray-300">
-                        <span className="text-[#00ff88] font-bold">&gt;</span>
-                        <span>{typedWhoami}</span>
-                        {bootStep === 0 && <span className="inline-block w-1.5 h-3.5 bg-[#00ff88] animate-pulse" />}
-                      </div>
-                      {showUnknown && (
-                        <div className="text-gray-400 pl-4 border-l border-[#00ff88]/30">
-                          unknown
-                        </div>
-                      )}
-                    </div>
-
-                    {bootStep >= 1 && (
-                      <div className="space-y-1 pt-1">
-                        <div className="flex items-center gap-2 text-gray-300">
-                          <span className="text-[#00ff88] font-bold">&gt;</span>
-                          <span>{typedSudo}</span>
-                          {bootStep === 1 && <span className="inline-block w-1.5 h-3.5 bg-[#00ff88] animate-pulse" />}
-                        </div>
-                        {showGranted && (
-                          <div className="text-[#00ff88] pl-4 border-l border-[#00ff88]/30 font-bold">
-                            Permission granted.
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* History output */}
-                    <div className="space-y-2 pt-3">
-                      {history.map((h, i) => (
-                        <div key={i} className="text-[11px] space-y-0.5">
-                          <div className="text-gray-400">$&gt; {h.cmd}</div>
-                          <div className={h.isSuccess ? 'text-[#00ff88]' : 'text-gray-300'}>{h.output}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Interactive command input */}
-                  <form onSubmit={handleCommandSubmit} className="pt-2 border-t border-white/[0.05]">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#00ff88] font-bold">&gt;</span>
-                      <input
-                        type="text"
-                        value={inputCommand}
-                        onChange={(e) => setInputCommand(e.target.value)}
-                        placeholder="Type 'help'..."
-                        className="flex-1 bg-transparent border-none text-white text-xs font-mono focus:outline-none placeholder-gray-600"
-                      />
-                    </div>
-                  </form>
+                {/* HUD Tabs */}
+                <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <button
+                    onClick={() => setActiveHudTab('status')}
+                    className={`px-2.5 py-1 rounded transition-colors ${
+                      activeHudTab === 'status'
+                        ? 'bg-[#00ff88]/15 text-[#00ff88] font-bold border border-[#00ff88]/30'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    Ops
+                  </button>
+                  <button
+                    onClick={() => setActiveHudTab('htb')}
+                    className={`px-2.5 py-1 rounded transition-colors ${
+                      activeHudTab === 'htb'
+                        ? 'bg-[#00ff88]/15 text-[#00ff88] font-bold border border-[#00ff88]/30'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    HTB Clears
+                  </button>
+                  <button
+                    onClick={() => setActiveHudTab('tools')}
+                    className={`px-2.5 py-1 rounded transition-colors ${
+                      activeHudTab === 'tools'
+                        ? 'bg-[#00ff88]/15 text-[#00ff88] font-bold border border-[#00ff88]/30'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    Arsenal
+                  </button>
                 </div>
               </div>
-            )}
+
+              {/* Terminal View Body */}
+              <div className="p-5 font-mono text-xs text-gray-300 space-y-4 min-h-[340px] bg-[#070a0e]">
+                {activeHudTab === 'status' && (
+                  <div className="space-y-3 animate-fadeIn">
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <span className="text-[#00ff88]">operator@sudounknown:~$</span>
+                      <span>./syndicate-overview</span>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-black/40 border border-white/5 space-y-1.5 leading-relaxed">
+                      <div className="text-[#00ff88] font-bold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>SYNDICATE MISSION PROFILE</span>
+                      </div>
+                      <div className="text-gray-300">
+                        &gt; Scope: Multidisciplinary Offensive Security Syndicate
+                      </div>
+                      <div className="text-gray-300">
+                        &gt; HTB Team ID: <span className="text-[#00ff88] font-semibold">#331386</span>
+                      </div>
+                      <div className="text-gray-300">
+                        &gt; CTF Platforms: Hack The Box, TryHackMe, CTFtime
+                      </div>
+                      <div className="text-gray-300">
+                        &gt; Core Squad Status: Founding Captain active + 6 open roles
+                      </div>
+                    </div>
+
+                    <div className="space-y-1 text-gray-400 text-[11px]">
+                      <div>[OK] Kerberos Ticket Parsing Engine initialized</div>
+                      <div>[OK] Safe-Linking demangler loaded for GLIBC 2.35</div>
+                      <div>[OK] 10 Field Writeups synchronized to public portal</div>
+                    </div>
+
+                    <div className="pt-2 flex items-center justify-between border-t border-white/[0.06] text-[11px]">
+                      <span className="text-gray-400">War Room Channels:</span>
+                      <a
+                        href={SITE_CONFIG.discordUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#00ff88] hover:underline flex items-center gap-1"
+                      >
+                        <span>Join Live Discord</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                )}
+
+                {activeHudTab === 'htb' && (
+                  <div className="space-y-3 animate-fadeIn">
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <span className="text-[#00ff88]">operator@sudounknown:~$</span>
+                      <span>htb --latest-machines</span>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="p-2.5 rounded-lg bg-black/50 border border-[#00ff88]/30">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[#00ff88] font-bold">DutyBound (Windows AD)</span>
+                          <span className="text-yellow-400 text-[10px]">MEDIUM</span>
+                        </div>
+                        <p className="text-[11px] text-gray-400 mt-1">
+                          Kerberoasting -&gt; GenericWrite DACL -&gt; DCSync Domain Takeover
+                        </p>
+                      </div>
+
+                      <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-bold">Takeoff (Linux)</span>
+                          <span className="text-yellow-400 text-[10px]">MEDIUM</span>
+                        </div>
+                        <p className="text-[11px] text-gray-400 mt-1">
+                          Flask Jinja2 SSTI -&gt; Tar Wildcard Command Injection
+                        </p>
+                      </div>
+
+                      <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-bold">Frosted (Exchange Server)</span>
+                          <span className="text-orange-400 text-[10px]">HARD</span>
+                        </div>
+                        <p className="text-[11px] text-gray-400 mt-1">
+                          ProxyLogon SSRF -&gt; Shadow Copy NTDS.dit Extraction
+                        </p>
+                      </div>
+                    </div>
+
+                    <a
+                      href="#writeups"
+                      onClick={(e) => handleNavigate('writeups', e)}
+                      className="block text-center py-2 rounded-lg bg-[#00ff88]/10 hover:bg-[#00ff88]/20 text-[#00ff88] text-xs font-bold border border-[#00ff88]/30 transition-colors"
+                    >
+                      View All 10 Walkthroughs &rarr;
+                    </a>
+                  </div>
+                )}
+
+                {activeHudTab === 'tools' && (
+                  <div className="space-y-3 animate-fadeIn">
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <span className="text-[#00ff88]">operator@sudounknown:~$</span>
+                      <span>ls -la ./tools-arsenal/</span>
+                    </div>
+
+                    <div className="space-y-1.5 text-[11px]">
+                      <div className="flex items-center justify-between p-2 rounded bg-black/40 border border-white/5">
+                        <span className="text-white font-semibold">sudo-recon</span>
+                        <span className="text-gray-400">Concurrent Asset Enumerator</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 rounded bg-black/40 border border-white/5">
+                        <span className="text-[#00ff88] font-semibold">ad-acl-pivoter</span>
+                        <span className="text-gray-400">BloodHound Shortest Path</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 rounded bg-black/40 border border-white/5">
+                        <span className="text-cyan-400 font-semibold">jwt-tamper-cli</span>
+                        <span className="text-gray-400">Signature Alg Confusion</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 rounded bg-black/40 border border-white/5">
+                        <span className="text-purple-400 font-semibold">tcache-forger</span>
+                        <span className="text-gray-400">GLIBC 2.35 Safe-Linking</span>
+                      </div>
+                    </div>
+
+                    <a
+                      href="#arsenal"
+                      onClick={(e) => handleNavigate('arsenal', e)}
+                      className="block text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-bold border border-white/10 transition-colors"
+                    >
+                      Explore Arsenal &amp; Install Commands &rarr;
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ── BOTTOM HUD FOOTER BRACKETS ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 px-4 py-2 rounded-xl bg-[#090c0f]/60 border border-white/[0.04] font-mono text-[10px] text-gray-500">
-          <div>[ HACK THE BOX // CTF // COMMUNITY ]</div>
-          <div className="text-[#00ff88]/80 font-semibold tracking-widest hidden sm:inline">
-            PERMISSION GRANTED // IDENTITY UNKNOWN
+        {/* Disciplines Horizontal Carousel Strip */}
+        <div className="mt-16 pt-8 border-t border-white/[0.08]">
+          <div className="text-center md:text-left mb-6">
+            <span className="font-mono text-xs text-[#00ff88] uppercase tracking-wider block">
+              // CORE TECHNICAL DISCIPLINES
+            </span>
+            <h3 className="text-lg font-mono font-bold text-white">
+              End-to-End Adversary &amp; Defensive Capabilities
+            </h3>
           </div>
-          <div>[ sudo Unknown // TEAM #331386 ]</div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
+            {disciplines.map((d) => {
+              const Icon = d.icon;
+              return (
+                <div
+                  key={d.name}
+                  className="p-3.5 rounded-xl bg-[#080c10] border border-white/[0.06] hover:border-[#00ff88]/40 transition-all group"
+                >
+                  <Icon className="w-5 h-5 text-[#00ff88] mb-2 group-hover:scale-110 transition-transform" />
+                  <div className="text-white font-bold group-hover:text-[#00ff88] transition-colors">
+                    {d.name}
+                  </div>
+                  <div className="text-[10px] text-gray-400 mt-1 font-sans leading-tight">
+                    {d.desc}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

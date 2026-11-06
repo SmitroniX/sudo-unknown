@@ -3,29 +3,29 @@ import React from 'react';
 interface BrandedTitleProps {
   size?: 'sm' | 'md' | 'lg' | 'hero';
   showCrown?: boolean;
-  showDivider?: boolean;
+  showSubtitle?: boolean;
   className?: string;
 }
 
 export const BrandedTitle: React.FC<BrandedTitleProps> = ({
   size = 'md',
   showCrown = true,
-  showDivider = false,
+  showSubtitle = false,
   className = ''
 }) => {
   if (size === 'hero') {
     return (
       <div className={`relative inline-block text-left select-none ${className}`}>
-        {/* Top Glitched sudo with floating graffiti Crown */}
+        {/* Top sudo with subtle glowing crown */}
         <div className="relative inline-flex items-center">
-          <span className="font-mono text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white uppercase drop-shadow-[0_2px_15px_rgba(255,255,255,0.2)]">
+          <span className="font-mono text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white uppercase drop-shadow-[0_2px_15px_rgba(255,255,255,0.15)]">
             sud
             <span className="relative inline-block">
               o
               {showCrown && (
-                <span className="absolute -top-6 -right-5 sm:-top-8 sm:-right-7 transform -rotate-12 animate-pulse">
+                <span className="absolute -top-5 -right-4 sm:-top-7 sm:-right-6 transform -rotate-12">
                   <svg
-                    className="w-8 h-8 sm:w-11 sm:h-11 text-[#00ff88] drop-shadow-[0_0_12px_rgba(0,255,136,0.9)]"
+                    className="w-7 h-7 sm:w-10 sm:h-10 text-[#00ff88] drop-shadow-[0_0_12px_rgba(0,255,136,0.9)] animate-pulse"
                     viewBox="0 0 32 32"
                     fill="currentColor"
                   >
@@ -40,19 +40,19 @@ export const BrandedTitle: React.FC<BrandedTitleProps> = ({
           </span>
         </div>
 
-        {/* Big Aggressive Brush UNKNOWN */}
-        <div className="-mt-3 sm:-mt-5">
-          <span className="font-brush text-5xl sm:text-7xl lg:text-9xl text-[#00ff88] tracking-wide inline-block transform -rotate-1 drop-shadow-[0_0_25px_rgba(0,255,136,0.6)]">
+        {/* Clean, high-impact UNKNOWN */}
+        <div className="-mt-2 sm:-mt-4">
+          <span className="font-mono text-5xl sm:text-7xl lg:text-9xl font-black text-[#00ff88] tracking-wider inline-block drop-shadow-[0_0_30px_rgba(0,255,136,0.5)]">
             UNKNOWN
           </span>
         </div>
 
-        {/* Hack The Box Cyber Line */}
-        {showDivider && (
-          <div className="flex items-center gap-3 pt-2 text-xs sm:text-sm font-mono tracking-widest text-gray-400">
-            <span className="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-white/40" />
-            <span className="text-white font-semibold tracking-[0.25em]">HACK THE BOX</span>
-            <span className="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-white/40" />
+        {/* Syndicate All-in-One Line */}
+        {showSubtitle && (
+          <div className="flex items-center gap-3 pt-3 text-xs sm:text-sm font-mono tracking-widest text-gray-400">
+            <span className="h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent to-[#00ff88]/50" />
+            <span className="text-gray-200 font-semibold tracking-[0.2em]">CYBERSECURITY SYNDICATE</span>
+            <span className="h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent to-[#00ff88]/50" />
           </div>
         )}
       </div>
@@ -67,7 +67,7 @@ export const BrandedTitle: React.FC<BrandedTitleProps> = ({
           <span className="relative inline-block">
             o
             {showCrown && (
-              <span className="absolute -top-4 -right-3 transform -rotate-12">
+              <span className="absolute -top-3.5 -right-3 transform -rotate-12">
                 <svg className="w-5 h-5 text-[#00ff88] drop-shadow-[0_0_8px_rgba(0,255,136,0.9)]" viewBox="0 0 32 32" fill="currentColor">
                   <path d="M4 22L7 27H25L28 22L22 24L16 14L10 24L4 22Z" />
                 </svg>
@@ -75,7 +75,7 @@ export const BrandedTitle: React.FC<BrandedTitleProps> = ({
             )}
           </span>
         </div>
-        <span className="font-brush text-3xl sm:text-4xl text-[#00ff88] -mt-2 drop-shadow-[0_0_15px_rgba(0,255,136,0.5)]">
+        <span className="font-mono font-black text-3xl sm:text-4xl text-[#00ff88] -mt-1 tracking-wider drop-shadow-[0_0_15px_rgba(0,255,136,0.5)]">
           UNKNOWN
         </span>
       </div>
@@ -90,15 +90,15 @@ export const BrandedTitle: React.FC<BrandedTitleProps> = ({
         <span className="relative inline-block">
           o
           {showCrown && (
-            <span className="absolute -top-2.5 -right-2 transform -rotate-12">
-              <svg className="w-3.5 h-3.5 text-[#00ff88] drop-shadow-[0_0_6px_rgba(0,255,136,0.9)]" viewBox="0 0 32 32" fill="currentColor">
+            <span className="absolute -top-2 -right-1.5 transform -rotate-12">
+              <svg className="w-3 h-3 text-[#00ff88] drop-shadow-[0_0_6px_rgba(0,255,136,0.9)]" viewBox="0 0 32 32" fill="currentColor">
                 <path d="M4 22L7 27H25L28 22L22 24L16 14L10 24L4 22Z" />
               </svg>
             </span>
           )}
         </span>
       </span>
-      <span className="font-brush text-[#00ff88] text-base sm:text-lg tracking-wider transform -rotate-2 drop-shadow-[0_0_8px_rgba(0,255,136,0.5)]">
+      <span className="font-bold text-[#00ff88] text-sm sm:text-base tracking-wider drop-shadow-[0_0_8px_rgba(0,255,136,0.5)]">
         UNKNOWN
       </span>
     </div>
