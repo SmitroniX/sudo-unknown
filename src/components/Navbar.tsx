@@ -18,11 +18,19 @@ import { BrandedTitle } from './BrandedTitle';
 
 interface NavbarProps {
   onOpenTerminal?: () => void;
+  currentPage: 'home' | 'writeups' | 'writeup-detail';
   activeSection?: string;
-  onNavigate?: (sectionId: string) => void;
+  onNavigateSection: (sectionId: string) => void;
+  onNavigatePage: (page: 'home' | 'writeups') => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 'overview', onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenTerminal,
+  currentPage,
+  activeSection = 'overview',
+  onNavigateSection,
+  onNavigatePage
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -35,20 +43,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
   }, []);
 
   const navLinks = [
-    { name: 'Overview', id: 'overview', href: '#overview' },
-    { name: 'HTB Writeups', id: 'writeups', href: '#writeups', isSpecial: true },
-    { name: 'Services', id: 'services', href: '#services' },
-    { name: 'Arsenal', id: 'arsenal', href: '#arsenal' },
-    { name: 'Syndicate', id: 'team', href: '#team' },
-    { name: 'Achievements', id: 'achievements', href: '#achievements' },
-    { name: 'Join Us', id: 'join', href: '#join' },
+    { name: 'Overview', id: 'overview', type: 'section' },
+    { name: 'HTB Writeups Hub', id: 'writeups', type: 'page', isSpecial: true },
+    { name: 'Services & Ops', id: 'services', type: 'section' },
+    { name: 'Tool Arsenal', id: 'arsenal', type: 'section' },
+    { name: 'Team Syndicate', id: 'team', type: 'section' },
+    { name: 'Achievements', id: 'achievements', type: 'section' },
+    { name: 'Join Us', id: 'join', type: 'section' },
   ];
 
-  const handleLinkClick = (id: string, e: React.MouseEvent) => {
-    if (onNavigate) {
-      e.preventDefault();
-      onNavigate(id);
-      setMobileMenuOpen(false);
+  const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (link.type === 'page' && link.id === 'writeups') {
+      onNavigatePage('writeups');
+    } else {
+      if (currentPage !== 'home') {
+        onNavigatePage('home');
+        setTimeout(() => onNavigateSection(link.id), 50);
+      } else {
+        onNavigateSection(link.id);
+      }
     }
   };
 
@@ -63,8 +79,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo & Syndicate Identity */}
         <a
-          href="#overview"
-          onClick={(e) => handleLinkClick('overview', e)}
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigatePage('home');
+            onNavigateSection('overview');
+          }}
           className="group flex items-center gap-3 focus:outline-none"
           aria-label="sudo Unknown Home"
         >
@@ -92,12 +112,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 bg-[#0b0e14]/85 backdrop-blur-md border border-white/[0.08] rounded-full px-3 py-1.5 text-xs font-mono shadow-inner">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isWriteupsPageActive = (currentPage === 'writeups' || currentPage === 'writeup-detail') && link.id === 'writeups';
+            const isSectionActive = currentPage === 'home' && activeSection === link.id;
+            const isActive = isWriteupsPageActive || isSectionActive;
+
             return (
               <a
                 key={link.name}
-                href={link.href}
-                onClick={(e) => handleLinkClick(link.id, e)}
+                href={link.type === 'page' ? '#writeups' : `#${link.id}`}
+                onClick={(e) => handleLinkClick(link, e)}
                 className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
                   isActive
                     ? 'bg-[#00ff88] text-black font-bold shadow-[0_0_12px_rgba(0,255,136,0.35)]'
@@ -159,12 +182,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
         <div className="lg:hidden bg-[#07090d]/95 backdrop-blur-xl border-b border-white/10 px-5 py-6 space-y-4 animate-fadeIn">
           <nav className="flex flex-col space-y-2 font-mono text-sm">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
+              const isWriteupsPageActive = (currentPage === 'writeups' || currentPage === 'writeup-detail') && link.id === 'writeups';
+              const isSectionActive = currentPage === 'home' && activeSection === link.id;
+              const isActive = isWriteupsPageActive || isSectionActive;
+
               return (
                 <a
                   key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(link.id, e)}
+                  href={link.type === 'page' ? '#writeups' : `#${link.id}`}
+                  onClick={(e) => handleLinkClick(link, e)}
                   className={`px-4 py-2.5 rounded-xl transition-all flex items-center justify-between ${
                     isActive
                       ? 'bg-[#00ff88] text-black font-bold'
@@ -174,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
                   }`}
                 >
                   <span>{link.name}</span>
-                  {link.isSpecial && <span className="text-[10px] uppercase font-bold text-[#00ff88]">Reports</span>}
+                  {link.isSpecial && <span className="text-[10px] uppercase font-bold text-[#00ff88]">Dedicated Page</span>}
                 </a>
               );
             })}
@@ -194,20 +220,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, activeSection = 
               </button>
             )}
 
-            <div className="grid grid-cols-2 gap-2 w-full pt-2">
+            <div className="grid grid-cols-2 gap-2 w-full pt-2 font-mono text-xs">
               <a
                 href={SITE_CONFIG.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-center font-mono text-xs text-white"
+                className="py-2 px-3 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-center text-white"
               >
-                Discord
+                Discord War Room
               </a>
               <a
                 href={SITE_CONFIG.htbTeamUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 rounded-xl bg-[#00ff88]/20 border border-[#00ff88]/40 text-center font-mono text-xs text-[#00ff88]"
+                className="py-2 px-3 rounded-xl bg-[#00ff88]/20 border border-[#00ff88]/40 text-center text-[#00ff88]"
               >
                 HTB Squad #331386
               </a>

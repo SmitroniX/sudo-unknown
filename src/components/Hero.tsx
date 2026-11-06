@@ -24,9 +24,14 @@ import { BrandedTitle } from './BrandedTitle';
 interface HeroProps {
   onOpenTerminal?: () => void;
   onNavigateSection?: (sectionId: string) => void;
+  onOpenWriteupsPage?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection }) => {
+export const Hero: React.FC<HeroProps> = ({
+  onOpenTerminal,
+  onNavigateSection,
+  onOpenWriteupsPage
+}) => {
   const [activeHudTab, setActiveHudTab] = useState<'status' | 'htb' | 'tools'>('status');
 
   const disciplines = [
@@ -39,9 +44,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection })
   ];
 
   const handleNavigate = (id: string, e: React.MouseEvent) => {
+    e.preventDefault();
     if (onNavigateSection) {
-      e.preventDefault();
       onNavigateSection(id);
+    }
+  };
+
+  const handleWriteupsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onOpenWriteupsPage) {
+      onOpenWriteupsPage();
     }
   };
 
@@ -78,15 +90,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection })
 
             {/* Core Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs sm:text-sm">
-              <a
-                href="#writeups"
-                onClick={(e) => handleNavigate('writeups', e)}
-                className="px-5 py-3 rounded-xl bg-[#00ff88] hover:bg-[#22ff99] text-black font-bold transition-all shadow-[0_0_20px_rgba(0,255,136,0.35)] flex items-center gap-2"
+              <button
+                onClick={handleWriteupsClick}
+                className="px-5 py-3 rounded-xl bg-[#00ff88] hover:bg-[#22ff99] text-black font-bold transition-all shadow-[0_0_20px_rgba(0,255,136,0.35)] flex items-center gap-2 cursor-pointer"
               >
                 <FileCode className="w-4 h-4" />
-                <span>Explore HTB Writeups</span>
+                <span>Open HTB Writeups Hub</span>
                 <ChevronRight className="w-4 h-4" />
-              </a>
+              </button>
 
               <a
                 href="#services"
@@ -135,7 +146,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection })
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#00ff88]/80" />
                   <span className="font-mono text-xs text-gray-400 ml-2">
-                    syndicate-core // v2.6.0
+                    syndicate-core // v3.0.0
                   </span>
                 </div>
 
@@ -262,13 +273,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onNavigateSection })
                       </div>
                     </div>
 
-                    <a
-                      href="#writeups"
-                      onClick={(e) => handleNavigate('writeups', e)}
-                      className="block text-center py-2 rounded-lg bg-[#00ff88]/10 hover:bg-[#00ff88]/20 text-[#00ff88] text-xs font-bold border border-[#00ff88]/30 transition-colors"
+                    <button
+                      onClick={handleWriteupsClick}
+                      className="w-full text-center py-2 rounded-lg bg-[#00ff88]/10 hover:bg-[#00ff88]/20 text-[#00ff88] text-xs font-bold border border-[#00ff88]/30 transition-colors cursor-pointer"
                     >
-                      View All 10 Walkthroughs &rarr;
-                    </a>
+                      Open Writeups Hub Page (10 Reports) &rarr;
+                    </button>
                   </div>
                 )}
 
