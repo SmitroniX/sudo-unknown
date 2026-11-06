@@ -11,7 +11,8 @@ import {
   Github,
   Terminal,
   Sparkles,
-  Users
+  Users,
+  Globe
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { SITE_CONFIG } from '../data/teamData';
@@ -102,8 +103,16 @@ export const JoinContactSection: React.FC<JoinContactSectionProps> = ({
       color: 'text-[#0077b5]'
     },
     {
+      name: 'Founder Portfolio',
+      handle: 'smitronix.dev',
+      desc: 'Asmit Jogdand (SmitroniX) — Systems, Full-Stack & Offensive Security Portfolio.',
+      url: 'https://smitronix.dev',
+      icon: Globe,
+      color: 'text-cyan-400'
+    },
+    {
       name: 'Direct Inquiries',
-      handle: SITE_CONFIG.contactEmail,
+      handle: `${SITE_CONFIG.contactEmail} // ${SITE_CONFIG.secondaryEmail}`,
       desc: 'Security assessments, red team scoping, and partnerships.',
       url: `mailto:${SITE_CONFIG.contactEmail}`,
       icon: Mail,

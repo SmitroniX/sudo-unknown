@@ -117,6 +117,19 @@ export const ArsenalSection: React.FC = () => {
                     )}
                   </button>
                 </div>
+
+                {tool.repoUrl && (
+                  <a
+                    href={tool.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white transition-colors flex items-center justify-center gap-2 font-mono text-xs"
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                    <span>View Repository</span>
+                    <ExternalLink className="w-3 h-3 text-gray-500" />
+                  </a>
+                )}
               </div>
             </div>
           ))}

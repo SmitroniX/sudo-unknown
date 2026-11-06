@@ -9,7 +9,9 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  Lock
+  Lock,
+  Globe,
+  Mail
 } from 'lucide-react';
 import { TEAM_MEMBERS, TeamMember, SITE_CONFIG } from '../data/teamData';
 
@@ -60,6 +62,11 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectRoleForApplica
                   <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-xs text-gray-400">
                     STATUS: ACTIVE
                   </span>
+                  {leader.education && (
+                    <span className="px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 font-mono text-xs text-blue-300">
+                      {leader.education}
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="font-mono text-2xl sm:text-3xl font-bold text-white">
@@ -87,6 +94,17 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectRoleForApplica
 
               {/* Leader External Links */}
               <div className="flex md:flex-col items-center gap-2 pt-2 md:pt-0 shrink-0 font-mono text-xs">
+                {leader.portfolio && (
+                  <a
+                    href={leader.portfolio}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 hover:text-white transition-colors flex items-center gap-1.5 w-full justify-center font-bold"
+                  >
+                    <Globe className="w-4 h-4 text-cyan-400" />
+                    <span>Portfolio</span>
+                  </a>
+                )}
                 {leader.github && (
                   <a
                     href={leader.github}
@@ -118,6 +136,15 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectRoleForApplica
                   >
                     <Terminal className="w-4 h-4" />
                     <span>HTB Profile</span>
+                  </a>
+                )}
+                {leader.email && (
+                  <a
+                    href={`mailto:${leader.email}`}
+                    className="p-2 rounded-xl bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 hover:text-white transition-colors flex items-center gap-1.5 w-full justify-center"
+                  >
+                    <Mail className="w-4 h-4 text-yellow-400" />
+                    <span>Email Lead</span>
                   </a>
                 )}
               </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Github, Linkedin, MessageSquare, ArrowUp, Shield } from 'lucide-react';
+import { Terminal, Github, Linkedin, MessageSquare, ArrowUp, Shield, Globe } from 'lucide-react';
 import { SITE_CONFIG } from '../data/teamData';
 import { BrandedTitle } from './BrandedTitle';
 
@@ -96,6 +96,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection }) => {
                 title="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://smitronix.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyan-500 hover:text-black border border-white/10 flex items-center justify-center transition-all text-gray-300"
+                title="Founder Portfolio (smitronix.dev)"
+              >
+                <Globe className="w-4 h-4" />
               </a>
               <a
                 href={SITE_CONFIG.htbTeamUrl}
